@@ -1,0 +1,18 @@
+syntax="proto3";
+
+service testService
+{
+    rpc testSend (testRequest) returns (testResponse);
+
+}
+
+message testRequest
+{
+    string mark = 1;
+
+}
+
+message testResponse
+{
+    string markResponse = 1;
+}

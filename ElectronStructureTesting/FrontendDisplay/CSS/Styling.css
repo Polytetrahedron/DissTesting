@@ -1,0 +1,197 @@
+/*-----------------------------------------------------------------------*/
+
+/*Global Styling*/
+.container{ /*standard container for the page*/
+
+		width: 60%;
+		margin:0 auto;
+		overflow: hidden;
+}
+
+.wide{ /* this is a temporary fix to make ultrawide elements fit on one line*/
+
+	width: 75%;
+	margin:0 auto;
+	overflow: hidden;
+
+}
+
+ul{
+
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+h3{
+
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: -5px;
+
+}
+
+body{
+
+	font: 12px/1.5 Arial, sans-serif;
+	padding: 0;
+	margin: 0;
+	background-color: #FAC5D7;
+}
+
+
+
+
+
+
+/*Styling HTML5 Semantic tags*/
+header{
+
+	background-color: #05324A;
+	color: #FFFFFF;
+	padding-top: 30px;
+	min-height: 80px;
+	border-bottom: #E8491D 5px solid;
+
+}
+
+header a{
+
+	color: #FFFFFF;
+	font-size: 15px;
+	text-decoration: none;
+
+}
+
+header li{
+
+	float: left;
+	display: inline;
+	padding: 10px 20px 0px 0px;
+}
+
+header li a{
+
+	font-size: 18px;
+	text-decoration: underline;
+}
+
+header nav{
+
+	float: right;
+	margin-top: -40px;
+	margin-bottom: 40px;
+	margin-left: 40px;
+	margin-right: 20px;
+
+}
+
+
+header h1 span:hover{
+
+	font-size: 30px;
+	font-style: bold;
+	color: Red;
+}
+
+
+header h1 a{
+
+	font-size: 30px;
+
+}
+
+aside ul li a{
+
+	text-decoration: underline;
+	color: inherit;
+
+}
+
+#ref img{
+
+	float: right;
+}
+
+button{
+
+	font-size: 20px;
+}
+
+
+
+
+
+/*General Styling classes for markup*/
+.break{
+
+	background-color: #05324A;
+	color: #FFFFFF;
+
+}
+
+.glance{
+
+	float: left;
+	max-width: 30%;
+	text-align: center;
+	padding: 0;
+	margin-left: 45px;
+	margin-right: 15px
+
+}
+
+.glance-home{
+
+	float: left;
+	max-width: 30%;
+	text-align: center;
+	padding: 0;
+	margin-left: 15px;
+	margin-right: 15px
+
+}
+
+.catagory{
+
+	font-size: 40px;
+	text-align: center;
+
+}
+
+.linkbar{
+
+	float: right;
+	font-size: 15px;
+	text-decoration: none;
+	min-width: 30%;
+	margin: -5px 20px 0px 30px;
+	padding: 0px 0px 0px 10px;
+	border-left: #E8491D 5px solid;
+	display: block;
+
+}
+
+.asideinfo{
+
+	float: right;
+	min-width: 30%;
+	margin: -5px 20px 0px 30px;
+	padding: 0px 0px 0px 10px;
+	border-left: #E8491D 5px solid;
+}
+
+
+
+/*specific ID styling*/
+#cat img {
+
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition:         transform .8s ease-in-out;
+}
+
+#cat img:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}

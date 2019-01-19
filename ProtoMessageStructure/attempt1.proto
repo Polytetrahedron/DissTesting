@@ -1,0 +1,28 @@
+syntax="proto3";
+
+service testSend
+{
+    rpc sampleData (Request) returns (Response);
+    rpc secondData (secondDataRequest) returns (secondDataResponse);
+}
+
+message Request
+{
+    required string mark = 1;
+
+}
+
+message Response
+{
+    required string markResponse = 1;
+}
+
+message secondDataRequest
+{
+    required string secondRequest = 1;
+}
+
+message secondDataResponse
+{
+    required string secondResponse = 1;
+}
