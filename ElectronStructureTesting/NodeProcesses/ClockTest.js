@@ -1,0 +1,99 @@
+const ClientClock = require('../NodeAssets/ClientClock');
+
+let clientDate = new Date();
+let time = new ClientClock(23,59,55,6,4,2019);
+let newTime;
+let minutes;
+
+let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+let months = ['January', 'February', 'March', 'April',' May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+let full_days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+setInterval(grabTime, 1000)
+
+function grabTime()
+{
+    newTime = time.checkTime();
+    clientDate.setTime(newTime.getTime());
+
+    if(clientDate.getMinutes() !== minutes)
+    {
+        minutes = clientDate.getMinutes();
+
+        timeSend = cleanTime(clientDate.getHours(),clientDate.getMinutes());
+
+        dateSend = cleanDate(clientDate.toDateString());
+       
+        process.send(packageData(dateSend, timeSend));
+    }
+}
+
+//the built in function for displaying the time was not suited for my needs so I wrote this one instead that does. Keeps messages to a minimum instead of one message eery second you now have one message every 60 seconds
+function cleanTime(hours, minute)
+{
+    //var cleanedTime;
+    var cleanHours = hours;
+    var cleanMins = minute;
+
+    if(minute >= 1 && minute <= 9 || minute === 0)
+    {
+        cleanMins = "0" + minute; 
+    }
+    if(hours === 0 || hours >=1 && hours <= 9)
+    {
+        cleanHours = "0" + hours;
+    }
+
+    return cleanedTime = cleanHours + ":" + cleanMins;
+}
+
+function cleanDate(dateString)
+{
+    var nameDay;
+    var numDate;
+    var month;
+    var year = clientDate.getFullYear();
+
+    for(i = 0; i < days.length; i++)
+    {
+        if(dateString.startsWith(days[i]))
+        {
+            nameDay = full_days[i];
+            numDate = clientDate.getDate();
+            if(numDate === 1 || numDate === 21 || numDate === 31)
+            {
+                numDate = numDate + "st" ;
+            }
+            else if(numDate === 2 || numDate === 22)
+            {
+                numDate = numDate + "nd";
+            }
+            else if(numDate === 3 || numDate === 23)
+            {
+                numDate = numDate + "rd";
+            }
+            else
+            {
+                numDate = numDate + "th";
+            }
+            month = months[clientDate.getMonth()];
+            break;
+        }
+    }
+    return nameDay + " the " + numDate + " of " + month + " " + year;
+}
+
+function packageData(date, clock)
+{
+    return timeData = [date, clock]
+}
+
+// process.on('message', (event)=>
+// {
+//     newTime = time.checkTime();
+//     clientDate.setTime(newTime.getTime());
+//     process.send(clientDate.toLocaleTimeString());
+// });
+
+// process.on('clock', (event)=>{
+//     process.send('clock', clientDate.toLocaleDateString());
+// });

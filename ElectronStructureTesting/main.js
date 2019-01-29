@@ -1,9 +1,9 @@
 const electron = require('electron');
 const {app, BrowserWindow} = require('electron');
 const grpc = require('grpc');
-const RPCListener = require('./NodeAssets/RPCListener');
-const RPCClient = require('./NodeAssets/RPCClient')
 const ClientClock = require('./NodeAssets/ClientClock');
+const {ipcMain} = require('electron');
+const child_process = require('child_process');
 
 //these are for protofiles
 const datagram = require('./JS-Protofile/attempt1_pb');
@@ -11,16 +11,11 @@ const serviceLayout = require('./JS-Protofile/attempt1_grpc_pb');
 
 //Hiding essential components from the garbage collector
 let window; // The render window that the user can see
-let client; // The RPC client that the allows connection to remote server
-let serverListener;
 let clientDate = new Date();
-// let time = new ClientClock(clientDate.getHours(), clientDate.getMinutes(), clientDate.getSeconds(),
-//                                 clientDate.getDate(), clientDate.getMonth(),clientDate.getFullYear());
-
-let time = new ClientClock(23, 59, 30,
+let time = new ClientClock(23, 59, 55,
                                 31, 11,2019);
 
-//Registering application listeners for window events like startup and close
+//Registering application listeners and callbacks for window events like startup and close
 app.on('ready', createWindow);
 
 app.on('window-all-closed', 
@@ -28,11 +23,25 @@ app.on('window-all-closed',
             app.quit();
         })
 
-app.on('activate',
-        () =>{
+app.on('activate',() => {
         if(window == null)
             createWindow();
         })
+
+
+//THis registers the listeners for the process communications
+ipcMain.on('clock', (event, arg)=>
+{
+    newTime = time.checkTime();
+    clientDate.setTime(newTime.getTime());
+    event.sender.send('clock', clientDate.toLocaleTimeString());
+});
+
+ipcMain.on('date', (event, args)=>{
+    //event.returnValue = clientDate.toLocaleDateString();
+    event.sender.send('date', clientDate.toLocaleDateString());
+});
+
 
 
 function createWindow()
@@ -46,20 +55,18 @@ function createWindow()
                     window = null;
             })
 
-    // const object = new RPCClient(client);
-    // object.testRPCClient();
-    // console.log(object.testReturn())
-    setInterval(testDate, 500);
+    spawnWorkerProcesses();
 }
 
 
-function testDate()
-{
-    newTime = time.checkTime();
-    clientDate.setTime(newTime.getTime())
 
-    console.log(clientDate.toLocaleDateString());
-    console.log(clientDate.toLocaleTimeString());
+function spawnWorkerProcesses()
+{
+    const clock = child_process.fork('./ClockTest.js')
+    clock.on("message", (data)=>{
+        window.webContents.send('clock', data[1]);
+        window.webContents.send('date', data[0]) //this seems like cheating but I guess we'll find out
+    })
 }
 
 
@@ -82,8 +89,8 @@ function scanForServer()
 */
 function createServerListener()
 {
-    serverListener = grpc.Server();
-    serverListener.addProtoService() // This needs sorted
+    // serverListener = grpc.Server();
+    // serverListener.addProtoService() // This needs sorted
 }
 
 //need to handle the feedback from the main screen as well as send automatic updates to the main screen

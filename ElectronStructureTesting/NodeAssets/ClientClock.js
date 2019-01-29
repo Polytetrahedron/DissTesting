@@ -71,6 +71,14 @@ class ClientClock
                 newTime.setMonth(++currentMonth);
             }
         }
+        else if(currentMonth == 1)
+        {
+            if(currentDay == 28)
+            {
+                newTime.setDate(1);
+                newTime.setMonth(++currentMonth);
+            }
+        }
         else if(currentDay == 31)
         {
             newTime.setDate(1);
@@ -79,6 +87,10 @@ class ClientClock
             {
                 newTime.setFullYear(++currentYear)
             }
+        }
+        else
+        {
+            newTime.setDate(++currentDay);
         }
     }
 }
