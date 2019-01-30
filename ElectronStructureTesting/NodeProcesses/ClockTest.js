@@ -8,6 +8,15 @@ let minutes;
 let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 let months = ['January', 'February', 'March', 'April',' May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 let full_days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+
+process.on('message', (data)=>{
+    if(data === "restart")
+    {
+        restartService();
+    }
+});
+
+//starts the ticking clock
 setInterval(grabTime, 1000)
 
 function grabTime()
@@ -85,6 +94,11 @@ function cleanDate(dateString)
 function packageData(date, clock)
 {
     return timeData = [date, clock]
+}
+
+function restartService()
+{
+    time = new ClientClock("","","","","","")
 }
 
 // process.on('message', (event)=>

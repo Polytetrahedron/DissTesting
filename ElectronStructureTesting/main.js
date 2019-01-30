@@ -1,19 +1,11 @@
 const electron = require('electron');
 const {app, BrowserWindow} = require('electron');
-const grpc = require('grpc');
 const ClientClock = require('./NodeAssets/ClientClock');
 const {ipcMain} = require('electron');
 const child_process = require('child_process');
 
-//these are for protofiles
-const datagram = require('./JS-Protofile/attempt1_pb');
-const serviceLayout = require('./JS-Protofile/attempt1_grpc_pb');
-
 //Hiding essential components from the garbage collector
 let window; // The render window that the user can see
-let clientDate = new Date();
-let time = new ClientClock(23, 59, 55,
-                                31, 11,2019);
 
 //Registering application listeners and callbacks for window events like startup and close
 app.on('ready', createWindow);
@@ -62,20 +54,42 @@ function createWindow()
 
 function spawnWorkerProcesses()
 {
-    const clock = child_process.fork('./ClockTest.js')
+    const clock = child_process.fork('./NodeProcesses/ClockTest.js')
     clock.on("message", (data)=>{
         window.webContents.send('clock', data[1]);
-        window.webContents.send('date', data[0]) //this seems like cheating but I guess we'll find out
-    })
+        window.webContents.send('date', data[0]);
+    });
+    clock.on('error', ()=>
+    {
+        clock.send('restart')
+    });
+
+    // const listeningPost = child_process.fork('./NodeProcesses/gRPCServer');
+    // listeningPost.on('message', (data) =>
+    // {
+    //     //this will handle all of the main to server comms in a separate
+    //     // process this will keep the main process responsive to input and changes 
+
+    // });
+    // listeningPost.on('disconnect', ()=>
+    // {
+    //     //attempt to restart the service 
+    // });
 }
 
 
 //These can be moved into separate classes for neatness and readability but for now this will do
-function acquireLocalIP()
+function acquireLocalIP() // this will be outsourced into a child process
 {
     //This function will acquire the DHCP address of the client 
 
 }
+
+function keepAlive()
+{
+
+}
+
 
 function scanForServer()
 {
