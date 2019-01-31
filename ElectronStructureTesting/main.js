@@ -3,6 +3,7 @@ const {app, BrowserWindow} = require('electron');
 const ClientClock = require('./NodeAssets/ClientClock');
 const {ipcMain} = require('electron');
 const child_process = require('child_process');
+const os = require('os');
 
 //Hiding essential components from the garbage collector
 let window; // The render window that the user can see
@@ -53,10 +54,7 @@ function createWindow()
 
 
 function spawnWorkerProcesses()
-{
-    const ip = require('./NodeAssets/NetworkInterfaceTools/IPExtractor');
-    var test = new ip();
-    console.log(test.getIPAddress());
+{   
     const clock = child_process.fork('./NodeProcesses/ClockTest.js')
     clock.on("message", (data)=>{
         window.webContents.send('clock', data[1]);

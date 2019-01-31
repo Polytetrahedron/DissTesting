@@ -1,33 +1,69 @@
 
 const os = require('os');
-const networkInterfaces =os.networkInterfaces();
+const ip = require('ip');
+let networkInterfaceList;
 
 class IPExtractor
 {
     constructor()
     {
-        //networkInterfaces = os.networkInterfaces(); //returns all of the network interfaces in JSON like format
+        //networkInterfaceList = os.networkInterfaces(); //returns all of the network interfaces in JSON like format
     }
 
     getIPAddress()
     {
-        "use strict";
 
-        Object.keys(networkInterfaces).forEach(function(){
+        return ip.address(); //this is disgustingly annoying that this one line does what the 60 below it couldn't
+        // networkInterfaceList = os.networkInterfaces();
 
-            networkInterfaces[interfaceName].forEach(function(interface)
-            {
-                if(interface.family === 'IPv4' || interface.internal === false)
-                {
-                    return interface.address;
-                }
-                else
-                {
-                    return "unable to get IP";
-                }
-            });
-        });
+        // for(var dev in networkInterfaceList)
+        // {
+        //     var item = networkInterfaceList[dev].filter(function(details)
+        //     {
+                
+        //         return details;
+
+        //     });
+
+        // }
+
+        // Object.keys(networkInterfaceList).forEach(function(iname)
+        // {
+        //     return iname;
+        //     networkInterfaceList[iname].forEach(function(iface)
+        //     {
+        //         return iface;
+        //         if(iface.family !== 'IPv4' || iface.internal !== false)
+        //         {
+        //             return iface;
+        //         }
+        //         else
+        //         {
+        //             return iface.address;
+
+        //         }
+        //     });
+        // });
     }
 
+    // getIPAddress()
+    // {
+    //     return os.networkInterfaces();
+    //     // networkInterfaceList = os.networkInterfaces();
+    //     // for(var dev in networkInterfaceList)
+    //     // {
+    //     //     var active = networkInterfaceList[dev].filter(function(ipAddress)
+    //     //     {
+    //     //         if(ipAddress.family === "IPv4" && ipAddress.internal === false)
+    //     //         {
+    //     //             return ipAddress.address
+    //     //         }
+    //     //         // if(active.length > 0)
+    //     //         // {
+    //     //         //     return networkInterfaces[0].address
+    //     //         // }
+    //     //     });
+    //     // }
+    // }
 }
 module.exports = IPExtractor
