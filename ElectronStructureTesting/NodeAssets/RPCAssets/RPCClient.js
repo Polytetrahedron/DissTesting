@@ -1,8 +1,8 @@
 const grpc = require('grpc')
 let client;
 
-const datagram = require('../JS-Protofile/attempt1_pb');
-const serviceLayout = require('../JS-Protofile/attempt1_grpc_pb');
+const datagram = require('../../JS-Protofile/attempt1_pb');
+const serviceLayout = require('../../JS-Protofile/attempt1_grpc_pb');
 
 class RPCClient
 {

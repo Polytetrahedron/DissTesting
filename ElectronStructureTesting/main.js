@@ -21,18 +21,18 @@ app.on('activate',() => {
         })
 
 
-//THis registers the listeners for the process communications
-ipcMain.on('clock', (event, arg)=>
-{
-    newTime = time.checkTime();
-    clientDate.setTime(newTime.getTime());
-    event.sender.send('clock', clientDate.toLocaleTimeString());
-});
+// //THis registers the listeners for the process communications
+// ipcMain.on('clock', (event, arg)=>
+// {
+//     newTime = time.checkTime();
+//     clientDate.setTime(newTime.getTime());
+//     event.sender.send('clock', clientDate.toLocaleTimeString());
+// });
 
-ipcMain.on('date', (event, args)=>{
-    //event.returnValue = clientDate.toLocaleDateString();
-    event.sender.send('date', clientDate.toLocaleDateString());
-});
+// ipcMain.on('date', (event, args)=>{
+//     //event.returnValue = clientDate.toLocaleDateString();
+//     event.sender.send('date', clientDate.toLocaleDateString());
+// });
 
 
 
@@ -54,6 +54,9 @@ function createWindow()
 
 function spawnWorkerProcesses()
 {
+    const ip = require('./NodeAssets/NetworkInterfaceTools/IPExtractor');
+    var test = new ip();
+    console.log(test.getIPAddress());
     const clock = child_process.fork('./NodeProcesses/ClockTest.js')
     clock.on("message", (data)=>{
         window.webContents.send('clock', data[1]);
@@ -64,7 +67,7 @@ function spawnWorkerProcesses()
         clock.send('restart')
     });
 
-    // const listeningPost = child_process.fork('./NodeProcesses/gRPCServer');
+    // const listeningPost = child_process.fork('./NodeProcesses/RPCAssets/gRPCServer');
     // listeningPost.on('message', (data) =>
     // {
     //     //this will handle all of the main to server comms in a separate

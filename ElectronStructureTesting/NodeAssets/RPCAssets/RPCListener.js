@@ -1,8 +1,12 @@
 let connectionStatus = false;
 const grpc = require('grpc');
-const datagram = require('../JS-Protofile/attempt1_pb');
-const serviceLayout = require('../JS-Protofile/attempt1_grpc_pb');
+const datagram = require('../../JS-Protofile/attempt1_pb');
+const serviceLayout = require('../../JS-Protofile/attempt1_grpc_pb');
 
+
+//create a server 
+//register callbacks
+//send data to main process
 class RPCListener
 {
     constructor()
