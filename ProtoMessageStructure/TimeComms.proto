@@ -1,0 +1,47 @@
+syntax="proto3";
+
+/**
+This will be a work in progress for all of the 
+*/
+service ListeningComms
+{
+    rpc TimeData (GenericRequest) returns (TimeResponse); //this will need to be streamed to the front end from the backend
+
+    rpc DateData (GenericRequest) returns (DateResponse);
+
+    rpc EmailData (GenericRequest) returns (Response);
+
+    rpc CalendarData (GenericRequest) returns (Response);
+
+    rpc WeatherData (GenericRequest) returns (Response);
+}
+
+message ConnectionStatus
+{
+    required int alive = 1;
+}
+
+message ConnectionStatusResponse
+{
+    required int stillAlive = 1;
+}
+
+message GenericRequest
+{
+    required string requestData = 1 [default = "send"];
+}
+
+
+message TimeResponse
+{
+    required int hour = 1;
+    required int minute = 2;
+    required int second = 3;
+}
+
+message DateResponse
+{
+    required int day = 1;
+    required int month = 2;
+    required int year = 3;
+}

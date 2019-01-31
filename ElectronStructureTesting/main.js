@@ -79,22 +79,9 @@ function spawnWorkerProcesses()
 }
 
 
-//These can be moved into separate classes for neatness and readability but for now this will do
-function acquireLocalIP() // this will be outsourced into a child process
-{
-    //This function will acquire the DHCP address of the client 
-
-}
-
 function keepAlive()
 {
 
-}
-
-
-function scanForServer()
-{
-    //This can probably be set up to work with the server only this method may not be needed
 }
 
 /*
