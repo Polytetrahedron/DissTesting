@@ -17,10 +17,6 @@ class RPCListener
         return listeningServer;
     }
 
-    
-
-
-
 
 }
 module.exports = RPCListener;
