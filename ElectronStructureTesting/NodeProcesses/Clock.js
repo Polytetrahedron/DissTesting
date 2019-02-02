@@ -14,6 +14,10 @@ process.on('message', (data)=>{
     {
         restartService();
     }
+    else if(data === "exit")
+    {
+        process.exit(1);
+    }
 });
 
 //starts the ticking clock

@@ -1,18 +1,18 @@
 const electron = require('electron');
 const {app, BrowserWindow} = require('electron');
-const ClientClock = require('./NodeAssets/ClientClock');
 const {ipcMain} = require('electron');
 const child_process = require('child_process');
-const os = require('os');
 
 //Hiding essential components from the garbage collector
-let window; // The render window that the user can see
+let window;
+let clock;
 
 //Registering application listeners and callbacks for window events like startup and close
 app.on('ready', createWindow);
 
 app.on('window-all-closed', 
         ()=>{
+            clock.send("exit");
             app.quit();
         })
 
@@ -20,21 +20,6 @@ app.on('activate',() => {
         if(window == null)
             createWindow();
         })
-
-
-// //THis registers the listeners for the process communications
-// ipcMain.on('clock', (event, arg)=>
-// {
-//     newTime = time.checkTime();
-//     clientDate.setTime(newTime.getTime());
-//     event.sender.send('clock', clientDate.toLocaleTimeString());
-// });
-
-// ipcMain.on('date', (event, args)=>{
-//     //event.returnValue = clientDate.toLocaleDateString();
-//     event.sender.send('date', clientDate.toLocaleDateString());
-// });
-
 
 
 function createWindow()
@@ -55,7 +40,7 @@ function createWindow()
 
 function spawnWorkerProcesses()
 {   
-    const clock = child_process.fork('./NodeProcesses/ClockTest.js')
+    clock = child_process.fork('./NodeProcesses/ClockTest.js')
     clock.on("message", (data)=>{
         window.webContents.send('clock', data[1]);
         window.webContents.send('date', data[0]);

@@ -4,7 +4,7 @@
   "description": "This is the comm structure testing for the electron platform as a front end interface",
   "main": "main.js",
   "scripts": {
-    "start": "electron C:/Users/Mark/Desktop/DissTesting/ElectronStructureTesting",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mark Green",
