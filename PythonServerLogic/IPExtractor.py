@@ -18,7 +18,7 @@ def extract_local_IP(timeout = 0): # default params for controlling retry behavi
     for current in interfaces:
         for i in current:
             if i.isalpha() == False:
-                if i.startswith("127.") == False and i.startswith("169.") == False: # internal and loopback
+                if i.startswith("127.") == False and i.startswith("169.") == False and i.startswith(0.) == False: # internal and loopback
                     if i.startswith("192.") == True or i.startswith("172.") == True or i.startswith("10.") == True: # class A. B, and C addresses
                         print("Acquired DHCP address: " + str(i)) # print IP address to console
                         return i # report IP of device
