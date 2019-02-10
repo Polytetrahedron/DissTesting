@@ -10,13 +10,14 @@ class RPCListener
     createListener(address, port)
     {
         const listeningServer = new grpc.Server();
-        listeningServer.addProtoService(serviceLayout.testSendService);
+        listeningServer.addService(serviceLayout.testSendService, {
+            
+        });
+        listeningServer.a
         
         server.bind(address + ":" + port, grpc.ServerCredentials.createInsecure())
         
         return listeningServer;
     }
-
-
 }
 module.exports = RPCListener;

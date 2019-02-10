@@ -2,6 +2,7 @@ const electron = require('electron');
 const {app, BrowserWindow} = require('electron');
 const {ipcMain} = require('electron');
 const child_process = require('child_process');
+const grpc = require('grpc');
 
 //Hiding essential components from the garbage collector
 let window;
@@ -40,7 +41,7 @@ function createWindow()
 
 function spawnWorkerProcesses()
 {   
-    clock = child_process.fork('./NodeProcesses/ClockTest.js')
+    clock = child_process.fork('./NodeProcesses/Clock.js')
     clock.on("message", (data)=>{
         window.webContents.send('clock', data[1]);
         window.webContents.send('date', data[0]);
@@ -50,7 +51,7 @@ function spawnWorkerProcesses()
         clock.send('restart')
     });
 
-    // const listeningPost = child_process.fork('./NodeProcesses/RPCAssets/gRPCServer');
+    // const listeningPost = child_process.fork('./NodeProcesses/RPCManager.js');
     // listeningPost.on('message', (data) =>
     // {
     //     //this will handle all of the main to server comms in a separate

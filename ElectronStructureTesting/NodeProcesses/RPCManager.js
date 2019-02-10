@@ -7,7 +7,10 @@ const localIP = ip.address();
 
 let listeningPost;
 let client;
+let connectedServer;
 
-var test = new RPCListener();
 
-listeningPost = test.createListener(localIP, listeningPort);
+function spawnRPCProcesses()
+{
+    
+}
