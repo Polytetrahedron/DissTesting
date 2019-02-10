@@ -2,7 +2,7 @@ const electron = require('electron');
 const {app, BrowserWindow} = require('electron');
 const {ipcMain} = require('electron');
 const child_process = require('child_process');
-const grpc = require('grpc');
+const ipc = require('node-ipc')
 
 //Hiding essential components from the garbage collector
 let window;
@@ -35,6 +35,7 @@ function createWindow()
             })
 
     spawnWorkerProcesses();
+    startIPCServer();
 }
 
 
@@ -50,35 +51,24 @@ function spawnWorkerProcesses()
     {
         clock.send('restart')
     });
-
-    // const listeningPost = child_process.fork('./NodeProcesses/RPCManager.js');
-    // listeningPost.on('message', (data) =>
-    // {
-    //     //this will handle all of the main to server comms in a separate
-    //     // process this will keep the main process responsive to input and changes 
-
-    // });
-    // listeningPost.on('disconnect', ()=>
-    // {
-    //     //attempt to restart the service 
-    // });
 }
 
-
-function keepAlive()
+function startIPCServer()
 {
+    ipc.config.id = 'mainExchange';
+    ipc.config.retry = 1000;
+    ipc.config.silent = false;
+
+
+    ipc.serve(() => {
+        
+        ipc.server.on('message-exchange',(data, socket)=>{});
+        
+        ipc.server.on('message', (message) =>{console.log(message)});
+        
+        ipc.server.on('test', (message) =>{});
+    });
+
+    ipc.server.start();
 
 }
-
-/*
-* This will create a "listening" server so that the server can signal changes and updates to the client
-* These methods will allow for transfer of data such as time or other important signaling data such as 
-* FTP transfers from the server i.e. training data for the face shit.
-*/
-function createServerListener()
-{
-    // serverListener = grpc.Server();
-    // serverListener.addProtoService() // This needs sorted
-}
-
-//need to handle the feedback from the main screen as well as send automatic updates to the main screen
