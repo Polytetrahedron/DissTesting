@@ -1,7 +1,7 @@
 const ClientClock = require('../NodeAssets/ClientClock');
 
 let clientDate = new Date();
-let time = new ClientClock(23,59,55,6,4,2019);
+let time;
 let newTime;
 let minutes;
 
@@ -17,6 +17,10 @@ process.on('message', (data)=>{
     else if(data === "exit")
     {
         process.exit(1);
+    }
+    else if(data === 'start')
+    {
+        time = new ClientClock(data[1],data[2],data[3],data[4],data[5],data[6]);
     }
 });
 

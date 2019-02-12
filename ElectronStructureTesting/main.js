@@ -34,7 +34,7 @@ function createWindow()
                     window = null;
             })
 
-    spawnWorkerProcesses();
+    //spawnWorkerProcesses();
     startIPCServer();
 }
 
@@ -51,8 +51,6 @@ function spawnWorkerProcesses()
     {
         clock.send('restart')
     });
-
-    ipcReceiver = child_process.exec('node', ['../NodeServerLogic/main.js']);
 }
 
 function startIPCServer()
@@ -63,14 +61,31 @@ function startIPCServer()
 
 
     ipc.serve(() => {
+
+        ipc.server.on('connect', (data)=>{
+            spawnWorkerProcesses();
+        });
         
-        ipc.server.on('message-exchange',(data, socket)=>{});
-        
-        ipc.server.on('message', (message) =>{console.log(message)});
-        
-        ipc.server.on('test', (message) =>{});
+        ipc.server.on('message', (message) =>{
+            messageExchange();
+        });
     });
 
     ipc.server.start();
 
+}
+
+
+function messageExchange(data)
+{
+    messageID = data[0]
+
+    if(messageID !== null)
+    {
+        if(messageID == "clock")
+        {
+            data[0] = 'start';
+            console.log(data);
+        }
+    }
 }

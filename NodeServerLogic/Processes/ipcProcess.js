@@ -1,11 +1,22 @@
 const ipc = require('node-ipc')
 
 
+function sendPayload(payload)
+{
+    ipc.of.mainExchange.emit('message', payload);
+}
+
 process.on('message', (data)=>
 {
-    if(data == 1)
+    if(data === 1)
     {
         kickstartServer()
+    }
+    if(data[0] === 'clock')
+    {
+        kickstartServer();
+        sendPayload(data);
+
     }
     
 })
@@ -16,7 +27,7 @@ function kickstartServer()
     ipc.config.id = 'node-server-handler';
     
     ipc.connectTo('mainExchange', () =>{
-        callbackTest();
+        // callbackTest();
         // ipc.of.mainExchange.on('connect', ()=>{
         
         //     ipc.log("IPC service connected")
