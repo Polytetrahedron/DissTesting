@@ -17,4 +17,4 @@ def darksky_config():
             weekday += datetime.timedelta(days=1)
         return day
         
-darksky_config()
+#darksky_config()

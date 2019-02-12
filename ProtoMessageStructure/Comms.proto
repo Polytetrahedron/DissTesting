@@ -1,0 +1,70 @@
+syntax="proto3";
+
+/**
+This will be a work in progress for all of the 
+*/
+service ListeningComms
+{
+    rpc TimeData (GenericRequest) returns (TimeResponse);
+
+    rpc DateData (GenericRequest) returns (DateResponse);
+
+    rpc EmailData (GenericRequest) returns (EmailResponse);
+
+    rpc CalendarData (GenericRequest) returns (CalendarResponse);
+
+    rpc WeatherData (GenericRequest) returns (WeatherResponse);
+
+    rpc NewsData (GenericRequest) returns (NewsResponse);
+}
+
+message ConnectionStatus
+{
+    int32 alive = 1;
+}
+
+message ConnectionStatusResponse
+{
+    int32 stillAlive = 1;
+}
+
+message GenericRequest
+{
+    string requestData = 1;
+}
+
+
+message TimeResponse
+{
+    int32 hour = 1;
+    int32 minute = 2;
+    int32 second = 3;
+}
+
+message DateResponse
+{
+    int32 day = 1;
+    int32 month = 2;
+    int32 year = 3;
+}
+
+message EmailResponse
+{
+     
+}
+
+message CalendarResponse
+{
+
+}
+
+message WeatherResponse
+{
+
+}
+
+message NewsResponse
+{
+
+}
+

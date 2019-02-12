@@ -70,4 +70,4 @@ def connect_to_mail_server():
     return fetch_email(connection)
 
 
-print(connect_to_mail_server())
+#print(connect_to_mail_server())

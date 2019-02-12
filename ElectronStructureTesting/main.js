@@ -51,6 +51,8 @@ function spawnWorkerProcesses()
     {
         clock.send('restart')
     });
+
+    ipcReceiver = child_process.exec('node', ['../NodeServerLogic/main.js']);
 }
 
 function startIPCServer()

@@ -1,9 +1,17 @@
 const ipc = require('node-ipc')
 
-process.on('message', (data)=>{kickstart_server()})
+
+process.on('message', (data)=>
+{
+    if(data == 1)
+    {
+        kickstartServer()
+    }
+    
+})
 
 let mark = ["mark", 'is' , 'cool']
-function kickstart_server()
+function kickstartServer()
 {
     ipc.config.id = 'node-server-handler';
     
