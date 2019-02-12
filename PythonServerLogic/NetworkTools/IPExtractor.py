@@ -35,4 +35,4 @@ def extract_local_IP(timeout = 0): # default params for controlling retry behavi
                                 return user_address
 
 
-extract_local_IP()
+#extract_local_IP()

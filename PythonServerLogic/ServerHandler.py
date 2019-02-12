@@ -2,6 +2,7 @@ import grpc
 from concurrent import futures
 import socket
 import time
+import datetime
 import subprocess
 
 #These are the custom behavior modules
@@ -9,16 +10,25 @@ from DataModules import EmailModule, NewsModule, TimeModule, WeatherModule
 from NetworkTools import IPExtractor
 import Comms_pb2, Comms_pb2_grpc
 
-std_server_port = "5156"
+std_server_port = "2356"
 std_listening_port = "7890"
 local_dhcp_address = IPExtractor.extract_local_IP()
+current_server_time = datetime.datetime.now()
 
 class ListeningServicer():
     def TimeData(self, request, context):
-        return Comms_pb2.TimeResponse(hour=42)
+        curr_hour = current_server_time.hour
+        curr_min = current_server_time.minute
+        curr_second = current_server_time.second
+
+        return Comms_pb2.TimeResponse(hour=curr_hour, minute=curr_min, second=curr_second)
 
     def DateData(self, request, context):
-        pass
+        curr_day = current_server_time.day
+        curr_month = current_server_time.month - 1
+        curr_year = current_server_time.year
+        
+        return Comms_pb2.DateResponse(day= curr_day, month=curr_month, year=curr_year)
 
     def EmailData(self, request, context):
         pass

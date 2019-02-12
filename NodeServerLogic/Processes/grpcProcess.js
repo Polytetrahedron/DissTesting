@@ -26,7 +26,11 @@ function createClient()
     testRequest.setRequestdata("data please");
 
     client.timeData(testRequest, (err, response)=>{
-        console.log(response.getHour());
+        console.log(response.getHour() + " " + response.getMinute(), +" "+ response.getSecond());
+    });
+
+    client.dateData(testRequest, (err, response)=>{
+        console.log("day: " + response.getDay() + "month: " + response.getMonth() + "year: " + response.getYear())
     });
 
 
