@@ -30,36 +30,19 @@ function createClient()
 
     let payload = ['clock']
 
-    client.timeData(testRequest, (err, response)=>{
-        payload[1] = response.getHour();
-        payload[2] = response.getMinute();
-        payload[3] = response.getSecond();
-        dataFlag1 = true;
 
-        console.log(response.getHour() + " " + response.getMinute() +" "+ response.getSecond());
+    client.clockData(testRequest, (err, response)=>{
+    payload[1] = response.getHour();
+    payload[2] = response.getMinute();
+    payload[3] = response.getSecond();
+    payload[4] = response.getDay();
+    payload[5] = response.getMonth();
+    payload[6] = response.getYear();
+
+    console.log(response.getHour() + " " + response.getMinute() +" "+ response.getSecond());
+
+    process.send(payload);
     });
-
-    client.dateData(testRequest, (err, response)=>{
-
-        payload[4] = response.getDay();
-        payload[5] = response.getMonth();
-        payload[6] = response.getYear();
-        dataFlag2 = true;
-
-        console.log("day: " + response.getDay() + "month: " + response.getMonth() + "year: " + response.getYear())
-    });
-
-    
-
-    while(exitFlag === false)
-    {
-       if(dataFlag1 === true & dataFlag2 === true)
-        {
-            process.send(payload);
-            exitFlag = true;
-        } 
-    }
-    
 }
 
 
@@ -67,21 +50,3 @@ function createListener()
 {
 
 }
-
-
- 
-// function sendTimeData()
-// {
-
-// }
-
-
-// function main()
-// {
-//     const client = new grpc.Server();
-//     client.addService(serviceDescription.ListeningCommsService, {
-//         timeData:sendTimeData
-//     });
-//     client.bind(serverIP + ':' + serverPort);
-//     client.start();
-// }

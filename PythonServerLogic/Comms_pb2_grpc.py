@@ -15,10 +15,10 @@ class ListeningCommsStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.TimeData = channel.unary_unary(
-        '/ListeningComms/TimeData',
+    self.ClockData = channel.unary_unary(
+        '/ListeningComms/ClockData',
         request_serializer=Comms__pb2.GenericRequest.SerializeToString,
-        response_deserializer=Comms__pb2.TimeResponse.FromString,
+        response_deserializer=Comms__pb2.ClockResponse.FromString,
         )
     self.DateData = channel.unary_unary(
         '/ListeningComms/DateData',
@@ -52,7 +52,7 @@ class ListeningCommsServicer(object):
   This will be a work in progress for all of the 
   """
 
-  def TimeData(self, request, context):
+  def ClockData(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -97,10 +97,10 @@ class ListeningCommsServicer(object):
 
 def add_ListeningCommsServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'TimeData': grpc.unary_unary_rpc_method_handler(
-          servicer.TimeData,
+      'ClockData': grpc.unary_unary_rpc_method_handler(
+          servicer.ClockData,
           request_deserializer=Comms__pb2.GenericRequest.FromString,
-          response_serializer=Comms__pb2.TimeResponse.SerializeToString,
+          response_serializer=Comms__pb2.ClockResponse.SerializeToString,
       ),
       'DateData': grpc.unary_unary_rpc_method_handler(
           servicer.DateData,

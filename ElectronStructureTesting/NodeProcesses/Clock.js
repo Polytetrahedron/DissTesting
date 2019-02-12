@@ -10,22 +10,22 @@ let months = ['January', 'February', 'March', 'April',' May', 'June', 'July', 'A
 let full_days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
 process.on('message', (data)=>{
-    if(data === "restart")
+    if(data[0] === "restart")
     {
         restartService();
     }
-    else if(data === "exit")
+    else if(data[0] === "exit")
     {
         process.exit(1);
     }
-    else if(data === 'start')
+    else if(data[0] === 'start')
     {
         time = new ClientClock(data[1],data[2],data[3],data[4],data[5],data[6]);
+        //starts the ticking clock
+        setInterval(grabTime, 1000)
+        console.log("Starting Clock service")
     }
 });
-
-//starts the ticking clock
-setInterval(grabTime, 1000)
 
 function grabTime()
 {

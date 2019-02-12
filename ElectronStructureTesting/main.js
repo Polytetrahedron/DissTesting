@@ -38,21 +38,6 @@ function createWindow()
     startIPCServer();
 }
 
-
-
-function spawnWorkerProcesses()
-{   
-    clock = child_process.fork('./NodeProcesses/Clock.js')
-    clock.on("message", (data)=>{
-        window.webContents.send('clock', data[1]);
-        window.webContents.send('date', data[0]);
-    });
-    clock.on('error', ()=>
-    {
-        clock.send('restart')
-    });
-}
-
 function startIPCServer()
 {
     ipc.config.id = 'mainExchange';
@@ -67,12 +52,24 @@ function startIPCServer()
         });
         
         ipc.server.on('message', (message) =>{
-            messageExchange();
+            messageExchange(message);
         });
     });
 
     ipc.server.start();
+}
 
+function spawnWorkerProcesses()
+{   
+    clock = child_process.fork('./NodeProcesses/Clock.js')
+    clock.on("message", (data)=>{
+        window.webContents.send('clock', data[1]);
+        window.webContents.send('date', data[0]);
+    });
+    clock.on('error', ()=>
+    {
+        clock.send('restart')
+    });
 }
 
 
@@ -82,10 +79,10 @@ function messageExchange(data)
 
     if(messageID !== null)
     {
-        if(messageID == "clock")
+        if(messageID === "clock")
         {
             data[0] = 'start';
-            console.log(data);
+            clock.send(data);
         }
     }
 }

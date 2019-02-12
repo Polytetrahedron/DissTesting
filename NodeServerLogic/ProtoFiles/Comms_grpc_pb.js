@@ -15,6 +15,17 @@ function deserialize_CalendarResponse(buffer_arg) {
   return Comms_pb.CalendarResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_ClockResponse(arg) {
+  if (!(arg instanceof Comms_pb.ClockResponse)) {
+    throw new Error('Expected argument of type ClockResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_ClockResponse(buffer_arg) {
+  return Comms_pb.ClockResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_DateResponse(arg) {
   if (!(arg instanceof Comms_pb.DateResponse)) {
     throw new Error('Expected argument of type DateResponse');
@@ -59,17 +70,6 @@ function deserialize_NewsResponse(buffer_arg) {
   return Comms_pb.NewsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_TimeResponse(arg) {
-  if (!(arg instanceof Comms_pb.TimeResponse)) {
-    throw new Error('Expected argument of type TimeResponse');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_TimeResponse(buffer_arg) {
-  return Comms_pb.TimeResponse.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
 function serialize_WeatherResponse(arg) {
   if (!(arg instanceof Comms_pb.WeatherResponse)) {
     throw new Error('Expected argument of type WeatherResponse');
@@ -85,16 +85,16 @@ function deserialize_WeatherResponse(buffer_arg) {
 // *
 // This will be a work in progress for all of the 
 var ListeningCommsService = exports.ListeningCommsService = {
-  timeData: {
-    path: '/ListeningComms/TimeData',
+  clockData: {
+    path: '/ListeningComms/ClockData',
     requestStream: false,
     responseStream: false,
     requestType: Comms_pb.GenericRequest,
-    responseType: Comms_pb.TimeResponse,
+    responseType: Comms_pb.ClockResponse,
     requestSerialize: serialize_GenericRequest,
     requestDeserialize: deserialize_GenericRequest,
-    responseSerialize: serialize_TimeResponse,
-    responseDeserialize: deserialize_TimeResponse,
+    responseSerialize: serialize_ClockResponse,
+    responseDeserialize: deserialize_ClockResponse,
   },
   dateData: {
     path: '/ListeningComms/DateData',

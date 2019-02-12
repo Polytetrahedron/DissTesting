@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0b\x43omms.proto\"!\n\x10\x43onnectionStatus\x12\r\n\x05\x61live\x18\x01 \x01(\x05\".\n\x18\x43onnectionStatusResponse\x12\x12\n\nstillAlive\x18\x01 \x01(\x05\"%\n\x0eGenericRequest\x12\x13\n\x0brequestData\x18\x01 \x01(\t\"<\n\x0cTimeResponse\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\"8\n\x0c\x44\x61teResponse\x12\x0b\n\x03\x64\x61y\x18\x01 \x01(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0c\n\x04year\x18\x03 \x01(\x05\"\x0f\n\rEmailResponse\"\x12\n\x10\x43\x61lendarResponse\"\x11\n\x0fWeatherResponse\"\x0e\n\x0cNewsResponse2\xa8\x02\n\x0eListeningComms\x12*\n\x08TimeData\x12\x0f.GenericRequest\x1a\r.TimeResponse\x12*\n\x08\x44\x61teData\x12\x0f.GenericRequest\x1a\r.DateResponse\x12,\n\tEmailData\x12\x0f.GenericRequest\x1a\x0e.EmailResponse\x12\x32\n\x0c\x43\x61lendarData\x12\x0f.GenericRequest\x1a\x11.CalendarResponse\x12\x30\n\x0bWeatherData\x12\x0f.GenericRequest\x1a\x10.WeatherResponse\x12*\n\x08NewsData\x12\x0f.GenericRequest\x1a\r.NewsResponseb\x06proto3')
+  serialized_pb=_b('\n\x0b\x43omms.proto\"!\n\x10\x43onnectionStatus\x12\r\n\x05\x61live\x18\x01 \x01(\x05\".\n\x18\x43onnectionStatusResponse\x12\x12\n\nstillAlive\x18\x01 \x01(\x05\"%\n\x0eGenericRequest\x12\x13\n\x0brequestData\x18\x01 \x01(\t\"g\n\rClockResponse\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x04 \x01(\x05\x12\r\n\x05month\x18\x05 \x01(\x05\x12\x0c\n\x04year\x18\x06 \x01(\x05\"8\n\x0c\x44\x61teResponse\x12\x0b\n\x03\x64\x61y\x18\x01 \x01(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0c\n\x04year\x18\x03 \x01(\x05\"\x0f\n\rEmailResponse\"\x12\n\x10\x43\x61lendarResponse\"\x11\n\x0fWeatherResponse\"\x0e\n\x0cNewsResponse2\xaa\x02\n\x0eListeningComms\x12,\n\tClockData\x12\x0f.GenericRequest\x1a\x0e.ClockResponse\x12*\n\x08\x44\x61teData\x12\x0f.GenericRequest\x1a\r.DateResponse\x12,\n\tEmailData\x12\x0f.GenericRequest\x1a\x0e.EmailResponse\x12\x32\n\x0c\x43\x61lendarData\x12\x0f.GenericRequest\x1a\x11.CalendarResponse\x12\x30\n\x0bWeatherData\x12\x0f.GenericRequest\x1a\x10.WeatherResponse\x12*\n\x08NewsData\x12\x0f.GenericRequest\x1a\r.NewsResponseb\x06proto3')
 )
 
 
@@ -118,30 +118,51 @@ _GENERICREQUEST = _descriptor.Descriptor(
 )
 
 
-_TIMERESPONSE = _descriptor.Descriptor(
-  name='TimeResponse',
-  full_name='TimeResponse',
+_CLOCKRESPONSE = _descriptor.Descriptor(
+  name='ClockResponse',
+  full_name='ClockResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='hour', full_name='TimeResponse.hour', index=0,
+      name='hour', full_name='ClockResponse.hour', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='minute', full_name='TimeResponse.minute', index=1,
+      name='minute', full_name='ClockResponse.minute', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='second', full_name='TimeResponse.second', index=2,
+      name='second', full_name='ClockResponse.second', index=2,
       number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='day', full_name='ClockResponse.day', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='month', full_name='ClockResponse.month', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='year', full_name='ClockResponse.year', index=5,
+      number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -159,7 +180,7 @@ _TIMERESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=137,
-  serialized_end=197,
+  serialized_end=240,
 )
 
 
@@ -203,8 +224,8 @@ _DATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=199,
-  serialized_end=255,
+  serialized_start=242,
+  serialized_end=298,
 )
 
 
@@ -227,8 +248,8 @@ _EMAILRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=257,
-  serialized_end=272,
+  serialized_start=300,
+  serialized_end=315,
 )
 
 
@@ -251,8 +272,8 @@ _CALENDARRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=274,
-  serialized_end=292,
+  serialized_start=317,
+  serialized_end=335,
 )
 
 
@@ -275,8 +296,8 @@ _WEATHERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=294,
-  serialized_end=311,
+  serialized_start=337,
+  serialized_end=354,
 )
 
 
@@ -299,14 +320,14 @@ _NEWSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=313,
-  serialized_end=327,
+  serialized_start=356,
+  serialized_end=370,
 )
 
 DESCRIPTOR.message_types_by_name['ConnectionStatus'] = _CONNECTIONSTATUS
 DESCRIPTOR.message_types_by_name['ConnectionStatusResponse'] = _CONNECTIONSTATUSRESPONSE
 DESCRIPTOR.message_types_by_name['GenericRequest'] = _GENERICREQUEST
-DESCRIPTOR.message_types_by_name['TimeResponse'] = _TIMERESPONSE
+DESCRIPTOR.message_types_by_name['ClockResponse'] = _CLOCKRESPONSE
 DESCRIPTOR.message_types_by_name['DateResponse'] = _DATERESPONSE
 DESCRIPTOR.message_types_by_name['EmailResponse'] = _EMAILRESPONSE
 DESCRIPTOR.message_types_by_name['CalendarResponse'] = _CALENDARRESPONSE
@@ -335,12 +356,12 @@ GenericRequest = _reflection.GeneratedProtocolMessageType('GenericRequest', (_me
   ))
 _sym_db.RegisterMessage(GenericRequest)
 
-TimeResponse = _reflection.GeneratedProtocolMessageType('TimeResponse', (_message.Message,), dict(
-  DESCRIPTOR = _TIMERESPONSE,
+ClockResponse = _reflection.GeneratedProtocolMessageType('ClockResponse', (_message.Message,), dict(
+  DESCRIPTOR = _CLOCKRESPONSE,
   __module__ = 'Comms_pb2'
-  # @@protoc_insertion_point(class_scope:TimeResponse)
+  # @@protoc_insertion_point(class_scope:ClockResponse)
   ))
-_sym_db.RegisterMessage(TimeResponse)
+_sym_db.RegisterMessage(ClockResponse)
 
 DateResponse = _reflection.GeneratedProtocolMessageType('DateResponse', (_message.Message,), dict(
   DESCRIPTOR = _DATERESPONSE,
@@ -385,16 +406,16 @@ _LISTENINGCOMMS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=330,
-  serialized_end=626,
+  serialized_start=373,
+  serialized_end=671,
   methods=[
   _descriptor.MethodDescriptor(
-    name='TimeData',
-    full_name='ListeningComms.TimeData',
+    name='ClockData',
+    full_name='ListeningComms.ClockData',
     index=0,
     containing_service=None,
     input_type=_GENERICREQUEST,
-    output_type=_TIMERESPONSE,
+    output_type=_CLOCKRESPONSE,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
