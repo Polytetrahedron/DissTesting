@@ -6,7 +6,7 @@ import datetime
 import subprocess
 
 #These are the custom behavior modules
-from DataModules import EmailModule, NewsModule, TimeModule, WeatherModule
+from DataModules import EmailModule, NewsModule, WeatherModule
 from NetworkTools import IPExtractor
 import Comms_pb2, Comms_pb2_grpc
 
@@ -42,7 +42,7 @@ class ListeningServicer():
         pass
     
     def NewsData(self, request, context):
-        pass
+        NewsModule.get_google_rss()
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor())

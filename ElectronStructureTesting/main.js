@@ -84,5 +84,21 @@ function messageExchange(data)
             data[0] = 'start';
             clock.send(data);
         }
+        else if(messageID === 'news')
+        {
+
+        }
+        else if(messageID === 'email')
+        {
+
+        }
+        else if(messageID === 'weather')
+        {
+
+        }
+        else if(messageID === 'calendar')
+        {
+
+        }
     }
 }

@@ -14,8 +14,8 @@ ipcHandler.on('message', (data)=>{});
 
 const grpcHandler = child.fork('./Processes/grpcProcess')
 grpcHandler.send(packageData());
-grpcHandler.on('message', ()=>{
-    
+grpcHandler.on('message', (data)=>{
+    ipcHandler.send(data);
 })
 
 function packageData(message = 'config')

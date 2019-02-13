@@ -6,9 +6,7 @@ const dataLayout = require('../ProtoFiles/Comms_pb');
 let serverIP;
 let serverPort;
 let client;
-let dataFlag1 = false;
-let dataFlag2 = false;
-let exitFlag = false;
+let sendRequest; // this can be generic as the method being called is the method that dictates the returned data not the request itself
 
 process.on('message', (data)=>
 {
@@ -24,14 +22,19 @@ function createClient()
 {
     client = new serviceDescription.ListeningCommsClient(serverIP + ':' + serverPort, grpc.credentials.createInsecure());
 
-    var testRequest = new dataLayout.GenericRequest();
+    sendRequest = new dataLayout.GenericRequest();
 
-    testRequest.setRequestdata("data please");
+    sendRequest.setRequestdata("data please");
 
-    let payload = ['clock']
+    getClockData();
+}
+
+function getClockData()
+{
+    var payload = ['clock']
 
 
-    client.clockData(testRequest, (err, response)=>{
+    client.clockData(sendRequest, (err, response)=>{
     payload[1] = response.getHour();
     payload[2] = response.getMinute();
     payload[3] = response.getSecond();
@@ -43,6 +46,19 @@ function createClient()
 
     process.send(payload);
     });
+}
+
+
+function getHeadlines()
+{
+    client.newsData(sendRequest, (err, response)=>
+    {
+        var payload = ['news']
+
+
+
+    })
+
 }
 
 

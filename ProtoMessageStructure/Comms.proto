@@ -9,13 +9,32 @@ service ListeningComms
 
     rpc DateData (GenericRequest) returns (DateResponse);
 
-    rpc EmailData (GenericRequest) returns (EmailResponse);
+    rpc EmailData (GenericRequest) returns (stream EmailResponse);
 
-    rpc CalendarData (GenericRequest) returns (CalendarResponse);
+    rpc CalendarData (GenericRequest) returns ( stream CalendarResponse);
 
-    rpc WeatherData (GenericRequest) returns (WeatherResponse);
+    rpc WeatherData (GenericRequest) returns (stream WeatherResponse);
 
-    rpc NewsData (GenericRequest) returns (NewsResponse);
+    rpc NewsData (GenericRequest) returns (stream NewsResponse);
+}
+
+service ConnectionComms
+{
+    rpc IntialConnection (ConnectionRequest) returns (Response);
+    rpc KeepAlive (Request) returns (Response);
+    rpc DisconnectNode (Request) returns (Response);
+}
+
+message ConnectionRequest
+{
+    int32 connect = 1;
+    string nodeHostIP = 2;
+}
+
+message DisconnectRequest
+{
+    int32 disconnect = 1;
+    string nodeHostIP = 2;
 }
 
 message ConnectionStatus
@@ -27,6 +46,8 @@ message ConnectionStatusResponse
 {
     int32 stillAlive = 1;
 }
+
+
 
 message GenericRequest
 {
@@ -54,21 +75,21 @@ message DateResponse
 
 message EmailResponse
 {
-     
+    string email = 1;
 }
 
 message CalendarResponse
 {
-
+    string events = 1;
 }
 
 message WeatherResponse
 {
-
+    string data = 1;
 }
 
 message NewsResponse
 {
-
+    string headline = 1;
 }
 
