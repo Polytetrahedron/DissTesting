@@ -10,13 +10,12 @@ let server_port = '2356';
 
 const ipcHandler = child.fork("./Processes/ipcProcess");
 //ipcHandler.send(1);
-ipcHandler.on('message', (data)=>{
-});
+ipcHandler.on('message', (data)=>{});
 
 const grpcHandler = child.fork('./Processes/grpcProcess')
 grpcHandler.send(packageData());
-grpcHandler.on('message', (data)=>{
-    ipcHandler.send(data)
+grpcHandler.on('message', ()=>{
+    
 })
 
 function packageData(message = 'config')
@@ -24,5 +23,9 @@ function packageData(message = 'config')
     return dataPacket = [message, local_ip, server_port]
 }
 
+function clockToMirror()
+{
+    
+}
 
 

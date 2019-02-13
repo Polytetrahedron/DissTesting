@@ -16,5 +16,15 @@ def darksky_config():
             print('{day}: {sum} Temp Range: {temp_min} - {temp_max}'.format(**day));
             weekday += datetime.timedelta(days=1)
         return day
+
+
+def convert_units(temperature):
+    #This converts the temperature units from the default (Fahrenheit) to Celsius
+    celsius = (temperature - 32) / 9 * 5
+    return round(celsius)
+
+def format_return_signal(day, day_summary, temp_max, temp_min):
+
+    return True
         
 #darksky_config()
