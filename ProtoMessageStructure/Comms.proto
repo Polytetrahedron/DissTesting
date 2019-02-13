@@ -1,28 +1,18 @@
 syntax="proto3";
 
 /**
-This will be a work in progress for all of the 
+This needs documented properly otherwise it'll just be a total mess
 */
-service ListeningComms
-{
-    rpc ClockData (GenericRequest) returns (ClockResponse);
-
-    rpc DateData (GenericRequest) returns (DateResponse);
-
-    rpc EmailData (GenericRequest) returns (stream EmailResponse);
-
-    rpc CalendarData (GenericRequest) returns ( stream CalendarResponse);
-
-    rpc WeatherData (GenericRequest) returns (stream WeatherResponse);
-
-    rpc NewsData (GenericRequest) returns (stream NewsResponse);
-}
 
 service ConnectionComms
 {
-    rpc IntialConnection (ConnectionRequest) returns (Response);
-    rpc KeepAlive (Request) returns (Response);
-    rpc DisconnectNode (Request) returns (Response);
+    /*
+    This is the connection communications used for connecting and disconnectiing from
+    the server. These will be used by the client.
+    */
+    rpc IntialConnection (ConnectionRequest) returns (ConnectionResponse);
+    rpc KeepAlive (ConnectionStatus) returns (ConnectionStatusResponse);
+    rpc DisconnectNode (DisconnectRequest) returns (DisconnectResponse);
 }
 
 message ConnectionRequest
@@ -31,10 +21,21 @@ message ConnectionRequest
     string nodeHostIP = 2;
 }
 
+message ConnectionResponse
+{
+    int32 accepted = 1;
+    int32 denied = 2;
+}
+
 message DisconnectRequest
 {
     int32 disconnect = 1;
     string nodeHostIP = 2;
+}
+
+message DisconnectResponse
+{
+    int32 disconnect = 1;
 }
 
 message ConnectionStatus
@@ -48,9 +49,24 @@ message ConnectionStatusResponse
 }
 
 
+service ListeningComms
+{
+    /*
+    These are all of the content RPC calls that the server will use to respond
+    to client inquests. Having two services is fine, right? hope so 
+    */
+    rpc ClockData (GenericRequest) returns (ClockResponse);
+    rpc EmailData (GenericRequest) returns (stream EmailResponse);
+    rpc CalendarData (GenericRequest) returns ( stream CalendarResponse);
+    rpc WeatherData (GenericRequest) returns (stream WeatherResponse);
+    rpc NewsData (GenericRequest) returns (stream NewsResponse);
+}
+
 
 message GenericRequest
 {
+    //This is just an empty request as there is no data needed by the server
+    // The response is sent by the server to the original sender automatically
     string requestData = 1;
 }
 
@@ -64,13 +80,6 @@ message ClockResponse
     int32 day = 4;
     int32 month = 5;
     int32 year = 6;
-}
-
-message DateResponse
-{
-    int32 day = 1;
-    int32 month = 2;
-    int32 year = 3;
 }
 
 message EmailResponse
