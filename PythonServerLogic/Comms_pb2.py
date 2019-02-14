@@ -19,10 +19,155 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0b\x43omms.proto\"!\n\x10\x43onnectionStatus\x12\r\n\x05\x61live\x18\x01 \x01(\x05\".\n\x18\x43onnectionStatusResponse\x12\x12\n\nstillAlive\x18\x01 \x01(\x05\"%\n\x0eGenericRequest\x12\x13\n\x0brequestData\x18\x01 \x01(\t\"g\n\rClockResponse\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x04 \x01(\x05\x12\r\n\x05month\x18\x05 \x01(\x05\x12\x0c\n\x04year\x18\x06 \x01(\x05\"8\n\x0c\x44\x61teResponse\x12\x0b\n\x03\x64\x61y\x18\x01 \x01(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0c\n\x04year\x18\x03 \x01(\x05\"\x0f\n\rEmailResponse\"\x12\n\x10\x43\x61lendarResponse\"\x11\n\x0fWeatherResponse\"\x0e\n\x0cNewsResponse2\xaa\x02\n\x0eListeningComms\x12,\n\tClockData\x12\x0f.GenericRequest\x1a\x0e.ClockResponse\x12*\n\x08\x44\x61teData\x12\x0f.GenericRequest\x1a\r.DateResponse\x12,\n\tEmailData\x12\x0f.GenericRequest\x1a\x0e.EmailResponse\x12\x32\n\x0c\x43\x61lendarData\x12\x0f.GenericRequest\x1a\x11.CalendarResponse\x12\x30\n\x0bWeatherData\x12\x0f.GenericRequest\x1a\x10.WeatherResponse\x12*\n\x08NewsData\x12\x0f.GenericRequest\x1a\r.NewsResponseb\x06proto3')
+  serialized_pb=_b('\n\x0b\x43omms.proto\"8\n\x11\x43onnectionRequest\x12\x0f\n\x07\x63onnect\x18\x01 \x01(\x05\x12\x12\n\nnodeHostIP\x18\x02 \x01(\t\"6\n\x12\x43onnectionResponse\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x05\x12\x0e\n\x06\x64\x65nied\x18\x02 \x01(\x05\";\n\x11\x44isconnectRequest\x12\x12\n\ndisconnect\x18\x01 \x01(\x05\x12\x12\n\nnodeHostIP\x18\x02 \x01(\t\"(\n\x12\x44isconnectResponse\x12\x12\n\ndisconnect\x18\x01 \x01(\x05\"!\n\x10\x43onnectionStatus\x12\r\n\x05\x61live\x18\x01 \x01(\x05\".\n\x18\x43onnectionStatusResponse\x12\x12\n\nstillAlive\x18\x01 \x01(\x05\"%\n\x0eGenericRequest\x12\x13\n\x0brequestData\x18\x01 \x01(\t\"g\n\rClockResponse\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x04 \x01(\x05\x12\r\n\x05month\x18\x05 \x01(\x05\x12\x0c\n\x04year\x18\x06 \x01(\x05\"\x1e\n\rEmailResponse\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"\"\n\x10\x43\x61lendarResponse\x12\x0e\n\x06\x65vents\x18\x01 \x01(\t\"\x1f\n\x0fWeatherResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\" \n\x0cNewsResponse\x12\x10\n\x08headline\x18\x01 \x01(\t2\xc4\x01\n\x0f\x43onnectionComms\x12;\n\x10IntialConnection\x12\x12.ConnectionRequest\x1a\x13.ConnectionResponse\x12\x39\n\tKeepAlive\x12\x11.ConnectionStatus\x1a\x19.ConnectionStatusResponse\x12\x39\n\x0e\x44isconnectNode\x12\x12.DisconnectRequest\x1a\x13.DisconnectResponse2\x86\x02\n\x0eListeningComms\x12,\n\tClockData\x12\x0f.GenericRequest\x1a\x0e.ClockResponse\x12.\n\tEmailData\x12\x0f.GenericRequest\x1a\x0e.EmailResponse0\x01\x12\x34\n\x0c\x43\x61lendarData\x12\x0f.GenericRequest\x1a\x11.CalendarResponse0\x01\x12\x32\n\x0bWeatherData\x12\x0f.GenericRequest\x1a\x10.WeatherResponse0\x01\x12,\n\x08NewsData\x12\x0f.GenericRequest\x1a\r.NewsResponse0\x01\x62\x06proto3')
 )
 
 
+
+
+_CONNECTIONREQUEST = _descriptor.Descriptor(
+  name='ConnectionRequest',
+  full_name='ConnectionRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='connect', full_name='ConnectionRequest.connect', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='nodeHostIP', full_name='ConnectionRequest.nodeHostIP', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=15,
+  serialized_end=71,
+)
+
+
+_CONNECTIONRESPONSE = _descriptor.Descriptor(
+  name='ConnectionResponse',
+  full_name='ConnectionResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='accepted', full_name='ConnectionResponse.accepted', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='denied', full_name='ConnectionResponse.denied', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=73,
+  serialized_end=127,
+)
+
+
+_DISCONNECTREQUEST = _descriptor.Descriptor(
+  name='DisconnectRequest',
+  full_name='DisconnectRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='disconnect', full_name='DisconnectRequest.disconnect', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='nodeHostIP', full_name='DisconnectRequest.nodeHostIP', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=129,
+  serialized_end=188,
+)
+
+
+_DISCONNECTRESPONSE = _descriptor.Descriptor(
+  name='DisconnectResponse',
+  full_name='DisconnectResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='disconnect', full_name='DisconnectResponse.disconnect', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=190,
+  serialized_end=230,
+)
 
 
 _CONNECTIONSTATUS = _descriptor.Descriptor(
@@ -51,8 +196,8 @@ _CONNECTIONSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15,
-  serialized_end=48,
+  serialized_start=232,
+  serialized_end=265,
 )
 
 
@@ -82,8 +227,8 @@ _CONNECTIONSTATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=50,
-  serialized_end=96,
+  serialized_start=267,
+  serialized_end=313,
 )
 
 
@@ -113,8 +258,8 @@ _GENERICREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=98,
-  serialized_end=135,
+  serialized_start=315,
+  serialized_end=352,
 )
 
 
@@ -179,53 +324,8 @@ _CLOCKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=137,
-  serialized_end=240,
-)
-
-
-_DATERESPONSE = _descriptor.Descriptor(
-  name='DateResponse',
-  full_name='DateResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='day', full_name='DateResponse.day', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='month', full_name='DateResponse.month', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='year', full_name='DateResponse.year', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=242,
-  serialized_end=298,
+  serialized_start=354,
+  serialized_end=457,
 )
 
 
@@ -236,6 +336,13 @@ _EMAILRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='email', full_name='EmailResponse.email', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -248,8 +355,8 @@ _EMAILRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=300,
-  serialized_end=315,
+  serialized_start=459,
+  serialized_end=489,
 )
 
 
@@ -260,6 +367,13 @@ _CALENDARRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='events', full_name='CalendarResponse.events', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -272,8 +386,8 @@ _CALENDARRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=317,
-  serialized_end=335,
+  serialized_start=491,
+  serialized_end=525,
 )
 
 
@@ -284,6 +398,13 @@ _WEATHERRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='data', full_name='WeatherResponse.data', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -296,8 +417,8 @@ _WEATHERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=337,
-  serialized_end=354,
+  serialized_start=527,
+  serialized_end=558,
 )
 
 
@@ -308,6 +429,13 @@ _NEWSRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='headline', full_name='NewsResponse.headline', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -320,20 +448,51 @@ _NEWSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=356,
-  serialized_end=370,
+  serialized_start=560,
+  serialized_end=592,
 )
 
+DESCRIPTOR.message_types_by_name['ConnectionRequest'] = _CONNECTIONREQUEST
+DESCRIPTOR.message_types_by_name['ConnectionResponse'] = _CONNECTIONRESPONSE
+DESCRIPTOR.message_types_by_name['DisconnectRequest'] = _DISCONNECTREQUEST
+DESCRIPTOR.message_types_by_name['DisconnectResponse'] = _DISCONNECTRESPONSE
 DESCRIPTOR.message_types_by_name['ConnectionStatus'] = _CONNECTIONSTATUS
 DESCRIPTOR.message_types_by_name['ConnectionStatusResponse'] = _CONNECTIONSTATUSRESPONSE
 DESCRIPTOR.message_types_by_name['GenericRequest'] = _GENERICREQUEST
 DESCRIPTOR.message_types_by_name['ClockResponse'] = _CLOCKRESPONSE
-DESCRIPTOR.message_types_by_name['DateResponse'] = _DATERESPONSE
 DESCRIPTOR.message_types_by_name['EmailResponse'] = _EMAILRESPONSE
 DESCRIPTOR.message_types_by_name['CalendarResponse'] = _CALENDARRESPONSE
 DESCRIPTOR.message_types_by_name['WeatherResponse'] = _WEATHERRESPONSE
 DESCRIPTOR.message_types_by_name['NewsResponse'] = _NEWSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+ConnectionRequest = _reflection.GeneratedProtocolMessageType('ConnectionRequest', (_message.Message,), dict(
+  DESCRIPTOR = _CONNECTIONREQUEST,
+  __module__ = 'Comms_pb2'
+  # @@protoc_insertion_point(class_scope:ConnectionRequest)
+  ))
+_sym_db.RegisterMessage(ConnectionRequest)
+
+ConnectionResponse = _reflection.GeneratedProtocolMessageType('ConnectionResponse', (_message.Message,), dict(
+  DESCRIPTOR = _CONNECTIONRESPONSE,
+  __module__ = 'Comms_pb2'
+  # @@protoc_insertion_point(class_scope:ConnectionResponse)
+  ))
+_sym_db.RegisterMessage(ConnectionResponse)
+
+DisconnectRequest = _reflection.GeneratedProtocolMessageType('DisconnectRequest', (_message.Message,), dict(
+  DESCRIPTOR = _DISCONNECTREQUEST,
+  __module__ = 'Comms_pb2'
+  # @@protoc_insertion_point(class_scope:DisconnectRequest)
+  ))
+_sym_db.RegisterMessage(DisconnectRequest)
+
+DisconnectResponse = _reflection.GeneratedProtocolMessageType('DisconnectResponse', (_message.Message,), dict(
+  DESCRIPTOR = _DISCONNECTRESPONSE,
+  __module__ = 'Comms_pb2'
+  # @@protoc_insertion_point(class_scope:DisconnectResponse)
+  ))
+_sym_db.RegisterMessage(DisconnectResponse)
 
 ConnectionStatus = _reflection.GeneratedProtocolMessageType('ConnectionStatus', (_message.Message,), dict(
   DESCRIPTOR = _CONNECTIONSTATUS,
@@ -362,13 +521,6 @@ ClockResponse = _reflection.GeneratedProtocolMessageType('ClockResponse', (_mess
   # @@protoc_insertion_point(class_scope:ClockResponse)
   ))
 _sym_db.RegisterMessage(ClockResponse)
-
-DateResponse = _reflection.GeneratedProtocolMessageType('DateResponse', (_message.Message,), dict(
-  DESCRIPTOR = _DATERESPONSE,
-  __module__ = 'Comms_pb2'
-  # @@protoc_insertion_point(class_scope:DateResponse)
-  ))
-_sym_db.RegisterMessage(DateResponse)
 
 EmailResponse = _reflection.GeneratedProtocolMessageType('EmailResponse', (_message.Message,), dict(
   DESCRIPTOR = _EMAILRESPONSE,
@@ -400,14 +552,56 @@ _sym_db.RegisterMessage(NewsResponse)
 
 
 
+_CONNECTIONCOMMS = _descriptor.ServiceDescriptor(
+  name='ConnectionComms',
+  full_name='ConnectionComms',
+  file=DESCRIPTOR,
+  index=0,
+  serialized_options=None,
+  serialized_start=595,
+  serialized_end=791,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='IntialConnection',
+    full_name='ConnectionComms.IntialConnection',
+    index=0,
+    containing_service=None,
+    input_type=_CONNECTIONREQUEST,
+    output_type=_CONNECTIONRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='KeepAlive',
+    full_name='ConnectionComms.KeepAlive',
+    index=1,
+    containing_service=None,
+    input_type=_CONNECTIONSTATUS,
+    output_type=_CONNECTIONSTATUSRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='DisconnectNode',
+    full_name='ConnectionComms.DisconnectNode',
+    index=2,
+    containing_service=None,
+    input_type=_DISCONNECTREQUEST,
+    output_type=_DISCONNECTRESPONSE,
+    serialized_options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_CONNECTIONCOMMS)
+
+DESCRIPTOR.services_by_name['ConnectionComms'] = _CONNECTIONCOMMS
+
+
 _LISTENINGCOMMS = _descriptor.ServiceDescriptor(
   name='ListeningComms',
   full_name='ListeningComms',
   file=DESCRIPTOR,
-  index=0,
+  index=1,
   serialized_options=None,
-  serialized_start=373,
-  serialized_end=671,
+  serialized_start=794,
+  serialized_end=1056,
   methods=[
   _descriptor.MethodDescriptor(
     name='ClockData',
@@ -419,18 +613,9 @@ _LISTENINGCOMMS = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
-    name='DateData',
-    full_name='ListeningComms.DateData',
-    index=1,
-    containing_service=None,
-    input_type=_GENERICREQUEST,
-    output_type=_DATERESPONSE,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
     name='EmailData',
     full_name='ListeningComms.EmailData',
-    index=2,
+    index=1,
     containing_service=None,
     input_type=_GENERICREQUEST,
     output_type=_EMAILRESPONSE,
@@ -439,7 +624,7 @@ _LISTENINGCOMMS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='CalendarData',
     full_name='ListeningComms.CalendarData',
-    index=3,
+    index=2,
     containing_service=None,
     input_type=_GENERICREQUEST,
     output_type=_CALENDARRESPONSE,
@@ -448,7 +633,7 @@ _LISTENINGCOMMS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='WeatherData',
     full_name='ListeningComms.WeatherData',
-    index=4,
+    index=3,
     containing_service=None,
     input_type=_GENERICREQUEST,
     output_type=_WEATHERRESPONSE,
@@ -457,7 +642,7 @@ _LISTENINGCOMMS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='NewsData',
     full_name='ListeningComms.NewsData',
-    index=5,
+    index=4,
     containing_service=None,
     input_type=_GENERICREQUEST,
     output_type=_NEWSRESPONSE,

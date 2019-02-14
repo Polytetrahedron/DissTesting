@@ -1,0 +1,3 @@
+py -m grpc_tools.protoc -I C:/Users/Mark/Desktop/DissTesting/ProtoMessageStructure --python_out=. --grpc_python_out=. C:/Users/Mark/Desktop/DissTesting/ProtoMessageStructure/Comms.proto
+
+grpc_tools_node_protoc --js_out=import_style=commonjs,binary:C:\Users\Mark\Desktop --grpc_out=C:\Users\Mark\Desktop\ --plugin=protoc-gen-grpc=C:\Users\Mark\Desktop\DissTesting\NodeServerLogic\node_modules\grpc-tools\bin\grpc_node_plugin.exe Comms.proto

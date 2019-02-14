@@ -26,70 +26,15 @@ function deserialize_ClockResponse(buffer_arg) {
   return Comms_pb.ClockResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_ConnectionRequest(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionRequest)) {
-    throw new Error('Expected argument of type ConnectionRequest');
+function serialize_DateResponse(arg) {
+  if (!(arg instanceof Comms_pb.DateResponse)) {
+    throw new Error('Expected argument of type DateResponse');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_ConnectionRequest(buffer_arg) {
-  return Comms_pb.ConnectionRequest.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_ConnectionResponse(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionResponse)) {
-    throw new Error('Expected argument of type ConnectionResponse');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_ConnectionResponse(buffer_arg) {
-  return Comms_pb.ConnectionResponse.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_ConnectionStatus(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionStatus)) {
-    throw new Error('Expected argument of type ConnectionStatus');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_ConnectionStatus(buffer_arg) {
-  return Comms_pb.ConnectionStatus.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_ConnectionStatusResponse(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionStatusResponse)) {
-    throw new Error('Expected argument of type ConnectionStatusResponse');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_ConnectionStatusResponse(buffer_arg) {
-  return Comms_pb.ConnectionStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_DisconnectRequest(arg) {
-  if (!(arg instanceof Comms_pb.DisconnectRequest)) {
-    throw new Error('Expected argument of type DisconnectRequest');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_DisconnectRequest(buffer_arg) {
-  return Comms_pb.DisconnectRequest.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_DisconnectResponse(arg) {
-  if (!(arg instanceof Comms_pb.DisconnectResponse)) {
-    throw new Error('Expected argument of type DisconnectResponse');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_DisconnectResponse(buffer_arg) {
-  return Comms_pb.DisconnectResponse.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_DateResponse(buffer_arg) {
+  return Comms_pb.DateResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_EmailResponse(arg) {
@@ -138,52 +83,8 @@ function deserialize_WeatherResponse(buffer_arg) {
 
 
 // *
-// This needs documented properly otherwise it'll just be a total mess
-//
-var ConnectionCommsService = exports.ConnectionCommsService = {
-  //
-  // This is the connection communications used for connecting and disconnectiing from
-  // the server. These will be used by the client.
-  intialConnection: {
-    path: '/ConnectionComms/IntialConnection',
-    requestStream: false,
-    responseStream: false,
-    requestType: Comms_pb.ConnectionRequest,
-    responseType: Comms_pb.ConnectionResponse,
-    requestSerialize: serialize_ConnectionRequest,
-    requestDeserialize: deserialize_ConnectionRequest,
-    responseSerialize: serialize_ConnectionResponse,
-    responseDeserialize: deserialize_ConnectionResponse,
-  },
-  keepAlive: {
-    path: '/ConnectionComms/KeepAlive',
-    requestStream: false,
-    responseStream: false,
-    requestType: Comms_pb.ConnectionStatus,
-    responseType: Comms_pb.ConnectionStatusResponse,
-    requestSerialize: serialize_ConnectionStatus,
-    requestDeserialize: deserialize_ConnectionStatus,
-    responseSerialize: serialize_ConnectionStatusResponse,
-    responseDeserialize: deserialize_ConnectionStatusResponse,
-  },
-  disconnectNode: {
-    path: '/ConnectionComms/DisconnectNode',
-    requestStream: false,
-    responseStream: false,
-    requestType: Comms_pb.DisconnectRequest,
-    responseType: Comms_pb.DisconnectResponse,
-    requestSerialize: serialize_DisconnectRequest,
-    requestDeserialize: deserialize_DisconnectRequest,
-    responseSerialize: serialize_DisconnectResponse,
-    responseDeserialize: deserialize_DisconnectResponse,
-  },
-};
-
-exports.ConnectionCommsClient = grpc.makeGenericClientConstructor(ConnectionCommsService);
+// This will be a work in progress for all of the 
 var ListeningCommsService = exports.ListeningCommsService = {
-  //
-  // These are all of the content RPC calls that the server will use to respond
-  // to client inquests. Having two services is fine, right? hope so 
   clockData: {
     path: '/ListeningComms/ClockData',
     requestStream: false,
@@ -195,10 +96,21 @@ var ListeningCommsService = exports.ListeningCommsService = {
     responseSerialize: serialize_ClockResponse,
     responseDeserialize: deserialize_ClockResponse,
   },
+  dateData: {
+    path: '/ListeningComms/DateData',
+    requestStream: false,
+    responseStream: false,
+    requestType: Comms_pb.GenericRequest,
+    responseType: Comms_pb.DateResponse,
+    requestSerialize: serialize_GenericRequest,
+    requestDeserialize: deserialize_GenericRequest,
+    responseSerialize: serialize_DateResponse,
+    responseDeserialize: deserialize_DateResponse,
+  },
   emailData: {
     path: '/ListeningComms/EmailData',
     requestStream: false,
-    responseStream: true,
+    responseStream: false,
     requestType: Comms_pb.GenericRequest,
     responseType: Comms_pb.EmailResponse,
     requestSerialize: serialize_GenericRequest,
@@ -209,7 +121,7 @@ var ListeningCommsService = exports.ListeningCommsService = {
   calendarData: {
     path: '/ListeningComms/CalendarData',
     requestStream: false,
-    responseStream: true,
+    responseStream: false,
     requestType: Comms_pb.GenericRequest,
     responseType: Comms_pb.CalendarResponse,
     requestSerialize: serialize_GenericRequest,
@@ -220,7 +132,7 @@ var ListeningCommsService = exports.ListeningCommsService = {
   weatherData: {
     path: '/ListeningComms/WeatherData',
     requestStream: false,
-    responseStream: true,
+    responseStream: false,
     requestType: Comms_pb.GenericRequest,
     responseType: Comms_pb.WeatherResponse,
     requestSerialize: serialize_GenericRequest,
@@ -231,7 +143,7 @@ var ListeningCommsService = exports.ListeningCommsService = {
   newsData: {
     path: '/ListeningComms/NewsData',
     requestStream: false,
-    responseStream: true,
+    responseStream: false,
     requestType: Comms_pb.GenericRequest,
     responseType: Comms_pb.NewsResponse,
     requestSerialize: serialize_GenericRequest,

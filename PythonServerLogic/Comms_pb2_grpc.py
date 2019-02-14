@@ -4,10 +4,91 @@ import grpc
 import Comms_pb2 as Comms__pb2
 
 
-class ListeningCommsStub(object):
+class ConnectionCommsStub(object):
   """*
-  This will be a work in progress for all of the 
+  This needs documented properly otherwise it'll just be a total mess
+
   """
+
+  def __init__(self, channel):
+    """Constructor.
+
+    Args:
+      channel: A grpc.Channel.
+    """
+    self.IntialConnection = channel.unary_unary(
+        '/ConnectionComms/IntialConnection',
+        request_serializer=Comms__pb2.ConnectionRequest.SerializeToString,
+        response_deserializer=Comms__pb2.ConnectionResponse.FromString,
+        )
+    self.KeepAlive = channel.unary_unary(
+        '/ConnectionComms/KeepAlive',
+        request_serializer=Comms__pb2.ConnectionStatus.SerializeToString,
+        response_deserializer=Comms__pb2.ConnectionStatusResponse.FromString,
+        )
+    self.DisconnectNode = channel.unary_unary(
+        '/ConnectionComms/DisconnectNode',
+        request_serializer=Comms__pb2.DisconnectRequest.SerializeToString,
+        response_deserializer=Comms__pb2.DisconnectResponse.FromString,
+        )
+
+
+class ConnectionCommsServicer(object):
+  """*
+  This needs documented properly otherwise it'll just be a total mess
+
+  """
+
+  def IntialConnection(self, request, context):
+    """
+    This is the connection communications used for connecting and disconnectiing from
+    the server. These will be used by the client.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def KeepAlive(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def DisconnectNode(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+
+def add_ConnectionCommsServicer_to_server(servicer, server):
+  rpc_method_handlers = {
+      'IntialConnection': grpc.unary_unary_rpc_method_handler(
+          servicer.IntialConnection,
+          request_deserializer=Comms__pb2.ConnectionRequest.FromString,
+          response_serializer=Comms__pb2.ConnectionResponse.SerializeToString,
+      ),
+      'KeepAlive': grpc.unary_unary_rpc_method_handler(
+          servicer.KeepAlive,
+          request_deserializer=Comms__pb2.ConnectionStatus.FromString,
+          response_serializer=Comms__pb2.ConnectionStatusResponse.SerializeToString,
+      ),
+      'DisconnectNode': grpc.unary_unary_rpc_method_handler(
+          servicer.DisconnectNode,
+          request_deserializer=Comms__pb2.DisconnectRequest.FromString,
+          response_serializer=Comms__pb2.DisconnectResponse.SerializeToString,
+      ),
+  }
+  generic_handler = grpc.method_handlers_generic_handler(
+      'ConnectionComms', rpc_method_handlers)
+  server.add_generic_rpc_handlers((generic_handler,))
+
+
+class ListeningCommsStub(object):
+  # missing associated documentation comment in .proto file
+  pass
 
   def __init__(self, channel):
     """Constructor.
@@ -20,27 +101,22 @@ class ListeningCommsStub(object):
         request_serializer=Comms__pb2.GenericRequest.SerializeToString,
         response_deserializer=Comms__pb2.ClockResponse.FromString,
         )
-    self.DateData = channel.unary_unary(
-        '/ListeningComms/DateData',
-        request_serializer=Comms__pb2.GenericRequest.SerializeToString,
-        response_deserializer=Comms__pb2.DateResponse.FromString,
-        )
-    self.EmailData = channel.unary_unary(
+    self.EmailData = channel.unary_stream(
         '/ListeningComms/EmailData',
         request_serializer=Comms__pb2.GenericRequest.SerializeToString,
         response_deserializer=Comms__pb2.EmailResponse.FromString,
         )
-    self.CalendarData = channel.unary_unary(
+    self.CalendarData = channel.unary_stream(
         '/ListeningComms/CalendarData',
         request_serializer=Comms__pb2.GenericRequest.SerializeToString,
         response_deserializer=Comms__pb2.CalendarResponse.FromString,
         )
-    self.WeatherData = channel.unary_unary(
+    self.WeatherData = channel.unary_stream(
         '/ListeningComms/WeatherData',
         request_serializer=Comms__pb2.GenericRequest.SerializeToString,
         response_deserializer=Comms__pb2.WeatherResponse.FromString,
         )
-    self.NewsData = channel.unary_unary(
+    self.NewsData = channel.unary_stream(
         '/ListeningComms/NewsData',
         request_serializer=Comms__pb2.GenericRequest.SerializeToString,
         response_deserializer=Comms__pb2.NewsResponse.FromString,
@@ -48,20 +124,14 @@ class ListeningCommsStub(object):
 
 
 class ListeningCommsServicer(object):
-  """*
-  This will be a work in progress for all of the 
-  """
+  # missing associated documentation comment in .proto file
+  pass
 
   def ClockData(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def DateData(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """
+    These are all of the content RPC calls that the server will use to respond
+    to client inquests. Having two services is fine, right? hope so 
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -102,27 +172,22 @@ def add_ListeningCommsServicer_to_server(servicer, server):
           request_deserializer=Comms__pb2.GenericRequest.FromString,
           response_serializer=Comms__pb2.ClockResponse.SerializeToString,
       ),
-      'DateData': grpc.unary_unary_rpc_method_handler(
-          servicer.DateData,
-          request_deserializer=Comms__pb2.GenericRequest.FromString,
-          response_serializer=Comms__pb2.DateResponse.SerializeToString,
-      ),
-      'EmailData': grpc.unary_unary_rpc_method_handler(
+      'EmailData': grpc.unary_stream_rpc_method_handler(
           servicer.EmailData,
           request_deserializer=Comms__pb2.GenericRequest.FromString,
           response_serializer=Comms__pb2.EmailResponse.SerializeToString,
       ),
-      'CalendarData': grpc.unary_unary_rpc_method_handler(
+      'CalendarData': grpc.unary_stream_rpc_method_handler(
           servicer.CalendarData,
           request_deserializer=Comms__pb2.GenericRequest.FromString,
           response_serializer=Comms__pb2.CalendarResponse.SerializeToString,
       ),
-      'WeatherData': grpc.unary_unary_rpc_method_handler(
+      'WeatherData': grpc.unary_stream_rpc_method_handler(
           servicer.WeatherData,
           request_deserializer=Comms__pb2.GenericRequest.FromString,
           response_serializer=Comms__pb2.WeatherResponse.SerializeToString,
       ),
-      'NewsData': grpc.unary_unary_rpc_method_handler(
+      'NewsData': grpc.unary_stream_rpc_method_handler(
           servicer.NewsData,
           request_deserializer=Comms__pb2.GenericRequest.FromString,
           response_serializer=Comms__pb2.NewsResponse.SerializeToString,

@@ -27,12 +27,12 @@ function createClient()
     sendRequest.setRequestdata("data please");
 
     getClockData();
+    getHeadlines();
 }
 
 function getClockData()
 {
     var payload = ['clock']
-
 
     client.clockData(sendRequest, (err, response)=>{
     payload[1] = response.getHour();
@@ -51,13 +51,13 @@ function getClockData()
 
 function getHeadlines()
 {
-    client.newsData(sendRequest, (err, response)=>
-    {
-        var payload = ['news']
+    var payload = ['news'];
 
+    var stream = client.newsData(sendRequest)
+    stream.on('data', (headline)=>{
+        console.log(headline);
+    });
 
-
-    })
 
 }
 

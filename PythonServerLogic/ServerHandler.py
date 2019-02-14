@@ -42,12 +42,18 @@ class ListeningServicer():
         pass
     
     def NewsData(self, request, context):
-        NewsModule.get_google_rss()
+        count = 0
+        recent_headlines = NewsModule.get_google_rss()
+
+        for headline in recent_headlines:
+            data = headline
+            yield data
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor())
     Comms_pb2_grpc.add_ListeningCommsServicer_to_server(ListeningServicer(), server)
     server.add_insecure_port(local_dhcp_address + ':' + std_server_port)
+    print("Server Started")
     server.start()
     try:
         while True:
