@@ -13,6 +13,17 @@ service ConnectionComms
     rpc IntialConnection (ConnectionRequest) returns (ConnectionResponse);
     rpc KeepAlive (ConnectionStatus) returns (ConnectionStatusResponse);
     rpc DisconnectNode (DisconnectRequest) returns (DisconnectResponse);
+    rpc HostDiscovery (DiscoverRequest) returns (DiscoverResponse);
+}
+
+message DiscoverRequest
+{
+    string server_ip = 1;
+}
+
+message DiscoverResponse
+{
+    string server_ip =1;
 }
 
 message ConnectionRequest
@@ -67,6 +78,7 @@ message GenericRequest
 {
     //This is just an empty request as there is no data needed by the server
     // The response is sent by the server to the original sender automatically
+    // Actually this could be cool. It could send the host IP as an identifier for diagnostic! that's cool amma do that 
     string requestData = 1;
 }
 

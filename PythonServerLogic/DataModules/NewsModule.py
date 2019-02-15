@@ -23,7 +23,7 @@ def get_google_rss():
         if len(extracted_stories) < 10:
             extracted_stories.append(news.title.text)
     
-    print(extracted_stories)
+    # print(extracted_stories)
     return extracted_stories
 
 

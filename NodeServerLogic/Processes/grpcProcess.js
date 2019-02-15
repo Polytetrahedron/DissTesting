@@ -8,6 +8,8 @@ let serverPort;
 let client;
 let sendRequest; // this can be generic as the method being called is the method that dictates the returned data not the request itself
 
+
+//TODO this needs fixed like pronto
 process.on('message', (data)=>
 {
     if(data[0] == 'config')

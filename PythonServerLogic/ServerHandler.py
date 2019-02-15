@@ -14,23 +14,19 @@ std_server_port = "2356"
 std_listening_port = "7890"
 local_dhcp_address = IPExtractor.extract_local_IP()
 
+current_connected_hosts = {}
+
 class ListeningServicer():
     def ClockData(self, request, context):
+        print("Message Received: Time")
         current_server_time = datetime.datetime.now()
-
         curr_hour = current_server_time.hour
         curr_min = current_server_time.minute
         curr_second = current_server_time.second
-
         curr_day = current_server_time.day
         curr_month = current_server_time.month - 1
         curr_year = current_server_time.year
-        print("Message Received: Time")
-
         return Comms_pb2.ClockResponse(hour=curr_hour, minute=curr_min, second=curr_second, day=curr_day, month=curr_month, year=curr_year)
-
-    def DateData(self, request, context):
-        pass
 
     def EmailData(self, request, context):
         pass
@@ -42,11 +38,10 @@ class ListeningServicer():
         pass
     
     def NewsData(self, request, context):
-        count = 0
+        print("Message Received")
         recent_headlines = NewsModule.get_google_rss()
-
-        for headline in recent_headlines:
-            data = headline
+        for news in recent_headlines:
+            data = Comms_pb2.NewsResponse(headline=news) # This is what was causing the serialization error... I'm an idiot...
             yield data
 
 def serve():
