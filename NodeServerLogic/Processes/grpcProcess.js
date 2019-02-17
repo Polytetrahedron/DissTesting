@@ -30,6 +30,7 @@ function createClient()
 
     getClockData();
     getHeadlines();
+    getWeather();
 }
 
 function getClockData()
@@ -55,12 +56,26 @@ function getHeadlines()
 {
     var payload = ['news'];
 
-    var stream = client.newsData(sendRequest)
+    var stream = client.newsData(sendRequest);
     stream.on('data', (headline)=>{
         console.log(headline);
     });
 
 
+}
+
+function getWeather()
+{
+    var payload = ['weather'];
+
+    var stream = client.weatherData(sendRequest);
+    stream.on('data', (forecast)=>{
+        console.log(forecast);
+    });
+    stream.on('err', ()=>{
+        console.log("Stream error: Retrying...")
+        getWeather();
+    })
 }
 
 

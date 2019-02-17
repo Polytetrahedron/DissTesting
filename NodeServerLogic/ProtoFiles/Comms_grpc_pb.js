@@ -92,6 +92,28 @@ function deserialize_DisconnectResponse(buffer_arg) {
   return Comms_pb.DisconnectResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_DiscoverRequest(arg) {
+  if (!(arg instanceof Comms_pb.DiscoverRequest)) {
+    throw new Error('Expected argument of type DiscoverRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_DiscoverRequest(buffer_arg) {
+  return Comms_pb.DiscoverRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_DiscoverResponse(arg) {
+  if (!(arg instanceof Comms_pb.DiscoverResponse)) {
+    throw new Error('Expected argument of type DiscoverResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_DiscoverResponse(buffer_arg) {
+  return Comms_pb.DiscoverResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_EmailResponse(arg) {
   if (!(arg instanceof Comms_pb.EmailResponse)) {
     throw new Error('Expected argument of type EmailResponse');
@@ -176,6 +198,17 @@ var ConnectionCommsService = exports.ConnectionCommsService = {
     requestDeserialize: deserialize_DisconnectRequest,
     responseSerialize: serialize_DisconnectResponse,
     responseDeserialize: deserialize_DisconnectResponse,
+  },
+  hostDiscovery: {
+    path: '/ConnectionComms/HostDiscovery',
+    requestStream: false,
+    responseStream: false,
+    requestType: Comms_pb.DiscoverRequest,
+    responseType: Comms_pb.DiscoverResponse,
+    requestSerialize: serialize_DiscoverRequest,
+    requestDeserialize: deserialize_DiscoverRequest,
+    responseSerialize: serialize_DiscoverResponse,
+    responseDeserialize: deserialize_DiscoverResponse,
   },
 };
 

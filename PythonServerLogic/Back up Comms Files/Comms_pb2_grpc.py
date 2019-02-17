@@ -31,11 +31,6 @@ class ConnectionCommsStub(object):
         request_serializer=Comms__pb2.DisconnectRequest.SerializeToString,
         response_deserializer=Comms__pb2.DisconnectResponse.FromString,
         )
-    self.HostDiscovery = channel.unary_unary(
-        '/ConnectionComms/HostDiscovery',
-        request_serializer=Comms__pb2.DiscoverRequest.SerializeToString,
-        response_deserializer=Comms__pb2.DiscoverResponse.FromString,
-        )
 
 
 class ConnectionCommsServicer(object):
@@ -67,13 +62,6 @@ class ConnectionCommsServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def HostDiscovery(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
 
 def add_ConnectionCommsServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -91,11 +79,6 @@ def add_ConnectionCommsServicer_to_server(servicer, server):
           servicer.DisconnectNode,
           request_deserializer=Comms__pb2.DisconnectRequest.FromString,
           response_serializer=Comms__pb2.DisconnectResponse.SerializeToString,
-      ),
-      'HostDiscovery': grpc.unary_unary_rpc_method_handler(
-          servicer.HostDiscovery,
-          request_deserializer=Comms__pb2.DiscoverRequest.FromString,
-          response_serializer=Comms__pb2.DiscoverResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

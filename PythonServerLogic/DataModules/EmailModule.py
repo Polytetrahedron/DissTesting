@@ -21,7 +21,11 @@ def extract_from_byte_data(message):
     usable string data that will be formatted and displayed to the user via the front interface.
     """
     if message.is_multipart():
-        return message.gets
+        return extract_from_byte_data(message.get_payload(0))
+    else:
+        return message.get_payload(None, True)
+
+
 
 def format_email():
     """
@@ -30,6 +34,8 @@ def format_email():
     displayed (This last bit is proably the most important :) )
     """
     return True
+
+
 
 def fetch_email(connection_to_server):
     """
@@ -46,9 +52,8 @@ def fetch_email(connection_to_server):
             print("ERROR: Could not fetch from server")
             break
         counter += 1
-        #extracted_data = email.message_from_bytes(data[0][1])
-        #extract_from_byte_data(extracted_data)
-        #email_list.append()
+        extracted_data = email.message_from_bytes(data[0][1])
+        print(extract_from_byte_data(extracted_data))
         email_list.append(data)
         if(counter != 5):
             continue
@@ -70,4 +75,4 @@ def connect_to_mail_server():
     return fetch_email(connection)
 
 
-#print(connect_to_mail_server())
+#connect_to_mail_server()

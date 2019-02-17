@@ -19,72 +19,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0b\x43omms.proto\"$\n\x0f\x44iscoverRequest\x12\x11\n\tserver_ip\x18\x01 \x01(\t\"%\n\x10\x44iscoverResponse\x12\x11\n\tserver_ip\x18\x01 \x01(\t\"8\n\x11\x43onnectionRequest\x12\x0f\n\x07\x63onnect\x18\x01 \x01(\x05\x12\x12\n\nnodeHostIP\x18\x02 \x01(\t\"6\n\x12\x43onnectionResponse\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x05\x12\x0e\n\x06\x64\x65nied\x18\x02 \x01(\x05\";\n\x11\x44isconnectRequest\x12\x12\n\ndisconnect\x18\x01 \x01(\x05\x12\x12\n\nnodeHostIP\x18\x02 \x01(\t\"(\n\x12\x44isconnectResponse\x12\x12\n\ndisconnect\x18\x01 \x01(\x05\"!\n\x10\x43onnectionStatus\x12\r\n\x05\x61live\x18\x01 \x01(\x05\".\n\x18\x43onnectionStatusResponse\x12\x12\n\nstillAlive\x18\x01 \x01(\x05\"%\n\x0eGenericRequest\x12\x13\n\x0brequestData\x18\x01 \x01(\t\"g\n\rClockResponse\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x04 \x01(\x05\x12\r\n\x05month\x18\x05 \x01(\x05\x12\x0c\n\x04year\x18\x06 \x01(\x05\"\x1e\n\rEmailResponse\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"\"\n\x10\x43\x61lendarResponse\x12\x0e\n\x06\x65vents\x18\x01 \x01(\t\"\x1f\n\x0fWeatherResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\" \n\x0cNewsResponse\x12\x10\n\x08headline\x18\x01 \x01(\t2\xfa\x01\n\x0f\x43onnectionComms\x12;\n\x10IntialConnection\x12\x12.ConnectionRequest\x1a\x13.ConnectionResponse\x12\x39\n\tKeepAlive\x12\x11.ConnectionStatus\x1a\x19.ConnectionStatusResponse\x12\x39\n\x0e\x44isconnectNode\x12\x12.DisconnectRequest\x1a\x13.DisconnectResponse\x12\x34\n\rHostDiscovery\x12\x10.DiscoverRequest\x1a\x11.DiscoverResponse2\x86\x02\n\x0eListeningComms\x12,\n\tClockData\x12\x0f.GenericRequest\x1a\x0e.ClockResponse\x12.\n\tEmailData\x12\x0f.GenericRequest\x1a\x0e.EmailResponse0\x01\x12\x34\n\x0c\x43\x61lendarData\x12\x0f.GenericRequest\x1a\x11.CalendarResponse0\x01\x12\x32\n\x0bWeatherData\x12\x0f.GenericRequest\x1a\x10.WeatherResponse0\x01\x12,\n\x08NewsData\x12\x0f.GenericRequest\x1a\r.NewsResponse0\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0b\x43omms.proto\"8\n\x11\x43onnectionRequest\x12\x0f\n\x07\x63onnect\x18\x01 \x01(\x05\x12\x12\n\nnodeHostIP\x18\x02 \x01(\t\"6\n\x12\x43onnectionResponse\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x05\x12\x0e\n\x06\x64\x65nied\x18\x02 \x01(\x05\";\n\x11\x44isconnectRequest\x12\x12\n\ndisconnect\x18\x01 \x01(\x05\x12\x12\n\nnodeHostIP\x18\x02 \x01(\t\"(\n\x12\x44isconnectResponse\x12\x12\n\ndisconnect\x18\x01 \x01(\x05\"!\n\x10\x43onnectionStatus\x12\r\n\x05\x61live\x18\x01 \x01(\x05\".\n\x18\x43onnectionStatusResponse\x12\x12\n\nstillAlive\x18\x01 \x01(\x05\"%\n\x0eGenericRequest\x12\x13\n\x0brequestData\x18\x01 \x01(\t\"g\n\rClockResponse\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x04 \x01(\x05\x12\r\n\x05month\x18\x05 \x01(\x05\x12\x0c\n\x04year\x18\x06 \x01(\x05\"\x1e\n\rEmailResponse\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"\"\n\x10\x43\x61lendarResponse\x12\x0e\n\x06\x65vents\x18\x01 \x01(\t\"\x1f\n\x0fWeatherResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\" \n\x0cNewsResponse\x12\x10\n\x08headline\x18\x01 \x01(\t2\xc4\x01\n\x0f\x43onnectionComms\x12;\n\x10IntialConnection\x12\x12.ConnectionRequest\x1a\x13.ConnectionResponse\x12\x39\n\tKeepAlive\x12\x11.ConnectionStatus\x1a\x19.ConnectionStatusResponse\x12\x39\n\x0e\x44isconnectNode\x12\x12.DisconnectRequest\x1a\x13.DisconnectResponse2\x86\x02\n\x0eListeningComms\x12,\n\tClockData\x12\x0f.GenericRequest\x1a\x0e.ClockResponse\x12.\n\tEmailData\x12\x0f.GenericRequest\x1a\x0e.EmailResponse0\x01\x12\x34\n\x0c\x43\x61lendarData\x12\x0f.GenericRequest\x1a\x11.CalendarResponse0\x01\x12\x32\n\x0bWeatherData\x12\x0f.GenericRequest\x1a\x10.WeatherResponse0\x01\x12,\n\x08NewsData\x12\x0f.GenericRequest\x1a\r.NewsResponse0\x01\x62\x06proto3')
 )
 
 
-
-
-_DISCOVERREQUEST = _descriptor.Descriptor(
-  name='DiscoverRequest',
-  full_name='DiscoverRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='server_ip', full_name='DiscoverRequest.server_ip', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=15,
-  serialized_end=51,
-)
-
-
-_DISCOVERRESPONSE = _descriptor.Descriptor(
-  name='DiscoverResponse',
-  full_name='DiscoverResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='server_ip', full_name='DiscoverResponse.server_ip', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=53,
-  serialized_end=90,
-)
 
 
 _CONNECTIONREQUEST = _descriptor.Descriptor(
@@ -120,8 +58,8 @@ _CONNECTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=92,
-  serialized_end=148,
+  serialized_start=15,
+  serialized_end=71,
 )
 
 
@@ -158,8 +96,8 @@ _CONNECTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=150,
-  serialized_end=204,
+  serialized_start=73,
+  serialized_end=127,
 )
 
 
@@ -196,8 +134,8 @@ _DISCONNECTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=206,
-  serialized_end=265,
+  serialized_start=129,
+  serialized_end=188,
 )
 
 
@@ -227,8 +165,8 @@ _DISCONNECTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=267,
-  serialized_end=307,
+  serialized_start=190,
+  serialized_end=230,
 )
 
 
@@ -258,8 +196,8 @@ _CONNECTIONSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=309,
-  serialized_end=342,
+  serialized_start=232,
+  serialized_end=265,
 )
 
 
@@ -289,8 +227,8 @@ _CONNECTIONSTATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=344,
-  serialized_end=390,
+  serialized_start=267,
+  serialized_end=313,
 )
 
 
@@ -320,8 +258,8 @@ _GENERICREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=392,
-  serialized_end=429,
+  serialized_start=315,
+  serialized_end=352,
 )
 
 
@@ -386,8 +324,8 @@ _CLOCKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=431,
-  serialized_end=534,
+  serialized_start=354,
+  serialized_end=457,
 )
 
 
@@ -417,8 +355,8 @@ _EMAILRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=536,
-  serialized_end=566,
+  serialized_start=459,
+  serialized_end=489,
 )
 
 
@@ -448,8 +386,8 @@ _CALENDARRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=568,
-  serialized_end=602,
+  serialized_start=491,
+  serialized_end=525,
 )
 
 
@@ -479,8 +417,8 @@ _WEATHERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=604,
-  serialized_end=635,
+  serialized_start=527,
+  serialized_end=558,
 )
 
 
@@ -510,12 +448,10 @@ _NEWSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=637,
-  serialized_end=669,
+  serialized_start=560,
+  serialized_end=592,
 )
 
-DESCRIPTOR.message_types_by_name['DiscoverRequest'] = _DISCOVERREQUEST
-DESCRIPTOR.message_types_by_name['DiscoverResponse'] = _DISCOVERRESPONSE
 DESCRIPTOR.message_types_by_name['ConnectionRequest'] = _CONNECTIONREQUEST
 DESCRIPTOR.message_types_by_name['ConnectionResponse'] = _CONNECTIONRESPONSE
 DESCRIPTOR.message_types_by_name['DisconnectRequest'] = _DISCONNECTREQUEST
@@ -529,20 +465,6 @@ DESCRIPTOR.message_types_by_name['CalendarResponse'] = _CALENDARRESPONSE
 DESCRIPTOR.message_types_by_name['WeatherResponse'] = _WEATHERRESPONSE
 DESCRIPTOR.message_types_by_name['NewsResponse'] = _NEWSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
-DiscoverRequest = _reflection.GeneratedProtocolMessageType('DiscoverRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DISCOVERREQUEST,
-  __module__ = 'Comms_pb2'
-  # @@protoc_insertion_point(class_scope:DiscoverRequest)
-  ))
-_sym_db.RegisterMessage(DiscoverRequest)
-
-DiscoverResponse = _reflection.GeneratedProtocolMessageType('DiscoverResponse', (_message.Message,), dict(
-  DESCRIPTOR = _DISCOVERRESPONSE,
-  __module__ = 'Comms_pb2'
-  # @@protoc_insertion_point(class_scope:DiscoverResponse)
-  ))
-_sym_db.RegisterMessage(DiscoverResponse)
 
 ConnectionRequest = _reflection.GeneratedProtocolMessageType('ConnectionRequest', (_message.Message,), dict(
   DESCRIPTOR = _CONNECTIONREQUEST,
@@ -636,8 +558,8 @@ _CONNECTIONCOMMS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=672,
-  serialized_end=922,
+  serialized_start=595,
+  serialized_end=791,
   methods=[
   _descriptor.MethodDescriptor(
     name='IntialConnection',
@@ -666,15 +588,6 @@ _CONNECTIONCOMMS = _descriptor.ServiceDescriptor(
     output_type=_DISCONNECTRESPONSE,
     serialized_options=None,
   ),
-  _descriptor.MethodDescriptor(
-    name='HostDiscovery',
-    full_name='ConnectionComms.HostDiscovery',
-    index=3,
-    containing_service=None,
-    input_type=_DISCOVERREQUEST,
-    output_type=_DISCOVERRESPONSE,
-    serialized_options=None,
-  ),
 ])
 _sym_db.RegisterServiceDescriptor(_CONNECTIONCOMMS)
 
@@ -687,8 +600,8 @@ _LISTENINGCOMMS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=925,
-  serialized_end=1187,
+  serialized_start=794,
+  serialized_end=1056,
   methods=[
   _descriptor.MethodDescriptor(
     name='ClockData',

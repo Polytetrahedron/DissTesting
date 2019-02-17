@@ -29,20 +29,28 @@ class ListeningServicer():
         return Comms_pb2.ClockResponse(hour=curr_hour, minute=curr_min, second=curr_second, day=curr_day, month=curr_month, year=curr_year)
 
     def EmailData(self, request, context):
+        print("Message Received: Email")
         pass
 
     def CalendarData(self, request, context):
+        print("Message Received: Calendar")
         pass
     
     def WeatherData(self, request, context):
-        pass
+        print("Message Received: Weather")
+        forecast = WeatherModule.get_weather('stirling')
+        for weather in forecast:
+            print(weather)
+            response = Comms_pb2.WeatherResponse(data=weather)
+            yield response
+
     
     def NewsData(self, request, context):
-        print("Message Received")
+        print("Message Received: News")
         recent_headlines = NewsModule.get_google_rss()
         for news in recent_headlines:
-            data = Comms_pb2.NewsResponse(headline=news) # This is what was causing the serialization error... I'm an idiot...
-            yield data
+            response = Comms_pb2.NewsResponse(headline=news) # This is what was causing the serialization error... I'm an idiot...
+            yield response
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor())

@@ -23,14 +23,13 @@ def darksky_config(latitude:float, longitude:float):
                 temperature = numbers[0] + numbers[1]
                 new_temp = convert_units(int(temperature), 2)
                 daily_sum = daily_sum.replace(i, new_temp)
-        print(daily_sum)
-
+        requested_forecast.append(daily_sum)
         for day in location.daily:
             day = dict(day = datetime.date.strftime(weekday, '%a'),
             sum = day.summary,
             temp_min = convert_units(day.temperatureMin),
             temp_max = convert_units(day.temperatureMax))
-            print('{day}: {sum} Temp Range: {temp_min} - {temp_max}'.format(**day)) # **kwargs for passing keyworded data
+            requested_forecast.append('{day}: {sum} Temp Range: {temp_min} - {temp_max}'.format(**day)) # **kwargs for passing keyworded data
             weekday += datetime.timedelta(days=1)
         return requested_forecast
 
@@ -38,28 +37,24 @@ def darksky_config(latitude:float, longitude:float):
 def convert_units(temperature:int, mode:int = 1):
     """
     This method converts the temperature units from the default (Fahrenheit) to Celsius
-    string_convert = str(round(celsius)) + u'\u2103' unicode alternative just in case
     """
-    #if(mode != 1):
     celsius = (temperature - 32) / 9 * 5
     if mode == 1:
         degree = '°'
     else:
         degree = u'\u2103' + " "
     string_convert = str(round(celsius)) + degree
-
     return string_convert
-
-def format_return_signal(weather_forecast:dict):
-    weather_forecast
-
-    pass
         
-def get_weather(location):
+def get_weather(location:str):
+    """
+    This will be the run configuration I am hoping that I can store large 
+    amounts of location information that would allow the user to choose their current
+    location easily.
+    """
     if(location == 'stirling'):
         stirling = [56.1190300, -3.9368200]
-        darksky_config(stirling[0], stirling[1])
+        return darksky_config(stirling[0], stirling[1])
 
 
-get_weather('stirling')
-#darksky_config()
+#get_weather('stirling')
