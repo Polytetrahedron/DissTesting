@@ -1,7 +1,7 @@
 import re
 import socket
 
-def scan_for_clients(ip:str):
+def scan_for_clients(ip:str, current_clients:list = None):
     """
     This method takes in the current host IP as an argument and 
     uses it to generate every possible other host on the network. This
@@ -12,13 +12,13 @@ def scan_for_clients(ip:str):
     """
     potential_client_addresses = []
     extracted_octets = ip.split('.')
-    host_address = extracted_octets[3] 
+    host_address = extracted_octets[3]
 
-    for i in range(1, 254): # standard class C address space
-        
-        if(i != host_address):
-            new_client = ip.replace()
+    for i in range(2, 253): # standard class C address space
+        #if(i != int(host_address)):
+        new_client = ip.replace(host_address, str(i))
+        potential_client_addresses.append(new_client)
+    return potential_client_addresses
 
 
-        print(extracted_octets)
-        
+#print(scan_for_clients('192.168.1.145'))
