@@ -44,9 +44,7 @@ function getClockData()
     payload[4] = response.getDay();
     payload[5] = response.getMonth();
     payload[6] = response.getYear();
-
-    console.log(response.getHour() + " " + response.getMinute() +" "+ response.getSecond());
-
+    //console.log(response.getHour() + " " + response.getMinute() +" "+ response.getSecond());
     process.send(payload);
     });
 }
@@ -64,6 +62,11 @@ function getHeadlines()
         //console.log(payload);
     });
 
+    stream.on('error', ()=>{
+        console.log('Error in stream!');
+        getHeadlines();
+    })
+
     stream.on('end', ()=>{
         process.send(payload)
     })
@@ -80,7 +83,6 @@ function getWeather()
     stream.on('data', (forecast)=>{
         payload[dataCounter] = forecast.getData();
         ++dataCounter;
-        //console.log(payload)
     });
 
     stream.on('error', ()=>{
@@ -91,4 +93,14 @@ function getWeather()
     stream.on('end', ()=>{
         process.send(payload)
     })
+}
+
+function getEmails()
+{
+
+}
+
+function getEvents()
+{
+    
 }

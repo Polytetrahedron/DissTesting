@@ -1,6 +1,17 @@
 import grpc
-import subprocess
-from NetworkTools import IPExtractor
-from Scanners import ClientScanner
+import multiprocessing
+import ServerHandler as content_server
 
-ClientScanner.scan_for_clients(IPExtractor.extract_local_IP())
+def scan_clients():
+    pass
+
+def create_content_server():
+    pass
+
+def create_connection_manager():
+    pass
+
+def run_harness():
+    pass
+
+content_server.serve()

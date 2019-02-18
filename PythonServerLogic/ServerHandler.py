@@ -1,5 +1,6 @@
 import grpc
 from concurrent import futures
+import multiprocessing
 import socket
 import time
 import datetime
@@ -53,7 +54,7 @@ class ListeningServicer():
             yield response
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor())
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     Comms_pb2_grpc.add_ListeningCommsServicer_to_server(ListeningServicer(), server)
     server.add_insecure_port(local_dhcp_address + ':' + std_server_port)
     print("Server Started")
@@ -66,5 +67,5 @@ def serve():
         server.stop(0)
 
 
-if __name__ == '__main__':
-    serve() 
+# if __name__ == '__main__':
+#     serve() 

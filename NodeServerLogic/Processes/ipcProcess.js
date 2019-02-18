@@ -17,6 +17,6 @@ process.on('message', (data)=>
 function startIPCService()
 {
     ipc.config.id = 'node-server-handler';
-    ipc.config.maxRetries = true;
+    ipc.config.maxRetries = 3;
     ipc.connectTo('mainExchange', () =>{});
 }
