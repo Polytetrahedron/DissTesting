@@ -47,33 +47,22 @@ function hostDiscovery(call, callback)
 
 function intialConnection()
 {
-
+    // Not implemented Not needed
 }
 
 function keepAlive()
 {
-
+    // Not implemented Not needed
 }
 
 function disconnectNode()
 {
-
+    // Not implemented Not needed
 }
-
-
-
-
-
-
-
-
-
-
 
 function createServerHandlers()
 {
     const ipcHandler = child.fork("./Processes/ipcProcess");
-    //ipcHandler.send(1);
     ipcHandler.on('message', (data)=>{});
 
     const grpcHandler = child.fork('./Processes/grpcProcess')

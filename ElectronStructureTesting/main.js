@@ -34,7 +34,6 @@ function createWindow()
                     window = null;
             })
 
-    //spawnWorkerProcesses();
     startIPCServer();
 }
 
@@ -49,6 +48,7 @@ function startIPCServer()
 
         ipc.server.on('connect', (data)=>{
             spawnWorkerProcesses();
+            console.log('processes spawned');
         });
         
         ipc.server.on('message', (message) =>{
@@ -83,22 +83,26 @@ function messageExchange(data)
         {
             data[0] = 'start';
             clock.send(data);
+            //console.log("here")
         }
         else if(messageID === 'news')
         {
+            //console.log(data);
 
         }
         else if(messageID === 'email')
         {
+            //console.log(data);
 
         }
         else if(messageID === 'weather')
         {
+            //console.log(data);
 
         }
         else if(messageID === 'calendar')
         {
-
+            //console.log(data)
         }
     }
 }

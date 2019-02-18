@@ -41,7 +41,6 @@ class ListeningServicer():
         print("Message Received: Weather")
         forecast = WeatherModule.get_weather('stirling')
         for weather in forecast:
-            print(weather)
             response = Comms_pb2.WeatherResponse(data=weather)
             yield response
 

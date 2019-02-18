@@ -55,11 +55,18 @@ function getClockData()
 function getHeadlines()
 {
     var payload = ['news'];
+    var dataCounter = 1;
 
     var stream = client.newsData(sendRequest);
     stream.on('data', (headline)=>{
-        console.log(headline);
+        payload[dataCounter] = headline.getHeadline();
+        ++dataCounter;
+        //console.log(payload);
     });
+
+    stream.on('end', ()=>{
+        process.send(payload)
+    })
 
 
 }
@@ -67,19 +74,21 @@ function getHeadlines()
 function getWeather()
 {
     var payload = ['weather'];
+    var dataCounter = 1
 
     var stream = client.weatherData(sendRequest);
     stream.on('data', (forecast)=>{
-        console.log(forecast);
+        payload[dataCounter] = forecast.getData();
+        ++dataCounter;
+        //console.log(payload)
     });
-    stream.on('err', ()=>{
+
+    stream.on('error', ()=>{
         console.log("Stream error: Retrying...")
         getWeather();
+    });
+
+    stream.on('end', ()=>{
+        process.send(payload)
     })
-}
-
-
-function createListener()
-{
-
 }
