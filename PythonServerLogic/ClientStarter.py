@@ -2,16 +2,16 @@ import grpc
 from NetworkTools import IPExtractor
 from Scanners import ClientScanner
 import Comms_pb2
-import Comms_pb2_grpc
+import Comms_pb2_grpc 
 
-std_server_port = "4536"
+discovery_port = "4536"
 
 def run():
     ip = IPExtractor.extract_local_IP()
     potential_clients = ClientScanner.scan_for_clients(ip)
 
     #for i in potential_clients:
-    with grpc.insecure_channel('192.168.0.8' + ":" + std_server_port) as channel:
+    with grpc.insecure_channel('192.168.1.145' + ":" + discovery_port) as channel:
         try:
             #grpc.channel_ready_future(channel).result(timeout=1)
             stub = Comms_pb2_grpc.ConnectionCommsStub(channel)

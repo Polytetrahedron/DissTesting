@@ -7,7 +7,7 @@ let serverIP;
 let serverPort;
 let client;
 let sendRequest; // this can be generic as the method being called is the method that dictates the returned data not the request itself
-
+let startup = true
 
 //TODO this needs fixed like pronto
 process.on('message', (data)=>
@@ -28,9 +28,25 @@ function createClient()
 
     sendRequest.setRequestdata("data please");
 
-    getClockData();
+    pollingInterval = (Math.random() * 10000) + 120000
+    console.log("polling server every: " + pollingInterval)
+
+    pollForData();
+    
+    setInterval(pollForData, pollingInterval)
+}
+
+function pollForData()
+{
+    if(startup === true)
+    {
+        getClockData();
+        startup = false;
+    }
     getHeadlines();
     getWeather();
+    getEvents();
+    getEmails();
 }
 
 function getClockData()

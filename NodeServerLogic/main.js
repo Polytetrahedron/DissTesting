@@ -24,7 +24,7 @@ function startServer()
         disconnectNode: disconnectNode
     });
     server.bind(local_ip + ':' + listening_port, grpc.ServerCredentials.createInsecure());
-    console.log("Node Server Started");
+    console.log("Node Server Started: Waiting for Server");
     server.start();
 }
 

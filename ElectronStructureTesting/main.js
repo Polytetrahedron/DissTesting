@@ -48,7 +48,6 @@ function startIPCServer()
 
         ipc.server.on('connect', (data)=>{
             spawnWorkerProcesses();
-            console.log('processes spawned');
         });
         
         ipc.server.on('message', (message) =>{
@@ -83,12 +82,10 @@ function messageExchange(data)
         {
             data[0] = 'start';
             clock.send(data);
-            //console.log("here")
         }
         else if(messageID === 'news')
         {
-            //console.log(data);
-
+            window.webContents.send('news', data); 
         }
         else if(messageID === 'email')
         {
@@ -97,7 +94,7 @@ function messageExchange(data)
         }
         else if(messageID === 'weather')
         {
-            //console.log(data);
+            window.webContents.send('weather', data);
 
         }
         else if(messageID === 'calendar')
@@ -105,4 +102,14 @@ function messageExchange(data)
             //console.log(data)
         }
     }
+}
+
+function stripID(list)
+{
+    var newList;
+    for(var i = 1; i < list.length; i++)
+    {
+        newList[i-1] = list[i]
+    }
+    return newList
 }
