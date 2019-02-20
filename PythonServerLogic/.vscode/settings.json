@@ -2,5 +2,6 @@
     "git.ignoreLimitWarning": true,
     "cSpell.words": [
         "pyftpdlib"
-    ]
+    ],
+    "python.pythonPath": "venv\\Scripts\\python.exe"
 }

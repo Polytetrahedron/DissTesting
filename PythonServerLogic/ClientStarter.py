@@ -11,7 +11,7 @@ def run():
     potential_clients = ClientScanner.scan_for_clients(ip)
 
     #for i in potential_clients:
-    with grpc.insecure_channel('192.168.1.145' + ":" + discovery_port) as channel:
+    with grpc.insecure_channel(ip + ":" + discovery_port) as channel:
         try:
             #grpc.channel_ready_future(channel).result(timeout=1)
             stub = Comms_pb2_grpc.ConnectionCommsStub(channel)
