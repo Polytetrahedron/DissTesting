@@ -9,7 +9,6 @@ def scan_clients():
 
 def create_content_server():
     content_server.serve()
-    pass
 
 def create_connection_manager():
     pass

@@ -7,7 +7,7 @@ import datetime
 import ClientStarter
 
 #These are the custom behavior modules
-from DataModules import EmailModule, NewsModule, WeatherModule
+from DataModules import EmailModule, NewsModule, WeatherModule, CalendarModule
 from NetworkTools import IPExtractor
 import Comms_pb2, Comms_pb2_grpc
 
@@ -28,11 +28,17 @@ class ListeningServicer():
 
     def EmailData(self, request, context):
         print("Message Received: Email")
-        pass
+        email_list = EmailModule.connect_to_mail_server()
+        for email in email_list:
+            response = Comms_pb2.EmailResponse(email=email)
+            yield response
 
     def CalendarData(self, request, context):
         print("Message Received: Calendar")
-        pass
+        event_list = CalendarModule.get_calendar_events('User2')
+        for event in event_list:
+            response = Comms_pb2.CalendarResponse(events=event)
+            yield response
     
     def WeatherData(self, request, context):
         print("Message Received: Weather")

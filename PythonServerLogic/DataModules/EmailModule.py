@@ -15,29 +15,19 @@ user_email_password = "KillMe123" #ignore this it was late and legit I had been 
 gmail_server_address = "imap.gmail.com"
 current_email_list = [] #This stores the times and subjects of emails in the inbox
 
-def extract_from_byte_data(message):
-    """
-    This method takes the bytes extracted from the IMAP fetch request and parses each email into 
-    usable string data that will be formatted and displayed to the user via the front interface.
-    """
-    if message.is_multipart():
-        return extract_from_byte_data(message.get_payload(0))
-    else:
-        return message.get_payload(None, True)
 
-
-
-def format_email():
+def format_email(subject:str, sender:str):
     """
     This method will take the extracted string data from the bytes and format it into a way that is 
     both easy to work with/query and also make it pleasing and meaningful to the user to whom it is 
     displayed (This last bit is proably the most important :) )
     """
-    return True
+    return sender + ': ' + subject 
+    pass
 
 
 
-def fetch_email(connection_to_server):
+def fetch_email(connection_to_server:object):
     """
     This method will take the connection created in the starter method and use it to fetch the data 
     from the users mailbox. This will return the bytes of the email and these will need to be parsed in
@@ -48,20 +38,25 @@ def fetch_email(connection_to_server):
     while(True):
         fetch_counter = f'{counter}'
         result, data = connection_to_server.fetch(fetch_counter,'(RFC822)')
-        if(result == False):
-            print("ERROR: Could not fetch from server")
-            break
-        counter += 1
-        extracted_data = email.message_from_bytes(data[0][1])
-        print(extract_from_byte_data(extracted_data))
-        email_list.append(data)
-        if(counter != 5):
+        for response_part in data:
+            if isinstance(response_part, tuple):
+                header_data = response_part[1].decode('utf-8')
+                retrieved_message = email.message_from_string(header_data)
+                email_subject = retrieved_message['subject']
+                email_from = retrieved_message['from']
+                formatted_email = format_email(email_subject, email_from)
+                email_list.append(formatted_email)
+                counter += 1
+            else:
+                counter += 1
+                break;
+        if(counter != 10):
             continue
         else:
             break
     return email_list
 
-def connect_to_mail_server():
+def connect_to_mail_server(user:str = None):
     """
     This method connects to the external mail service and collects a users emails 
     from their inbox. Only the inbox is scanned as nobody really cares about SPAM
@@ -75,4 +70,4 @@ def connect_to_mail_server():
     return fetch_email(connection)
 
 
-#connect_to_mail_server()
+print(connect_to_mail_server())

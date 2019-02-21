@@ -45,7 +45,7 @@ function pollForData()
     }
     getHeadlines();
     getWeather();
-    getEvents();
+    getCalendar();
     getEmails();
 }
 
@@ -75,48 +75,73 @@ function getHeadlines()
     stream.on('data', (headline)=>{
         payload[dataCounter] = headline.getHeadline();
         ++dataCounter;
-        //console.log(payload);
     });
 
     stream.on('error', ()=>{
         console.log('Error in stream!');
-        getHeadlines();
     })
 
     stream.on('end', ()=>{
         process.send(payload)
     })
-
-
 }
 
 function getWeather()
 {
     var payload = ['weather'];
-    var dataCounter = 1
+    dataCounter = 1;
 
     var stream = client.weatherData(sendRequest);
     stream.on('data', (forecast)=>{
         payload[dataCounter] = forecast.getData();
-        ++dataCounter;
+        ++dataCounter
     });
 
     stream.on('error', ()=>{
         console.log("Stream error: Retrying...")
-        getWeather();
     });
 
     stream.on('end', ()=>{
         process.send(payload)
-    })
+    });
 }
 
 function getEmails()
 {
+    var payload = ['email'];
+    var dataCounter = 1
 
+    var stream = client.emailData(sendRequest);
+    stream.on('data', (email)=>{
+        payload[dataCounter] = email.getEmail();
+        ++dataCounter;
+    });
+
+    stream.on('error', ()=>{
+        console.log("Stream error!");
+    });
+
+    stream.on('end', ()=>{
+        process.send(payload);
+    });
 }
 
-function getEvents()
+function getCalendar()
 {
-    
+    var payload = ['calendar'];
+    var dataCounter = 1
+
+    var stream = client.calendarData(sendRequest);
+    stream.on('data', (events)=>{
+        payload[dataCounter] = events.getEvents();
+        ++dataCounter;
+    });
+
+    stream.on('error', ()=>{
+        console.log("Stream error!");
+    });
+
+    stream.on('end', ()=>{
+        process.send(payload);
+    });
 }

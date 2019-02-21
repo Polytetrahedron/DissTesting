@@ -89,7 +89,7 @@ function messageExchange(data)
         }
         else if(messageID === 'email')
         {
-            //console.log(data);
+            window.webContents.send('email', data);
 
         }
         else if(messageID === 'weather')
@@ -99,7 +99,7 @@ function messageExchange(data)
         }
         else if(messageID === 'calendar')
         {
-            //console.log(data)
+            window.webContents.send('calendar', data);
         }
     }
 }

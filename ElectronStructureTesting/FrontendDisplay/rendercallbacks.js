@@ -22,7 +22,15 @@ ipcRenderer.on('news', (event, args)=>
 ipcRenderer.on('weather', (event, args)=>{
     console.log(args)
     listCreate(args, 'testWeather')
-})
+});
+
+ipcRenderer.on('calendar', (event, args)=>{
+    listCreate(args, 'testEvents');
+});
+
+ipcRenderer.on('email', (event, args)=>{
+    listCreate(args, 'testEmail')
+});
 
 function listCreate(list, element)
 {
@@ -41,14 +49,3 @@ function listCreate(list, element)
     }
 }
 
-function createListItems(list)
-{
-    var list = document.createElement('ul');
-    for(var i = 1; i < list.length - 1; i++)
-    {
-        var listItem = document.createElement('li');
-        listItem.appendChild(list[i]);
-        list.appendChild(listItem);
-    }
-    return list
-}
