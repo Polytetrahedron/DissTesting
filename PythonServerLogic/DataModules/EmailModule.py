@@ -23,7 +23,17 @@ def format_email(subject:str, sender:str):
     displayed (This last bit is proably the most important :) )
     """
     return sender + ': ' + subject 
-    pass
+
+def search_inbox(connection_to_server:object):
+    """
+    This method searches the selected mailbox and and extracts all of the email id's
+    it then selects the most recent one and returns it to the calling method
+    """
+    result, data = connection_to_server.search(None, 'all')
+    email_ids = data[0]
+    inbox_id_list = email_ids.split()
+    return inbox_id_list[-1]
+    
 
 
 
@@ -34,7 +44,8 @@ def fetch_email(connection_to_server:object):
     order to use them in any user meaningful way
     """
     email_list = []
-    counter = 1
+    counter = int(search_inbox(connection_to_server))
+    retrieval_counter = 1
     while(True):
         fetch_counter = f'{counter}'
         result, data = connection_to_server.fetch(fetch_counter,'(RFC822)')
@@ -46,11 +57,12 @@ def fetch_email(connection_to_server:object):
                 email_from = retrieved_message['from']
                 formatted_email = format_email(email_subject, email_from)
                 email_list.append(formatted_email)
-                counter += 1
             else:
-                counter += 1
-                break;
-        if(counter != 10):
+                if counter != 1:
+                    counter -= 1
+                retrieval_counter +=1
+                break
+        if(retrieval_counter != 10 and counter != 1):
             continue
         else:
             break
@@ -70,4 +82,4 @@ def connect_to_mail_server(user:str = None):
     return fetch_email(connection)
 
 
-print(connect_to_mail_server())
+#print(connect_to_mail_server())

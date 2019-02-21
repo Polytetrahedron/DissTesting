@@ -22,7 +22,7 @@ class ListeningServicer():
         curr_min = current_server_time.minute
         curr_second = current_server_time.second
         curr_day = current_server_time.day
-        curr_month = current_server_time.month - 1
+        curr_month = current_server_time.month - 1 # node uses 0 based scheme for months
         curr_year = current_server_time.year
         return Comms_pb2.ClockResponse(hour=curr_hour, minute=curr_min, second=curr_second, day=curr_day, month=curr_month, year=curr_year)
 
@@ -52,7 +52,7 @@ class ListeningServicer():
         print("Message Received: News")
         recent_headlines = NewsModule.get_google_rss()
         for news in recent_headlines:
-            response = Comms_pb2.NewsResponse(headline=news) # This is what was causing the serialization error... I'm an idiot...
+            response = Comms_pb2.NewsResponse(headline=news)
             yield response
 
 def serve():

@@ -10,8 +10,7 @@ service ConnectionComms
     This is the connection communications used for connecting and disconnectiing from
     the server. These will be used by the client.
     */
-    rpc IntialConnection (ConnectionRequest) returns (ConnectionResponse);
-    rpc KeepAlive (ConnectionStatus) returns (ConnectionStatusResponse);
+    rpc FTPConnection (FTPRequest) returns (FTPResponse);
     rpc DisconnectNode (DisconnectRequest) returns (DisconnectResponse);
     rpc HostDiscovery (DiscoverRequest) returns (DiscoverResponse);
 }
@@ -26,13 +25,13 @@ message DiscoverResponse
     string server_ip =1;
 }
 
-message ConnectionRequest
+message FTPRequest
 {
     int32 connect = 1;
     string nodeHostIP = 2;
 }
 
-message ConnectionResponse
+message FTPResponse
 {
     int32 accepted = 1;
     int32 denied = 2;
@@ -47,16 +46,6 @@ message DisconnectRequest
 message DisconnectResponse
 {
     int32 disconnect = 1;
-}
-
-message ConnectionStatus
-{
-    int32 alive = 1;
-}
-
-message ConnectionStatusResponse
-{
-    int32 stillAlive = 1;
 }
 
 
@@ -79,7 +68,8 @@ message GenericRequest
     //This is just an empty request as there is no data needed by the server
     // The response is sent by the server to the original sender automatically
     // Actually this could be cool. It could send the host IP as an identifier for diagnostic! that's cool amma do that 
-    string requestData = 1;
+    string requestData = 1; // This is the user requesting it
+    string requestingHost = 2; // This is the host that the user is on
 }
 
 
