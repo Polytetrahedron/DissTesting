@@ -60,7 +60,7 @@ def serve():
     Comms_pb2_grpc.add_ListeningCommsServicer_to_server(ListeningServicer(), server)
     server.add_insecure_port(local_dhcp_address + ':' + std_server_port)
     print("Server Started")
-    ClientStarter.run();
+    #ClientStarter.run();
     server.start()
     try:
         while True:
