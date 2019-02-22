@@ -6,17 +6,34 @@ const dataLayout = require('../ProtoFiles/Comms_pb');
 let serverIP;
 let serverPort;
 let client;
-let sendRequest; // this can be generic as the method being called is the method that dictates the returned data not the request itself
-let startup = true
+let sendRequest;
+let startup = true;
+let serverCall;
 
 //TODO this needs fixed like pronto
 process.on('message', (data)=>
 {
-    if(data[0] == 'config')
+    if(data[0] === 'config')
     {
         serverIP = data[1];
         serverPort = data[2];
         createClient();
+    }
+    else if(data[0] === 'user')
+    {
+        //user name and request data
+
+    }
+    else if(data[0] === 'sysCall')
+    {
+        if(data[1] === 'locked')
+        {
+
+        }
+        else if(data[1] === 'unlocked')
+        {
+
+        }
     }
 });
 
@@ -33,7 +50,7 @@ function createClient()
 
     pollForData();
     
-    setInterval(pollForData, pollingInterval)
+    serverCall = setInterval(pollForData, pollingInterval);
 }
 
 function pollForData()
@@ -60,7 +77,6 @@ function getClockData()
     payload[4] = response.getDay();
     payload[5] = response.getMonth();
     payload[6] = response.getYear();
-    //console.log(response.getHour() + " " + response.getMinute() +" "+ response.getSecond());
     process.send(payload);
     });
 }

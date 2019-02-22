@@ -108,14 +108,3 @@ function restartService()
 {
     time = new ClientClock("","","","","","")
 }
-
-// process.on('message', (event)=>
-// {
-//     newTime = time.checkTime();
-//     clientDate.setTime(newTime.getTime());
-//     process.send(clientDate.toLocaleTimeString());
-// });
-
-// process.on('clock', (event)=>{
-//     process.send('clock', clientDate.toLocaleDateString());
-// });

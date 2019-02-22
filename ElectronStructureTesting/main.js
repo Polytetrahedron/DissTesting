@@ -104,12 +104,3 @@ function messageExchange(data)
     }
 }
 
-function stripID(list)
-{
-    var newList;
-    for(var i = 1; i < list.length; i++)
-    {
-        newList[i-1] = list[i]
-    }
-    return newList
-}
