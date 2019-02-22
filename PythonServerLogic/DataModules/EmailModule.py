@@ -2,6 +2,7 @@ import imaplib
 import email
 import time
 import json
+import base64
 
 """
 This file contains the logic for retrieving a users emails from a specific source 
@@ -11,14 +12,16 @@ not used as it will require more work with regards to both user interaction and 
 in order to make this as effective as possible.
 """
 
-user_email = "RPITestMark@gmail.com"
-user_email_password = "KillMe123"
 gmail_server_address = "imap.gmail.com"
 current_email_list = [] #This stores the times and subjects of emails in the inbox
 
 def load_user_data(user:str):
     with open('./DataModules/UsersFolder/' + user + '/' + user +'.json') as profile:
-        return json.load(profile)
+        user_info = json.load(profile)
+    password = user_info['password']
+    extracted_password = base64.decodebytes(password.encode())
+    extracted_password = extracted_password.decode()
+    return user_info['email'], extracted_password
 
 def format_email(subject:str, sender:str):
     """
@@ -81,9 +84,11 @@ def connect_to_mail_server(user:str = None):
     this mirror is intended for.
     """
     connection = imaplib.IMAP4_SSL(gmail_server_address)
-    connection.login(user_email, user_email_password)
+    user_email, user_password = load_user_data(user)
+    connection.login(user_email, user_password)
     connection.select("inbox")
     return fetch_email(connection)
 
 
 #print(connect_to_mail_server())
+#print(load_user_data('User4'))
