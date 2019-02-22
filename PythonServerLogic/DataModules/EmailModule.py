@@ -1,6 +1,7 @@
 import imaplib
 import email
 import time
+import json
 
 """
 This file contains the logic for retrieving a users emails from a specific source 
@@ -11,10 +12,13 @@ in order to make this as effective as possible.
 """
 
 user_email = "RPITestMark@gmail.com"
-user_email_password = "KillMe123" #ignore this it was late and legit I had been trying to make an account for hours
+user_email_password = "KillMe123"
 gmail_server_address = "imap.gmail.com"
 current_email_list = [] #This stores the times and subjects of emails in the inbox
 
+def load_user_data(user:str):
+    with open('./DataModules/UsersFolder/' + user + '/' + user +'.json') as profile:
+        return json.load(profile)
 
 def format_email(subject:str, sender:str):
     """

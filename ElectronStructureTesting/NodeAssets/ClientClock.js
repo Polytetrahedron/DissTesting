@@ -73,7 +73,6 @@ class ClientClock
             else
             {
                 newTime.setDate(++currentDay);
-
             }
         }
         else if(currentMonth == 1)

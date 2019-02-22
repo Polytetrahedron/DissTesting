@@ -32,6 +32,6 @@ def attempt_client_connection(client_ip:str = '192.168.1.145'):
             response = stub.HostDiscovery(Comms_pb2.DiscoverRequest(server_ip=ip))
             print(response)
         except:
-            print('Exception on grpc channel: No host at address:' + " " )
+            print('Exception on grpc channel: No host at address: ' + client_ip )
                 
 #run()

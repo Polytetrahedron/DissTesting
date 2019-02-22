@@ -12,17 +12,17 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'] # this dictates t
 
 def check_account_token(user:str):
     credentials = None
-    if os.path.exists('./UsersFolder/'  +user + '/token.pickle'):
-        with open('./UsersFolder/' + user + '/token.pickle', 'rb') as token:
+    if os.path.exists('./DataModules/UsersFolder/'  +user + '/token.pickle'):
+        with open('./DataModules/UsersFolder/' + user + '/token.pickle', 'rb') as token:
             credentials = pickle.load(token)
     if not credentials or not credentials.valid:
         if credentials and credentials.expired and credentials.refresh_token:
             credentials.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                './tokens/credentials.json', SCOPES)
+                './DataModules/tokens/credentials.json', SCOPES)
             credentials = flow.run_local_server()
-            with open('./UsersFolder/' + user + '/token.pickle', 'wb') as token:
+            with open('./DataModules/UsersFolder/' + user + '/token.pickle', 'wb') as token:
                 pickle.dump(credentials, token)
         return credentials
 
@@ -45,4 +45,4 @@ def get_calendar_events(user:str):
             events_passback.append(events['summary'])
         return events_passback
 
-# print(get_calendar_events('User2'))   
+#print(get_calendar_events('User2'))   
