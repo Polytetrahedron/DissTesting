@@ -3,6 +3,10 @@ import dlib
 import numpy as np
 import pickle
 
+create_user_mode = False
+picturecounter = 0
+
+
 cascade = cv2.CascadeClassifier("data/haarcascade_frontalface_alt2.xml")
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("train.yml")
@@ -29,6 +33,9 @@ while(True):
     for(x,y,w,h) in faces:
         region_of_interest = greyscale[y:y+h, x:x+w] # detecting region of interest in the frame i.e. the face in the frame
         id_, dist = recognizer.predict(region_of_interest) # make a prediction on who is there
+        image = str(picturecounter) + ".png" # name of the file
+        cv2.imwrite(image, region_of_interest) # writing the captured roi to a file
+        picturecounter += 1
         print(id_)
         print(dist)
         if dist <= 60 : # if the distance is acceptable
@@ -55,6 +62,3 @@ video_capture.release()
 cv2.destroyAllWindows()
 
 
-        # image = str(picturecounter) + ".png" # name of the file
-        # cv2.imwrite(image, region_of_interest) # writing the captured roi to a file
-        # picturecounter += 1

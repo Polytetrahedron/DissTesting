@@ -48,4 +48,4 @@ def get_calendar_events(user:str):
             events_passback.append(events['summary'] + ' : ' + start)
         return events_passback
 
-print(get_calendar_events('User6'))   
+#print(get_calendar_events('User6'))   
