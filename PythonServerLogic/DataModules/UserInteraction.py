@@ -57,5 +57,4 @@ def create_user():
     
     create_user_folder(user_data)
     
-    
 create_user()

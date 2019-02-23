@@ -37,6 +37,7 @@ def get_calendar_events(user:str):
     retrieved_events = calendar_service.events().list(calendarId='primary', timeMin=event_time, maxResults=5, singleEvents=True, orderBy='startTime').execute()
 
     event_list = retrieved_events.get('items', [])
+    #print(event_list)
 
     if not event_list:
         events_passback.append('No upcoming events!')
@@ -44,7 +45,7 @@ def get_calendar_events(user:str):
     else:
         for events in event_list:
             start = events['start'].get('dateTime', events['start'].get('date'))
-            events_passback.append(events['summary'])
+            events_passback.append(events['summary'] + ' : ' + start)
         return events_passback
 
-print(get_calendar_events('User3'))   
+print(get_calendar_events('User6'))   
