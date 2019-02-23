@@ -5,14 +5,16 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import logging
+import os
 
 logging.getLogger('googleapiclient.discovery_cache').setLevel(logging.ERROR)
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = './DataModules/tokens/DissMirror.json'
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'] # this dictates the scope of the token for the account e.g. read only
 
 def check_account_token(user:str):
     credentials = None
-    if os.path.exists('./DataModules/UsersFolder/'  +user + '/token.pickle'):
+    if os.path.exists('./DataModules/UsersFolder/'  + user + '/token.pickle'):
         with open('./DataModules/UsersFolder/' + user + '/token.pickle', 'rb') as token:
             credentials = pickle.load(token)
     if not credentials or not credentials.valid:
@@ -31,18 +33,18 @@ def get_calendar_events(user:str):
     credentials = check_account_token(user)
     calendar_service = build('calendar', 'v3', credentials=credentials)
     event_time = datetime.datetime.utcnow().isoformat() + 'Z'
-
     print("For: " + user + " getting calendar events")
     retrieved_events = calendar_service.events().list(calendarId='primary', timeMin=event_time, maxResults=5, singleEvents=True, orderBy='startTime').execute()
 
     event_list = retrieved_events.get('items', [])
 
     if not event_list:
-        return "No upcoming events"
+        events_passback.append('No upcoming events!')
+        return events_passback
     else:
         for events in event_list:
             start = events['start'].get('dateTime', events['start'].get('date'))
             events_passback.append(events['summary'])
         return events_passback
 
-#print(get_calendar_events('User2'))   
+print(get_calendar_events('User3'))   

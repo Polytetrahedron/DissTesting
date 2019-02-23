@@ -5,6 +5,7 @@ import base64
 import getpass
 import CalendarModule, EmailModule
 
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = './tokens/credentials.json'
 
 def create_user_folder(data:dict):
     user_folder = 'User'
@@ -13,19 +14,16 @@ def create_user_folder(data:dict):
 
     for root, dirs, files in os.walk(user_directory):
         for i in range(1,50):
-            if user_folder + str(i) not in dirs:
-                new_user_folder = user_folder + str(i)
+            new_user_folder = user_folder + str(i)
+            if new_user_folder not in dirs:
                 created_user_directory = user_directory + '/' + new_user_folder
                 os.mkdir(created_user_directory)
                 with open(created_user_directory + '/' + new_user_folder + '.json', 'w') as new_user:
                     json.dump(data, new_user)
-                CalendarModule.check_account_token(new_user_folder)
+                CalendarModule.get_calendar_events(new_user_folder)
                 break
             else:
                 continue  
-
-    # var = base64.b64decode(user_data['password'])
-    # print(var.decode())
 
 
 
