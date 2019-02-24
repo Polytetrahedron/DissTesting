@@ -26,50 +26,6 @@ function deserialize_ClockResponse(buffer_arg) {
   return Comms_pb.ClockResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_ConnectionRequest(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionRequest)) {
-    throw new Error('Expected argument of type ConnectionRequest');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_ConnectionRequest(buffer_arg) {
-  return Comms_pb.ConnectionRequest.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_ConnectionResponse(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionResponse)) {
-    throw new Error('Expected argument of type ConnectionResponse');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_ConnectionResponse(buffer_arg) {
-  return Comms_pb.ConnectionResponse.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_ConnectionStatus(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionStatus)) {
-    throw new Error('Expected argument of type ConnectionStatus');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_ConnectionStatus(buffer_arg) {
-  return Comms_pb.ConnectionStatus.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_ConnectionStatusResponse(arg) {
-  if (!(arg instanceof Comms_pb.ConnectionStatusResponse)) {
-    throw new Error('Expected argument of type ConnectionStatusResponse');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_ConnectionStatusResponse(buffer_arg) {
-  return Comms_pb.ConnectionStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
 function serialize_DisconnectRequest(arg) {
   if (!(arg instanceof Comms_pb.DisconnectRequest)) {
     throw new Error('Expected argument of type DisconnectRequest');
@@ -125,6 +81,28 @@ function deserialize_EmailResponse(buffer_arg) {
   return Comms_pb.EmailResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_FTPRequest(arg) {
+  if (!(arg instanceof Comms_pb.FTPRequest)) {
+    throw new Error('Expected argument of type FTPRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_FTPRequest(buffer_arg) {
+  return Comms_pb.FTPRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_FTPResponse(arg) {
+  if (!(arg instanceof Comms_pb.FTPResponse)) {
+    throw new Error('Expected argument of type FTPResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_FTPResponse(buffer_arg) {
+  return Comms_pb.FTPResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_GenericRequest(arg) {
   if (!(arg instanceof Comms_pb.GenericRequest)) {
     throw new Error('Expected argument of type GenericRequest');
@@ -147,6 +125,28 @@ function deserialize_NewsResponse(buffer_arg) {
   return Comms_pb.NewsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_UnlockRequest(arg) {
+  if (!(arg instanceof Comms_pb.UnlockRequest)) {
+    throw new Error('Expected argument of type UnlockRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_UnlockRequest(buffer_arg) {
+  return Comms_pb.UnlockRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_UnlockResponse(arg) {
+  if (!(arg instanceof Comms_pb.UnlockResponse)) {
+    throw new Error('Expected argument of type UnlockResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_UnlockResponse(buffer_arg) {
+  return Comms_pb.UnlockResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_WeatherResponse(arg) {
   if (!(arg instanceof Comms_pb.WeatherResponse)) {
     throw new Error('Expected argument of type WeatherResponse');
@@ -166,27 +166,16 @@ var ConnectionCommsService = exports.ConnectionCommsService = {
   //
   // This is the connection communications used for connecting and disconnectiing from
   // the server. These will be used by the client.
-  intialConnection: {
-    path: '/ConnectionComms/IntialConnection',
+  fTPConnection: {
+    path: '/ConnectionComms/FTPConnection',
     requestStream: false,
     responseStream: false,
-    requestType: Comms_pb.ConnectionRequest,
-    responseType: Comms_pb.ConnectionResponse,
-    requestSerialize: serialize_ConnectionRequest,
-    requestDeserialize: deserialize_ConnectionRequest,
-    responseSerialize: serialize_ConnectionResponse,
-    responseDeserialize: deserialize_ConnectionResponse,
-  },
-  keepAlive: {
-    path: '/ConnectionComms/KeepAlive',
-    requestStream: false,
-    responseStream: false,
-    requestType: Comms_pb.ConnectionStatus,
-    responseType: Comms_pb.ConnectionStatusResponse,
-    requestSerialize: serialize_ConnectionStatus,
-    requestDeserialize: deserialize_ConnectionStatus,
-    responseSerialize: serialize_ConnectionStatusResponse,
-    responseDeserialize: deserialize_ConnectionStatusResponse,
+    requestType: Comms_pb.FTPRequest,
+    responseType: Comms_pb.FTPResponse,
+    requestSerialize: serialize_FTPRequest,
+    requestDeserialize: deserialize_FTPRequest,
+    responseSerialize: serialize_FTPResponse,
+    responseDeserialize: deserialize_FTPResponse,
   },
   disconnectNode: {
     path: '/ConnectionComms/DisconnectNode',
@@ -209,6 +198,28 @@ var ConnectionCommsService = exports.ConnectionCommsService = {
     requestDeserialize: deserialize_DiscoverRequest,
     responseSerialize: serialize_DiscoverResponse,
     responseDeserialize: deserialize_DiscoverResponse,
+  },
+  fTPInitialize: {
+    path: '/ConnectionComms/FTPInitialize',
+    requestStream: false,
+    responseStream: false,
+    requestType: Comms_pb.FTPRequest,
+    responseType: Comms_pb.FTPResponse,
+    requestSerialize: serialize_FTPRequest,
+    requestDeserialize: deserialize_FTPRequest,
+    responseSerialize: serialize_FTPResponse,
+    responseDeserialize: deserialize_FTPResponse,
+  },
+  faceUnlock: {
+    path: '/ConnectionComms/FaceUnlock',
+    requestStream: false,
+    responseStream: false,
+    requestType: Comms_pb.UnlockRequest,
+    responseType: Comms_pb.UnlockResponse,
+    requestSerialize: serialize_UnlockRequest,
+    requestDeserialize: deserialize_UnlockRequest,
+    responseSerialize: serialize_UnlockResponse,
+    responseDeserialize: deserialize_UnlockResponse,
   },
 };
 

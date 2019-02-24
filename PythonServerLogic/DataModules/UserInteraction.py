@@ -4,27 +4,40 @@ import re
 import base64
 import getpass
 import CalendarModule, EmailModule
+from FaceTesting import facecapture, trainclassifier
 
-#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = './tokens/credentials.json'
+def train_on_user(user:str = None):
+    facecapture.run_analyser(user)
+    trainclassifier.generate_training_data()
+
 
 def create_user_folder(data:dict):
     user_folder = 'User'
     user_directory = "./DataModules/UsersFolder"
+    training_directory = "./DataModules/FaceTesting/images"
     created_user_directory = None
+    current_structure = None
 
     for root, dirs, files in os.walk(user_directory):
-        for i in range(1,50):
-            new_user_folder = user_folder + str(i)
-            if new_user_folder not in dirs:
-                created_user_directory = user_directory + '/' + new_user_folder
-                os.mkdir(created_user_directory)
-                with open(created_user_directory + '/' + new_user_folder + '.json', 'w') as new_user:
-                    json.dump(data, new_user)
-                CalendarModule.get_calendar_events(new_user_folder)
-                break
-            else:
-                continue  
+        current_structure = dirs
+        break
 
+
+    for i in range(1,50):
+        new_user_folder = user_folder + str(i)
+        if new_user_folder not in current_structure:
+            created_user_directory = user_directory + '/' + new_user_folder
+            created_training_directory = training_directory + '/' + new_user_folder
+            os.mkdir(created_user_directory)
+            os.mkdir(created_training_directory)
+            with open(created_user_directory + '/' + new_user_folder + '.json', 'w') as new_user:
+                json.dump(data, new_user)
+            CalendarModule.check_account_token(new_user_folder)
+            if train_on_user(new_user_folder):
+                trainclassifier.generate_training_data()
+            break
+        else:
+          continue  
 
 
 def create_user():

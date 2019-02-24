@@ -16,15 +16,10 @@ class ConnectionCommsStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.IntialConnection = channel.unary_unary(
-        '/ConnectionComms/IntialConnection',
-        request_serializer=Comms__pb2.ConnectionRequest.SerializeToString,
-        response_deserializer=Comms__pb2.ConnectionResponse.FromString,
-        )
-    self.KeepAlive = channel.unary_unary(
-        '/ConnectionComms/KeepAlive',
-        request_serializer=Comms__pb2.ConnectionStatus.SerializeToString,
-        response_deserializer=Comms__pb2.ConnectionStatusResponse.FromString,
+    self.FTPConnection = channel.unary_unary(
+        '/ConnectionComms/FTPConnection',
+        request_serializer=Comms__pb2.FTPRequest.SerializeToString,
+        response_deserializer=Comms__pb2.FTPResponse.FromString,
         )
     self.DisconnectNode = channel.unary_unary(
         '/ConnectionComms/DisconnectNode',
@@ -36,6 +31,16 @@ class ConnectionCommsStub(object):
         request_serializer=Comms__pb2.DiscoverRequest.SerializeToString,
         response_deserializer=Comms__pb2.DiscoverResponse.FromString,
         )
+    self.FTPInitialize = channel.unary_unary(
+        '/ConnectionComms/FTPInitialize',
+        request_serializer=Comms__pb2.FTPRequest.SerializeToString,
+        response_deserializer=Comms__pb2.FTPResponse.FromString,
+        )
+    self.FaceUnlock = channel.unary_unary(
+        '/ConnectionComms/FaceUnlock',
+        request_serializer=Comms__pb2.UnlockRequest.SerializeToString,
+        response_deserializer=Comms__pb2.UnlockResponse.FromString,
+        )
 
 
 class ConnectionCommsServicer(object):
@@ -44,18 +49,11 @@ class ConnectionCommsServicer(object):
 
   """
 
-  def IntialConnection(self, request, context):
+  def FTPConnection(self, request, context):
     """
     This is the connection communications used for connecting and disconnectiing from
     the server. These will be used by the client.
     """
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def KeepAlive(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -74,18 +72,27 @@ class ConnectionCommsServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def FTPInitialize(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def FaceUnlock(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ConnectionCommsServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'IntialConnection': grpc.unary_unary_rpc_method_handler(
-          servicer.IntialConnection,
-          request_deserializer=Comms__pb2.ConnectionRequest.FromString,
-          response_serializer=Comms__pb2.ConnectionResponse.SerializeToString,
-      ),
-      'KeepAlive': grpc.unary_unary_rpc_method_handler(
-          servicer.KeepAlive,
-          request_deserializer=Comms__pb2.ConnectionStatus.FromString,
-          response_serializer=Comms__pb2.ConnectionStatusResponse.SerializeToString,
+      'FTPConnection': grpc.unary_unary_rpc_method_handler(
+          servicer.FTPConnection,
+          request_deserializer=Comms__pb2.FTPRequest.FromString,
+          response_serializer=Comms__pb2.FTPResponse.SerializeToString,
       ),
       'DisconnectNode': grpc.unary_unary_rpc_method_handler(
           servicer.DisconnectNode,
@@ -96,6 +103,16 @@ def add_ConnectionCommsServicer_to_server(servicer, server):
           servicer.HostDiscovery,
           request_deserializer=Comms__pb2.DiscoverRequest.FromString,
           response_serializer=Comms__pb2.DiscoverResponse.SerializeToString,
+      ),
+      'FTPInitialize': grpc.unary_unary_rpc_method_handler(
+          servicer.FTPInitialize,
+          request_deserializer=Comms__pb2.FTPRequest.FromString,
+          response_serializer=Comms__pb2.FTPResponse.SerializeToString,
+      ),
+      'FaceUnlock': grpc.unary_unary_rpc_method_handler(
+          servicer.FaceUnlock,
+          request_deserializer=Comms__pb2.UnlockRequest.FromString,
+          response_serializer=Comms__pb2.UnlockResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

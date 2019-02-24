@@ -13,17 +13,17 @@ var global = Function('return this')();
 
 goog.exportSymbol('proto.CalendarResponse', null, global);
 goog.exportSymbol('proto.ClockResponse', null, global);
-goog.exportSymbol('proto.ConnectionRequest', null, global);
-goog.exportSymbol('proto.ConnectionResponse', null, global);
-goog.exportSymbol('proto.ConnectionStatus', null, global);
-goog.exportSymbol('proto.ConnectionStatusResponse', null, global);
 goog.exportSymbol('proto.DisconnectRequest', null, global);
 goog.exportSymbol('proto.DisconnectResponse', null, global);
 goog.exportSymbol('proto.DiscoverRequest', null, global);
 goog.exportSymbol('proto.DiscoverResponse', null, global);
 goog.exportSymbol('proto.EmailResponse', null, global);
+goog.exportSymbol('proto.FTPRequest', null, global);
+goog.exportSymbol('proto.FTPResponse', null, global);
 goog.exportSymbol('proto.GenericRequest', null, global);
 goog.exportSymbol('proto.NewsResponse', null, global);
+goog.exportSymbol('proto.UnlockRequest', null, global);
+goog.exportSymbol('proto.UnlockResponse', null, global);
 goog.exportSymbol('proto.WeatherResponse', null, global);
 
 /**
@@ -320,12 +320,12 @@ proto.DiscoverResponse.prototype.setServerIp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.ConnectionRequest = function(opt_data) {
+proto.FTPRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.ConnectionRequest, jspb.Message);
+goog.inherits(proto.FTPRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.ConnectionRequest.displayName = 'proto.ConnectionRequest';
+  proto.FTPRequest.displayName = 'proto.FTPRequest';
 }
 
 
@@ -340,8 +340,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.ConnectionRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.ConnectionRequest.toObject(opt_includeInstance, this);
+proto.FTPRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.FTPRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -350,11 +350,11 @@ proto.ConnectionRequest.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.ConnectionRequest} msg The msg instance to transform.
+ * @param {!proto.FTPRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionRequest.toObject = function(includeInstance, msg) {
+proto.FTPRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     connect: jspb.Message.getFieldWithDefault(msg, 1, 0),
     nodehostip: jspb.Message.getFieldWithDefault(msg, 2, "")
@@ -371,23 +371,23 @@ proto.ConnectionRequest.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.ConnectionRequest}
+ * @return {!proto.FTPRequest}
  */
-proto.ConnectionRequest.deserializeBinary = function(bytes) {
+proto.FTPRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.ConnectionRequest;
-  return proto.ConnectionRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.FTPRequest;
+  return proto.FTPRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.ConnectionRequest} msg The message object to deserialize into.
+ * @param {!proto.FTPRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.ConnectionRequest}
+ * @return {!proto.FTPRequest}
  */
-proto.ConnectionRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.FTPRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -415,9 +415,9 @@ proto.ConnectionRequest.deserializeBinaryFromReader = function(msg, reader) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.ConnectionRequest.prototype.serializeBinary = function() {
+proto.FTPRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.ConnectionRequest.serializeBinaryToWriter(this, writer);
+  proto.FTPRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -425,11 +425,11 @@ proto.ConnectionRequest.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.ConnectionRequest} message
+ * @param {!proto.FTPRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionRequest.serializeBinaryToWriter = function(message, writer) {
+proto.FTPRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getConnect();
   if (f !== 0) {
@@ -452,13 +452,13 @@ proto.ConnectionRequest.serializeBinaryToWriter = function(message, writer) {
  * optional int32 connect = 1;
  * @return {number}
  */
-proto.ConnectionRequest.prototype.getConnect = function() {
+proto.FTPRequest.prototype.getConnect = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.ConnectionRequest.prototype.setConnect = function(value) {
+proto.FTPRequest.prototype.setConnect = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -467,13 +467,13 @@ proto.ConnectionRequest.prototype.setConnect = function(value) {
  * optional string nodeHostIP = 2;
  * @return {string}
  */
-proto.ConnectionRequest.prototype.getNodehostip = function() {
+proto.FTPRequest.prototype.getNodehostip = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
-proto.ConnectionRequest.prototype.setNodehostip = function(value) {
+proto.FTPRequest.prototype.setNodehostip = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -489,12 +489,12 @@ proto.ConnectionRequest.prototype.setNodehostip = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.ConnectionResponse = function(opt_data) {
+proto.FTPResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.ConnectionResponse, jspb.Message);
+goog.inherits(proto.FTPResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.ConnectionResponse.displayName = 'proto.ConnectionResponse';
+  proto.FTPResponse.displayName = 'proto.FTPResponse';
 }
 
 
@@ -509,8 +509,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.ConnectionResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.ConnectionResponse.toObject(opt_includeInstance, this);
+proto.FTPResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.FTPResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -519,11 +519,11 @@ proto.ConnectionResponse.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.ConnectionResponse} msg The msg instance to transform.
+ * @param {!proto.FTPResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionResponse.toObject = function(includeInstance, msg) {
+proto.FTPResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     accepted: jspb.Message.getFieldWithDefault(msg, 1, 0),
     denied: jspb.Message.getFieldWithDefault(msg, 2, 0)
@@ -540,23 +540,23 @@ proto.ConnectionResponse.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.ConnectionResponse}
+ * @return {!proto.FTPResponse}
  */
-proto.ConnectionResponse.deserializeBinary = function(bytes) {
+proto.FTPResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.ConnectionResponse;
-  return proto.ConnectionResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.FTPResponse;
+  return proto.FTPResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.ConnectionResponse} msg The message object to deserialize into.
+ * @param {!proto.FTPResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.ConnectionResponse}
+ * @return {!proto.FTPResponse}
  */
-proto.ConnectionResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.FTPResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -584,9 +584,9 @@ proto.ConnectionResponse.deserializeBinaryFromReader = function(msg, reader) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.ConnectionResponse.prototype.serializeBinary = function() {
+proto.FTPResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.ConnectionResponse.serializeBinaryToWriter(this, writer);
+  proto.FTPResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -594,11 +594,11 @@ proto.ConnectionResponse.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.ConnectionResponse} message
+ * @param {!proto.FTPResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionResponse.serializeBinaryToWriter = function(message, writer) {
+proto.FTPResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getAccepted();
   if (f !== 0) {
@@ -621,13 +621,13 @@ proto.ConnectionResponse.serializeBinaryToWriter = function(message, writer) {
  * optional int32 accepted = 1;
  * @return {number}
  */
-proto.ConnectionResponse.prototype.getAccepted = function() {
+proto.FTPResponse.prototype.getAccepted = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.ConnectionResponse.prototype.setAccepted = function(value) {
+proto.FTPResponse.prototype.setAccepted = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -636,13 +636,13 @@ proto.ConnectionResponse.prototype.setAccepted = function(value) {
  * optional int32 denied = 2;
  * @return {number}
  */
-proto.ConnectionResponse.prototype.getDenied = function() {
+proto.FTPResponse.prototype.getDenied = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.ConnectionResponse.prototype.setDenied = function(value) {
+proto.FTPResponse.prototype.setDenied = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -969,12 +969,12 @@ proto.DisconnectResponse.prototype.setDisconnect = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.ConnectionStatus = function(opt_data) {
+proto.UnlockRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.ConnectionStatus, jspb.Message);
+goog.inherits(proto.UnlockRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.ConnectionStatus.displayName = 'proto.ConnectionStatus';
+  proto.UnlockRequest.displayName = 'proto.UnlockRequest';
 }
 
 
@@ -989,8 +989,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.ConnectionStatus.prototype.toObject = function(opt_includeInstance) {
-  return proto.ConnectionStatus.toObject(opt_includeInstance, this);
+proto.UnlockRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.UnlockRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -999,13 +999,13 @@ proto.ConnectionStatus.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.ConnectionStatus} msg The msg instance to transform.
+ * @param {!proto.UnlockRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionStatus.toObject = function(includeInstance, msg) {
+proto.UnlockRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    alive: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    user: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -1019,23 +1019,23 @@ proto.ConnectionStatus.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.ConnectionStatus}
+ * @return {!proto.UnlockRequest}
  */
-proto.ConnectionStatus.deserializeBinary = function(bytes) {
+proto.UnlockRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.ConnectionStatus;
-  return proto.ConnectionStatus.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.UnlockRequest;
+  return proto.UnlockRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.ConnectionStatus} msg The message object to deserialize into.
+ * @param {!proto.UnlockRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.ConnectionStatus}
+ * @return {!proto.UnlockRequest}
  */
-proto.ConnectionStatus.deserializeBinaryFromReader = function(msg, reader) {
+proto.UnlockRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1043,8 +1043,8 @@ proto.ConnectionStatus.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setAlive(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUser(value);
       break;
     default:
       reader.skipField();
@@ -1059,9 +1059,9 @@ proto.ConnectionStatus.deserializeBinaryFromReader = function(msg, reader) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.ConnectionStatus.prototype.serializeBinary = function() {
+proto.UnlockRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.ConnectionStatus.serializeBinaryToWriter(this, writer);
+  proto.UnlockRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1069,15 +1069,15 @@ proto.ConnectionStatus.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.ConnectionStatus} message
+ * @param {!proto.UnlockRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionStatus.serializeBinaryToWriter = function(message, writer) {
+proto.UnlockRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAlive();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getUser();
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -1086,16 +1086,16 @@ proto.ConnectionStatus.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int32 alive = 1;
- * @return {number}
+ * optional string user = 1;
+ * @return {string}
  */
-proto.ConnectionStatus.prototype.getAlive = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+proto.UnlockRequest.prototype.getUser = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {number} value */
-proto.ConnectionStatus.prototype.setAlive = function(value) {
+/** @param {string} value */
+proto.UnlockRequest.prototype.setUser = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -1111,12 +1111,12 @@ proto.ConnectionStatus.prototype.setAlive = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.ConnectionStatusResponse = function(opt_data) {
+proto.UnlockResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.ConnectionStatusResponse, jspb.Message);
+goog.inherits(proto.UnlockResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.ConnectionStatusResponse.displayName = 'proto.ConnectionStatusResponse';
+  proto.UnlockResponse.displayName = 'proto.UnlockResponse';
 }
 
 
@@ -1131,8 +1131,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.ConnectionStatusResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.ConnectionStatusResponse.toObject(opt_includeInstance, this);
+proto.UnlockResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.UnlockResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -1141,13 +1141,13 @@ proto.ConnectionStatusResponse.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.ConnectionStatusResponse} msg The msg instance to transform.
+ * @param {!proto.UnlockResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionStatusResponse.toObject = function(includeInstance, msg) {
+proto.UnlockResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    stillalive: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    user: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -1161,23 +1161,23 @@ proto.ConnectionStatusResponse.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.ConnectionStatusResponse}
+ * @return {!proto.UnlockResponse}
  */
-proto.ConnectionStatusResponse.deserializeBinary = function(bytes) {
+proto.UnlockResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.ConnectionStatusResponse;
-  return proto.ConnectionStatusResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.UnlockResponse;
+  return proto.UnlockResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.ConnectionStatusResponse} msg The message object to deserialize into.
+ * @param {!proto.UnlockResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.ConnectionStatusResponse}
+ * @return {!proto.UnlockResponse}
  */
-proto.ConnectionStatusResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.UnlockResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1185,8 +1185,8 @@ proto.ConnectionStatusResponse.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setStillalive(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUser(value);
       break;
     default:
       reader.skipField();
@@ -1201,9 +1201,9 @@ proto.ConnectionStatusResponse.deserializeBinaryFromReader = function(msg, reade
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.ConnectionStatusResponse.prototype.serializeBinary = function() {
+proto.UnlockResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.ConnectionStatusResponse.serializeBinaryToWriter(this, writer);
+  proto.UnlockResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1211,15 +1211,15 @@ proto.ConnectionStatusResponse.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.ConnectionStatusResponse} message
+ * @param {!proto.UnlockResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.ConnectionStatusResponse.serializeBinaryToWriter = function(message, writer) {
+proto.UnlockResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getStillalive();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getUser();
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -1228,16 +1228,16 @@ proto.ConnectionStatusResponse.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional int32 stillAlive = 1;
- * @return {number}
+ * optional string user = 1;
+ * @return {string}
  */
-proto.ConnectionStatusResponse.prototype.getStillalive = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+proto.UnlockResponse.prototype.getUser = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {number} value */
-proto.ConnectionStatusResponse.prototype.setStillalive = function(value) {
+/** @param {string} value */
+proto.UnlockResponse.prototype.setUser = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -1289,7 +1289,8 @@ proto.GenericRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.GenericRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    requestdata: jspb.Message.getFieldWithDefault(msg, 1, "")
+    requestdata: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    requestinghost: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -1330,6 +1331,10 @@ proto.GenericRequest.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setRequestdata(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRequestinghost(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1366,6 +1371,13 @@ proto.GenericRequest.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getRequestinghost();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -1381,6 +1393,21 @@ proto.GenericRequest.prototype.getRequestdata = function() {
 /** @param {string} value */
 proto.GenericRequest.prototype.setRequestdata = function(value) {
   jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string requestingHost = 2;
+ * @return {string}
+ */
+proto.GenericRequest.prototype.getRequestinghost = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.GenericRequest.prototype.setRequestinghost = function(value) {
+  jspb.Message.setField(this, 2, value);
 };
 
 

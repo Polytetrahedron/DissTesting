@@ -8,6 +8,7 @@ let remote_ip;
 let server;
 let listening_port = '4536';
 let server_port = '2356';
+let currentUser;
 
 const serviceDescription = require('./ProtoFiles/Comms_grpc_pb');
 const dataLayout = require('./ProtoFiles/Comms_pb');
@@ -19,9 +20,10 @@ function startServer()
     server = new grpc.Server();
     server.addService(serviceDescription.ConnectionCommsService, {
         hostDiscovery: hostDiscovery,
-        intialConnection: intialConnection, //I know this is spelled wrong but I have to live with it for now
-        keepAlive: keepAlive,
-        disconnectNode: disconnectNode
+        faceUnlock: faceUnlock, //I know this is spelled wrong but I have to live with it for now
+        fTPConnection: fTPConnection,
+        disconnectNode: disconnectNode,
+        fTPInitialize: fTPInitialize
     });
     server.bind(local_ip + ':' + listening_port, grpc.ServerCredentials.createInsecure());
     console.log("Node Server Started: Waiting for Server");
@@ -45,14 +47,26 @@ function hostDiscovery(call, callback)
     callback(null, reply);
 }
 
-function intialConnection()
+function faceUnlock(call, callback)
+{
+    console.log("received unlock user")
+    var reply = new dataLayout.UnlockResponse()
+    reply.setUser('recieved')
+    currentUser = call.request.getUser();
+    sendMessage = ['sysCall', 'unlocked', currentUser]
+    grpcHandler.send(sendMessage)
+
+    callback(null, reply)
+}
+
+function fTPInitialize()
 {
     // Not implemented Not needed
 }
 
-function keepAlive()
+function fTPConnection()
 {
-    // Not implemented Not needed
+
 }
 
 function disconnectNode()

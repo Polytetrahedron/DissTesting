@@ -17,33 +17,29 @@ process.on('message', (data)=>
     {
         serverIP = data[1];
         serverPort = data[2];
-        createClient();
-    }
-    else if(data[0] === 'user')
-    {
-        //user name and request data
-
+        //createClient();
     }
     else if(data[0] === 'sysCall')
     {
         if(data[1] === 'locked')
         {
-
+            serverCall = clearInterval();
         }
         else if(data[1] === 'unlocked')
         {
-
+            createClient(data[2]);
         }
     }
 });
 
-function createClient()
+function createClient(user)
 {
     client = new serviceDescription.ListeningCommsClient(serverIP + ':' + serverPort, grpc.credentials.createInsecure());
 
     sendRequest = new dataLayout.GenericRequest();
 
-    sendRequest.setRequestdata("data please");
+    sendRequest.setRequestdata(user);
+    sendRequest.setRequestinghost("Data");
 
     pollingInterval = (Math.random() * 10000) + 120000
     console.log("polling server every: " + pollingInterval)

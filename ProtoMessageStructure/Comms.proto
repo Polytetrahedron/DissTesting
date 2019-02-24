@@ -13,6 +13,8 @@ service ConnectionComms
     rpc FTPConnection (FTPRequest) returns (FTPResponse);
     rpc DisconnectNode (DisconnectRequest) returns (DisconnectResponse);
     rpc HostDiscovery (DiscoverRequest) returns (DiscoverResponse);
+    rpc FTPInitialize (FTPRequest) returns (FTPResponse);
+    rpc FaceUnlock (UnlockRequest) returns (UnlockResponse);
 }
 
 message DiscoverRequest
@@ -46,6 +48,16 @@ message DisconnectRequest
 message DisconnectResponse
 {
     int32 disconnect = 1;
+}
+
+message UnlockRequest
+{
+    string user = 1;
+}
+
+message UnlockResponse
+{
+    string user = 1;
 }
 
 
