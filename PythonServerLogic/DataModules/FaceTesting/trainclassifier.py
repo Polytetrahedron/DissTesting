@@ -7,7 +7,7 @@ from sklearn import svm, metrics
 
 def generate_training_data():
     
-    cascade = cv2.CascadeClassifier("./DataModules/FaceTesting/data/haarcascade_frontalface_alt.xml")
+    cascade = cv2.CascadeClassifier("./DataModules/FaceTesting/data/haarcascade_frontalface_alt2.xml")
     recognizer = cv2.face.LBPHFaceRecognizer_create()
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +23,7 @@ def generate_training_data():
         for file in files:
             if file.endswith("png"): # find all the image files
                 path = os.path.join(root, file)
-                label = os.path.basename(os.path.dirname(path).replace(" ", "-").lower())
+                label = os.path.basename(os.path.dirname(path).replace(" ", "-"))
                 if not label in label_ids:
                     label_ids[label] = current_id
                     current_id +=1
@@ -37,11 +37,11 @@ def generate_training_data():
                     region_of_interest = convert_array[y:y+h, x:x+w]
                     x_train.append(region_of_interest)
                     y_label.append(id_)
-    with open("./DataModules/FaceTesting/training-labels.pkl", 'wb') as f:
+    with open("training-labels.pkl", 'wb') as f:
         pickle.dump(label_ids, f)
 
     recognizer.train(x_train, np.array(y_label))
     recognizer.save("./DataModules/FaceTesting/train.yml")
     print(label_ids)
 
-generate_training_data()
+#generate_training_data()

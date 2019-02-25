@@ -16,9 +16,10 @@ def create_user_folder(data:dict):
     user_directory = "./DataModules/UsersFolder"
     training_directory = "./DataModules/FaceTesting/images"
     created_user_directory = None
-    current_structure = None
+    current_structure = []
 
     for root, dirs, files in os.walk(user_directory):
+        print(dirs)
         current_structure = dirs
         break
 

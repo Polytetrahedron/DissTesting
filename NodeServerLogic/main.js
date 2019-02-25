@@ -9,6 +9,9 @@ let server;
 let listening_port = '4536';
 let server_port = '2356';
 let currentUser;
+let grpcHandler;
+let timeout;
+
 
 const serviceDescription = require('./ProtoFiles/Comms_grpc_pb');
 const dataLayout = require('./ProtoFiles/Comms_pb');
@@ -49,14 +52,23 @@ function hostDiscovery(call, callback)
 
 function faceUnlock(call, callback)
 {
-    console.log("received unlock user")
-    var reply = new dataLayout.UnlockResponse()
-    reply.setUser('recieved')
-    currentUser = call.request.getUser();
-    sendMessage = ['sysCall', 'unlocked', currentUser]
-    grpcHandler.send(sendMessage)
-
-    callback(null, reply)
+    var reply = new dataLayout.UnlockResponse();
+    reply.setUser('received')
+    requestedUser = call.request.getUser();
+    if(requestedUser == currentUser)
+    {
+        sendMessage = ['sysCall', 'unlocked', currentUser];
+        grpcHandler.send(sendMessage);
+    }
+    else
+    {
+        currentUser = requestedUser;
+        sendMessage = ['sysCall', 'unlocked', currentUser];
+        grpcHandler.send(sendMessage);
+    }
+    console.log("received unlock " + currentUser)
+    
+    callback(null, reply);
 }
 
 function fTPInitialize()
@@ -79,13 +91,18 @@ function createServerHandlers()
     const ipcHandler = child.fork("./Processes/ipcProcess");
     ipcHandler.on('message', (data)=>{});
 
-    const grpcHandler = child.fork('./Processes/grpcProcess')
+    grpcHandler = child.fork('./Processes/grpcProcess')
     grpcHandler.send(packageData());
     grpcHandler.on('message', (data)=>{
         ipcHandler.send(data);
     })
 }
 
+function lockMirror()
+{
+    sysCall = ['sysCall', 'locked'];
+    grpcHandler.send(sysCall);
+}
 
 function packageData(message = 'config')
 {

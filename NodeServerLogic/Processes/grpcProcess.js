@@ -24,6 +24,7 @@ process.on('message', (data)=>
         if(data[1] === 'locked')
         {
             serverCall = clearInterval();
+            process.send(data)
         }
         else if(data[1] === 'unlocked')
         {
