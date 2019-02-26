@@ -7,6 +7,7 @@ const ipc = require('node-ipc')
 //Hiding essential components from the garbage collector
 let window;
 let clock;
+let locked = true;
 
 //Registering application listeners and callbacks for window events like startup and close
 app.on('ready', createWindow);
@@ -85,22 +86,41 @@ function messageExchange(data)
         }
         else if(messageID === 'news')
         {
-            window.webContents.send('news', data); 
+            sendToFront(messageID, data);
         }
         else if(messageID === 'email')
         {
-            window.webContents.send('email', data);
+            sendToFront(messageID, data);
 
         }
         else if(messageID === 'weather')
         {
-            window.webContents.send('weather', data);
+            sendToFront(messageID, data);
 
         }
         else if(messageID === 'calendar')
         {
-            window.webContents.send('calendar', data);
+            sendToFront(messageID, data);
         }
+        else if(messageID === 'sysCall')
+        {
+            if(data[1] === 'locked')
+            {
+                locked = true
+            }
+            else if(data[1] === 'unlocked')
+            {
+                locked = false
+            }
+        }
+    }
+}
+
+function sendToFront(channel, data)
+{
+    if(locked === false)
+    {
+        window.webContents.send(channel, data);
     }
 }
 

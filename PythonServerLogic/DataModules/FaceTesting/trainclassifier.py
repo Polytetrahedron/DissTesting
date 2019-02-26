@@ -37,7 +37,7 @@ def generate_training_data():
                     region_of_interest = convert_array[y:y+h, x:x+w]
                     x_train.append(region_of_interest)
                     y_label.append(id_)
-    with open("training-labels.pkl", 'wb') as f:
+    with open("./DataModules/FaceTesting/training-labels.pkl", 'wb') as f:
         pickle.dump(label_ids, f)
 
     recognizer.train(x_train, np.array(y_label))

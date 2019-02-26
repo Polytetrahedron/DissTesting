@@ -6,14 +6,6 @@ import time
 import os
 
 cascade = cv2.CascadeClassifier("./DataModules/FaceTesting/data/haarcascade_frontalface_alt2.xml")
-#recognizer = cv2.face.LBPHFaceRecognizer_create()
-# recognizer.read()
-
-# labels = {}
-# with open("./FaceUnlocking/TrainingData/training-labels.pkl", 'rb') as f:
-#     loaded_labels = pickle.load(f)
-#     labels = {v:k for k,v in loaded_labels.items()}
-#     print(labels)
 
 def run_analyser(user:str = None):
 
@@ -69,6 +61,15 @@ def run_analyser(user:str = None):
 #             if len(positive_id) == 10:
 #                 return True
 
+
+#recognizer = cv2.face.LBPHFaceRecognizer_create()
+# recognizer.read()
+
+# labels = {}
+# with open("./FaceUnlocking/TrainingData/training-labels.pkl", 'rb') as f:
+#     loaded_labels = pickle.load(f)
+#     labels = {v:k for k,v in loaded_labels.items()}
+#     print(labels)
 
 
 #run_analyser('User11')

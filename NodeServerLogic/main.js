@@ -8,9 +8,11 @@ let remote_ip;
 let server;
 let listening_port = '4536';
 let server_port = '2356';
-let currentUser;
+let currentUser = null;
 let grpcHandler;
+let ipcHandler;
 let timeout;
+let active = false;
 
 
 const serviceDescription = require('./ProtoFiles/Comms_grpc_pb');
@@ -45,6 +47,7 @@ function hostDiscovery(call, callback)
     if(remote_ip != null)
     {
         createServerHandlers();
+        active = true;
         console.log(remote_ip);
     }
     callback(null, reply);
@@ -55,16 +58,26 @@ function faceUnlock(call, callback)
     var reply = new dataLayout.UnlockResponse();
     reply.setUser('received')
     requestedUser = call.request.getUser();
-    if(requestedUser == currentUser)
+
+    if(active === true)
     {
-        sendMessage = ['sysCall', 'unlocked', currentUser];
-        grpcHandler.send(sendMessage);
+        clearTimeout(timeout)
+        timeout = setTimeout(lockMirror, 65000);
     }
-    else
+  
+
+    if (currentUser != requestedUser && active === true)
     {
         currentUser = requestedUser;
         sendMessage = ['sysCall', 'unlocked', currentUser];
         grpcHandler.send(sendMessage);
+        ipcHandler.send(sendMessage)
+    }
+    else if(active === true && currentUser === requestedUser)
+    {
+        sendMessage = ['sysCall', 'unlocked', currentUser];
+        grpcHandler.send(sendMessage);
+        ipcHandler.send(sendMessage)
     }
     console.log("received unlock " + currentUser)
     
@@ -88,7 +101,7 @@ function disconnectNode()
 
 function createServerHandlers()
 {
-    const ipcHandler = child.fork("./Processes/ipcProcess");
+    ipcHandler = child.fork("./Processes/ipcProcess");
     ipcHandler.on('message', (data)=>{});
 
     grpcHandler = child.fork('./Processes/grpcProcess')
@@ -100,8 +113,10 @@ function createServerHandlers()
 
 function lockMirror()
 {
+    console.log("Locking Mirror")
     sysCall = ['sysCall', 'locked'];
     grpcHandler.send(sysCall);
+    ipcHandler.send(sysCall)
 }
 
 function packageData(message = 'config')
