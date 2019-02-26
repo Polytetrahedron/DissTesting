@@ -28,14 +28,14 @@ class ListeningServicer():
 
     def EmailData(self, request, context):
         print("Message Received: Email")
-        email_list = EmailModule.connect_to_mail_server('User6')
+        email_list = EmailModule.connect_to_mail_server(request.requestData)
         for email in email_list:
             response = Comms_pb2.EmailResponse(email=email)
             yield response
 
     def CalendarData(self, request, context):
         print("Message Received: Calendar")
-        event_list = CalendarModule.get_calendar_events('User6')
+        event_list = CalendarModule.get_calendar_events(request.requestData)
         for event in event_list:
             response = Comms_pb2.CalendarResponse(events=event)
             yield response
