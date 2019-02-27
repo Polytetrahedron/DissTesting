@@ -122,7 +122,11 @@ function fTPConnection(call, callback)
         client = new clientftp(config, options);
         
         client.connect(()=>{
+<<<<<<< HEAD
             client.download('/home/mark/Desktop/DissTesting/PythonServerLogic/TrainingData', 'TEst/',{overwrite: 'all'})
+=======
+            client.download('/home/mark/Desktop/DissTesting/PythonServerLogic/TrainingData', '/home/mark/Desktop',{overwrite: 'all'})
+>>>>>>> 73996c77a7d408beba3672940b1c366c68a52236
         }); 
     }
     
