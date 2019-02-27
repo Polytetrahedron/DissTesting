@@ -1,6 +1,7 @@
 import multiprocessing as mp
 import ContentServer as content_server
 import ClientStarter
+from DataModules.FaceTesting import facecapture
 
 running_processes = []
 

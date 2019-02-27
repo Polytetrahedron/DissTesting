@@ -3,8 +3,8 @@ import os
 import re
 import base64
 import getpass
-import CalendarModule, EmailModule
-from FaceTesting import facecapture, trainclassifier
+from DataModules import CalendarModule, EmailModule
+from DataModules.FaceTesting import facecapture, trainclassifier
 
 def train_on_user(user:str = None):
     facecapture.run_analyser(user)

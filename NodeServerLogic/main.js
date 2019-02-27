@@ -25,7 +25,7 @@ function startServer()
     server = new grpc.Server();
     server.addService(serviceDescription.ConnectionCommsService, {
         hostDiscovery: hostDiscovery,
-        faceUnlock: faceUnlock, //I know this is spelled wrong but I have to live with it for now
+        faceUnlock: faceUnlock,
         fTPConnection: fTPConnection,
         disconnectNode: disconnectNode,
         fTPInitialize: fTPInitialize
@@ -86,7 +86,7 @@ function faceUnlock(call, callback)
 
 function fTPInitialize()
 {
-    // Not implemented Not needed
+    // Not implemented Not needed will remove next iteration
 }
 
 function fTPConnection()
@@ -96,7 +96,7 @@ function fTPConnection()
 
 function disconnectNode()
 {
-    // Not implemented Not needed
+    // Not implemented Not needed will remove next iteration
 }
 
 function createServerHandlers()
