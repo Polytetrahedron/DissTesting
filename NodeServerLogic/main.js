@@ -2,6 +2,7 @@ const grpc = require('grpc');
 const ipc = require('node-ipc');
 const child = require('child_process');
 const ip = require('ip');
+const clientftp = require('ftp-client')
 
 let local_ip = ip.address();
 let remote_ip;
@@ -89,14 +90,26 @@ function fTPInitialize()
     // Not implemented Not needed will remove next iteration
 }
 
-function fTPConnection()
+function fTPConnection(call, callback)
 {
-
+    if(remote_ip != null)
+    {
+        var config = { host: remote_ip, port: 21};
+        var options = {logging: 'basic'};
+        
+        client = new clientftp(config, options);
+        
+        client.connect(()=>{
+            client.download('/home/mark/Desktop/DissTesting/PythonServerLogic/DataModules/FaceTesting', 'TEst/',{overwrite: 'all'})
+        }); 
+    }
+    
 }
 
-function disconnectNode()
+function disconnectNode(call, callback)
 {
-    // Not implemented Not needed will remove next iteration
+    active = false;
+    lockMirror();
 }
 
 function createServerHandlers()

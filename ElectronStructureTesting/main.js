@@ -28,7 +28,10 @@ function createWindow()
 {
     window = new BrowserWindow({width:800, height:600});
 
-    window.loadFile(__dirname + '/FrontendDisplay/index.html');
+    if(locked === false)
+    {
+        window.loadFile(__dirname + '/FrontendDisplay/index.html');
+    }
 
     window.on('closed', 
                ()=>{
@@ -84,7 +87,7 @@ function messageExchange(data)
             data[0] = 'start';
             clock.send(data);
         }
-        else if(messageID === 'news')
+        else if(messageID === 'news') // These can be simplified to single IF statement but running out of time
         {
             sendToFront(messageID, data);
         }
@@ -106,11 +109,15 @@ function messageExchange(data)
         {
             if(data[1] === 'locked')
             {
-                locked = true
+                locked = true;
+                window.loadFile('./FrontendDisplay/locked.html');
+                window.reload(); //this needs tested again
             }
             else if(data[1] === 'unlocked')
             {
-                locked = false
+                locked = false;
+                window.loadFile('./FrontendDisplay/index.html');
+                window.reload(); // this needs tested again
             }
         }
     }
