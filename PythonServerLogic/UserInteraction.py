@@ -3,8 +3,32 @@ import os
 import re
 import base64
 import getpass
+import grpc
+import Comms_pb2
+import Comms_pb2_grpc
+from NetworkTools import IPExtractor
 from DataModules import CalendarModule, EmailModule
 from DataModules.FaceTesting import facecapture, trainclassifier
+
+
+def notify_active_clients():
+    host_data = []
+
+    with open('./NetworkTools/active_hosts.json') as hosts:
+        data = json.load(hosts)
+        for ip in data['host_addresses']:
+            host_data.append(ip)
+
+
+    ip = IPExtractor.extract_local_IP()
+    discovery_port = ':4536'
+
+    for address in host_data:
+        with grpc.insecure_channel(address + discovery_port) as channel:
+            stub = Comms_pb2_grpc.ConnectionCommsStub(channel)
+            response = stub.FTPConnection(Comms_pb2.FTPRequest(connect = 1, nodeHostIP=ip))
+            print(response)
+
 
 def train_on_user(user:str = None):
     facecapture.run_analyser(user)

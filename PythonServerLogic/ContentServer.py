@@ -12,7 +12,7 @@ from NetworkTools import IPExtractor
 import Comms_pb2, Comms_pb2_grpc
 
 std_server_port = "2356"
-local_dhcp_address = IPExtractor.extract_local_IP()
+#local_dhcp_address = IPExtractor.extract_local_IP()
 
 class ListeningServicer():
     def ClockData(self, request, context):
@@ -55,10 +55,10 @@ class ListeningServicer():
             response = Comms_pb2.NewsResponse(headline=news)
             yield response
 
-def serve():
+def serve(ip:str):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     Comms_pb2_grpc.add_ListeningCommsServicer_to_server(ListeningServicer(), server)
-    server.add_insecure_port(local_dhcp_address + ':' + std_server_port)
+    server.add_insecure_port(ip + ':' + std_server_port)
     print("Server Started")
     #ClientStarter.run();
     server.start()
