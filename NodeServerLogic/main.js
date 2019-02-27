@@ -21,6 +21,9 @@ const dataLayout = require('./ProtoFiles/Comms_pb');
 
 startServer();
 
+/**
+ * 
+ */
 function startServer()
 {
     server = new grpc.Server();
@@ -36,6 +39,11 @@ function startServer()
     server.start();
 }
 
+/**
+ * 
+ * @param {*} call 
+ * @param {*} callback 
+ */
 function hostDiscovery(call, callback)
 {
     console.log("Message Received: Discovery!");
@@ -54,6 +62,11 @@ function hostDiscovery(call, callback)
     callback(null, reply);
 }
 
+/**
+ * 
+ * @param {*} call 
+ * @param {*} callback 
+ */
 function faceUnlock(call, callback)
 {
     var reply = new dataLayout.UnlockResponse();
@@ -85,33 +98,50 @@ function faceUnlock(call, callback)
     callback(null, reply);
 }
 
+/**
+ * 
+ */
 function fTPInitialize()
 {
     // Not implemented Not needed will remove next iteration
 }
 
+/**
+ * 
+ * @param {*} call 
+ * @param {*} callback 
+ */
 function fTPConnection(call, callback)
 {
     if(remote_ip != null)
     {
+        console.log("Starting FTP Transaction")
         var config = { host: remote_ip, port: 21};
         var options = {logging: 'basic'};
         
         client = new clientftp(config, options);
         
         client.connect(()=>{
-            client.download('/home/mark/Desktop/DissTesting/PythonServerLogic/DataModules/FaceTesting', 'TEst/',{overwrite: 'all'})
+            client.download('/home/mark/Desktop/DissTesting/PythonServerLogic/TrainingData', 'TEst/',{overwrite: 'all'})
         }); 
     }
     
 }
 
+/**
+ * 
+ * @param {*} call 
+ * @param {*} callback 
+ */
 function disconnectNode(call, callback)
 {
     active = false;
     lockMirror();
 }
 
+/**
+ * 
+ */
 function createServerHandlers()
 {
     ipcHandler = child.fork("./Processes/ipcProcess");
@@ -124,6 +154,9 @@ function createServerHandlers()
     })
 }
 
+/**
+ * 
+ */
 function lockMirror()
 {
     console.log("Locking Mirror")
@@ -132,6 +165,10 @@ function lockMirror()
     ipcHandler.send(sysCall)
 }
 
+/**
+ * 
+ * @param {*} message 
+ */
 function packageData(message = 'config')
 {
     return dataPacket = [message, remote_ip, server_port]

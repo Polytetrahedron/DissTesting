@@ -14,7 +14,7 @@ from DataModules.FaceTesting import facecapture, trainclassifier
 def notify_active_clients():
     host_data = []
 
-    with open('./NetworkTools/active_hosts.json') as hosts:
+    with open('active_hosts.json') as hosts:
         data = json.load(hosts)
         for ip in data['host_addresses']:
             host_data.append(ip)
@@ -33,6 +33,7 @@ def notify_active_clients():
 def train_on_user(user:str = None):
     facecapture.run_analyser(user)
     trainclassifier.generate_training_data()
+    notify_active_clients()
 
 
 def create_user_folder(data:dict):

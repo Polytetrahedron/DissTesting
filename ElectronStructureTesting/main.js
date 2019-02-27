@@ -32,6 +32,10 @@ function createWindow()
     {
         window.loadFile(__dirname + '/FrontendDisplay/index.html');
     }
+    // else
+    // {
+    //     window.loadFile(__dirname + '/FrontendDisplay/locked.html')
+    // }
 
     window.on('closed', 
                ()=>{
@@ -66,8 +70,11 @@ function spawnWorkerProcesses()
 {   
     clock = child_process.fork('./NodeProcesses/Clock.js')
     clock.on("message", (data)=>{
-        window.webContents.send('clock', data[1]);
-        window.webContents.send('date', data[0]);
+        if(locked = false)
+        {
+            window.webContents.send('clock', data[1]);
+            window.webContents.send('date', data[0]);
+        }
     });
     clock.on('error', ()=>
     {
@@ -110,12 +117,15 @@ function messageExchange(data)
             if(data[1] === 'locked')
             {
                 locked = true;
-                window.loadFile('./FrontendDisplay/locked.html');
+                clock.send(data[1])
+                window.webContents.send('lock', 'locked')
+                //window.loadFile('./FrontendDisplay/locked.html');
                 window.reload(); //this needs tested again
             }
             else if(data[1] === 'unlocked')
             {
                 locked = false;
+                clock.send(data[1])
                 window.loadFile('./FrontendDisplay/index.html');
                 window.reload(); // this needs tested again
             }

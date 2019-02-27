@@ -17,7 +17,7 @@ def run():
 
     for client in potential_clients:
         if client not in found_hosts:
-            resp = os.system('ping -c 1 ' + client) # this will be -c for unix systems change this
+            resp = os.system('ping -n 1 ' + client) # this will be -c for unix systems change this
             if resp == 0:
                 attempt_client_connection(client)
                 print("Host")

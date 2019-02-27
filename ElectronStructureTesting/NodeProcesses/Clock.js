@@ -9,6 +9,8 @@ let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 let months = ['January', 'February', 'March', 'April',' May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 let full_days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
+let locked = false;
+
 process.on('message', (data)=>{
     if(data[0] === "restart")
     {
@@ -25,6 +27,14 @@ process.on('message', (data)=>{
         setInterval(grabTime, 1000)
         console.log("Starting Clock service")
     }
+    else if(data[0] === 'locked')
+    {
+        locked = true;
+    }
+    else if(data[0] === 'unlocked')
+    {
+        locked = false;
+    }
 });
 
 function grabTime()
@@ -40,9 +50,19 @@ function grabTime()
 
         dateSend = cleanDate(clientDate.toDateString());
        
-        process.send(packageData(dateSend, timeSend));
+        if(locked === false)
+        {
+            sendData(timeSend, dateSend)
+        }
+        //process.send(packageData(dateSend, timeSend));
     }
 }
+
+function sendData(date, time)
+{
+    process.send(packageData(date, time));
+}
+
 
 //the built in function for displaying the time was not suited for my needs so I wrote this one instead that does. Keeps messages to a minimum instead of one message eery second you now have one message every 60 seconds
 function cleanTime(hours, minute)

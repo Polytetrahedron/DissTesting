@@ -1,9 +1,20 @@
 const electron = require('electron');
 const {ipcRenderer} = require('electron');
 
+ipcRenderer.on('lock', (event, args)=>{
+    if(args === 'locked')
+    {
+        document.getElementById().style.color = "black";
+    }
+    else if(args === 'unlocked')
+    {
+        document.getElementById().style.color = "black"
+    }
+})
+
 ipcRenderer.on('clock',(event, arg)=>
 {
-document.getElementById("test").innerHTML = arg;
+    document.getElementById("test").innerHTML = arg;
 });
 
 ipcRenderer.on('date', (event, args)=>
