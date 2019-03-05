@@ -2,10 +2,12 @@ const electron = require('electron');
 const {app, BrowserWindow} = require('electron');
 const {ipcMain} = require('electron');
 const child_process = require('child_process');
+const ipc = require('node-ipc')
 
 //Hiding essential components from the garbage collector
 let window;
 let clock;
+let locked = true;
 
 //Registering application listeners and callbacks for window events like startup and close
 app.on('ready', createWindow);
@@ -26,58 +28,116 @@ function createWindow()
 {
     window = new BrowserWindow({width:800, height:600});
 
-    window.loadFile(__dirname + '/FrontendDisplay/index.html');
+    if(locked === false)
+    {
+        window.loadFile(__dirname + '/FrontendDisplay/index.html');
+    }
+    // else
+    // {
+    //     window.loadFile(__dirname + '/FrontendDisplay/locked.html')
+    // }
 
     window.on('closed', 
                ()=>{
                     window = null;
             })
 
-    spawnWorkerProcesses();
+    startIPCServer();
 }
 
+function startIPCServer()
+{
+    ipc.config.id = 'mainExchange';
+    ipc.config.retry = 1000;
+    ipc.config.silent = false;
 
+
+    ipc.serve(() => {
+
+        ipc.server.on('connect', (data)=>{
+            spawnWorkerProcesses();
+        });
+        
+        ipc.server.on('message', (message) =>{
+            messageExchange(message);
+        });
+    });
+
+    ipc.server.start();
+}
 
 function spawnWorkerProcesses()
 {   
-    clock = child_process.fork('./NodeProcesses/ClockTest.js')
+    clock = child_process.fork('./NodeProcesses/Clock.js')
     clock.on("message", (data)=>{
-        window.webContents.send('clock', data[1]);
-        window.webContents.send('date', data[0]);
+        if(locked = false)
+        {
+            window.webContents.send('clock', data[1]);
+            window.webContents.send('date', data[0]);
+        }
     });
     clock.on('error', ()=>
     {
         clock.send('restart')
     });
-
-    // const listeningPost = child_process.fork('./NodeProcesses/RPCAssets/gRPCServer');
-    // listeningPost.on('message', (data) =>
-    // {
-    //     //this will handle all of the main to server comms in a separate
-    //     // process this will keep the main process responsive to input and changes 
-
-    // });
-    // listeningPost.on('disconnect', ()=>
-    // {
-    //     //attempt to restart the service 
-    // });
 }
 
 
-function keepAlive()
+function messageExchange(data)
 {
+    messageID = data[0]
 
+    if(messageID !== null)
+    {
+        if(messageID === "clock")
+        {
+            data[0] = 'start';
+            clock.send(data);
+        }
+        else if(messageID === 'news') // These can be simplified to single IF statement but running out of time
+        {
+            sendToFront(messageID, data);
+        }
+        else if(messageID === 'email')
+        {
+            sendToFront(messageID, data);
+
+        }
+        else if(messageID === 'weather')
+        {
+            sendToFront(messageID, data);
+
+        }
+        else if(messageID === 'calendar')
+        {
+            sendToFront(messageID, data);
+        }
+        else if(messageID === 'sysCall')
+        {
+            if(data[1] === 'locked')
+            {
+                locked = true;
+                clock.send(data[1])
+                window.webContents.send('lock', 'locked')
+                //window.loadFile('./FrontendDisplay/locked.html');
+                window.reload(); //this needs tested again
+            }
+            else if(data[1] === 'unlocked')
+            {
+                locked = false;
+                clock.send(data[1])
+                window.loadFile('./FrontendDisplay/index.html');
+                window.reload(); // this needs tested again
+            }
+        }
+    }
 }
 
-/*
-* This will create a "listening" server so that the server can signal changes and updates to the client
-* These methods will allow for transfer of data such as time or other important signaling data such as 
-* FTP transfers from the server i.e. training data for the face shit.
-*/
-function createServerListener()
+function sendToFront(channel, data)
 {
-    // serverListener = grpc.Server();
-    // serverListener.addProtoService() // This needs sorted
+    if(locked === false)
+    {
+        window.webContents.send(channel, data);
+    }
 }
 
-//need to handle the feedback from the main screen as well as send automatic updates to the main screen

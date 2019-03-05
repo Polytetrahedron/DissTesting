@@ -12,9 +12,11 @@
     "@grpc/grpc-js": "^0.3.5",
     "@grpc/proto-loader": "^0.4.0",
     "codegen": "^0.1.0",
+    "ftp-client": "^0.2.2",
     "google-protobuf": "^3.7.0-rc.2",
     "grpc": "^1.18.0",
     "grpc-tools": "^1.6.6",
+    "ip": "^1.1.5",
     "node-ipc": "^9.1.1",
     "proto-loader": "^0.2.0"
   }

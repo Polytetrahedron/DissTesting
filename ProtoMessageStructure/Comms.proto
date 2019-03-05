@@ -1,0 +1,118 @@
+syntax="proto3";
+
+/**
+This needs documented properly otherwise it'll just be a total mess
+*/
+
+service ConnectionComms
+{
+    /*
+    This is the connection communications used for connecting and disconnectiing from
+    the server. These will be used by the client.
+    */
+    rpc FTPConnection (FTPRequest) returns (FTPResponse);
+    rpc DisconnectNode (DisconnectRequest) returns (DisconnectResponse);
+    rpc HostDiscovery (DiscoverRequest) returns (DiscoverResponse);
+    rpc FTPInitialize (FTPRequest) returns (FTPResponse);
+    rpc FaceUnlock (UnlockRequest) returns (UnlockResponse);
+}
+
+message DiscoverRequest
+{
+    string server_ip = 1;
+}
+
+message DiscoverResponse
+{
+    string server_ip =1;
+}
+
+message FTPRequest
+{
+    int32 connect = 1;
+    string nodeHostIP = 2;
+}
+
+message FTPResponse
+{
+    int32 accepted = 1;
+    int32 denied = 2;
+}
+
+message DisconnectRequest
+{
+    int32 disconnect = 1;
+    string nodeHostIP = 2;
+}
+
+message DisconnectResponse
+{
+    int32 disconnect = 1;
+}
+
+message UnlockRequest
+{
+    string user = 1;
+}
+
+message UnlockResponse
+{
+    string user = 1;
+}
+
+
+service ListeningComms
+{
+    /*
+    These are all of the content RPC calls that the server will use to respond
+    to client inquests. Having two services is fine, right? hope so 
+    */
+    rpc ClockData (GenericRequest) returns (ClockResponse);
+    rpc EmailData (GenericRequest) returns (stream EmailResponse);
+    rpc CalendarData (GenericRequest) returns ( stream CalendarResponse);
+    rpc WeatherData (GenericRequest) returns (stream WeatherResponse);
+    rpc NewsData (GenericRequest) returns (stream NewsResponse);
+}
+
+
+message GenericRequest
+{
+    //This is just an empty request as there is no data needed by the server
+    // The response is sent by the server to the original sender automatically
+    // Actually this could be cool. It could send the host IP as an identifier for diagnostic! that's cool amma do that 
+    string requestData = 1; // This is the user requesting it
+    string requestingHost = 2; // This is the host that the user is on
+}
+
+
+message ClockResponse
+{
+    int32 hour = 1;
+    int32 minute = 2;
+    int32 second = 3;
+
+    int32 day = 4;
+    int32 month = 5;
+    int32 year = 6;
+}
+
+message EmailResponse
+{
+    string email = 1;
+}
+
+message CalendarResponse
+{
+    string events = 1;
+}
+
+message WeatherResponse
+{
+    string data = 1;
+}
+
+message NewsResponse
+{
+    string headline = 1;
+}
+

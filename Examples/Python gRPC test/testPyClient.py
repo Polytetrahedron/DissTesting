@@ -1,7 +1,6 @@
 from __future__ import print_function
 import grpc
-import testprotofile_pb2
-import testprotofile_pb2_grpc
+
 
 
 def run():

@@ -1,7 +1,7 @@
 const ClientClock = require('../NodeAssets/ClientClock');
 
 let clientDate = new Date();
-let time = new ClientClock(23,59,55,6,4,2019);
+let time;
 let newTime;
 let minutes;
 
@@ -9,19 +9,33 @@ let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 let months = ['January', 'February', 'March', 'April',' May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 let full_days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
+let locked = false;
+
 process.on('message', (data)=>{
-    if(data === "restart")
+    if(data[0] === "restart")
     {
         restartService();
     }
-    else if(data === "exit")
+    else if(data[0] === "exit")
     {
         process.exit(1);
     }
+    else if(data[0] === 'start')
+    {
+        time = new ClientClock(data[1],data[2],data[3],data[4],data[5],data[6]);
+        //starts the ticking clock
+        setInterval(grabTime, 1000)
+        console.log("Starting Clock service")
+    }
+    else if(data[0] === 'locked')
+    {
+        locked = true;
+    }
+    else if(data[0] === 'unlocked')
+    {
+        locked = false;
+    }
 });
-
-//starts the ticking clock
-setInterval(grabTime, 1000)
 
 function grabTime()
 {
@@ -36,9 +50,19 @@ function grabTime()
 
         dateSend = cleanDate(clientDate.toDateString());
        
-        process.send(packageData(dateSend, timeSend));
+        if(locked === false)
+        {
+            sendData(timeSend, dateSend)
+        }
+        //process.send(packageData(dateSend, timeSend));
     }
 }
+
+function sendData(date, time)
+{
+    process.send(packageData(date, time));
+}
+
 
 //the built in function for displaying the time was not suited for my needs so I wrote this one instead that does. Keeps messages to a minimum instead of one message eery second you now have one message every 60 seconds
 function cleanTime(hours, minute)
@@ -104,14 +128,3 @@ function restartService()
 {
     time = new ClientClock("","","","","","")
 }
-
-// process.on('message', (event)=>
-// {
-//     newTime = time.checkTime();
-//     clientDate.setTime(newTime.getTime());
-//     process.send(clientDate.toLocaleTimeString());
-// });
-
-// process.on('clock', (event)=>{
-//     process.send('clock', clientDate.toLocaleDateString());
-// });

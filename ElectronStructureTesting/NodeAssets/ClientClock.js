@@ -70,6 +70,10 @@ class ClientClock
                 newTime.setDate(1);
                 newTime.setMonth(++currentMonth);
             }
+            else
+            {
+                newTime.setDate(++currentDay);
+            }
         }
         else if(currentMonth == 1)
         {
@@ -77,6 +81,10 @@ class ClientClock
             {
                 newTime.setDate(1);
                 newTime.setMonth(++currentMonth);
+            }
+            else
+            {
+                newTime.setData(++currentDay);
             }
         }
         else if(currentDay == 31)
