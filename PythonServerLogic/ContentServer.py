@@ -56,6 +56,10 @@ class ListeningServicer():
             yield response
 
 def serve(ip:str):
+    """
+    This is the gRPC server for the content modules clients can request data from this 
+    server
+    """
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     Comms_pb2_grpc.add_ListeningCommsServicer_to_server(ListeningServicer(), server)
     server.add_insecure_port(ip + ':' + std_server_port)

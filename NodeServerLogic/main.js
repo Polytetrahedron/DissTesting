@@ -22,7 +22,7 @@ const dataLayout = require('./ProtoFiles/Comms_pb');
 startServer();
 
 /**
- * 
+ * This the the Main Listening server for the client
  */
 function startServer()
 {
@@ -40,6 +40,8 @@ function startServer()
 }
 
 /**
+ * This is the host discover method that allows for a mirror to become
+ * active
  * 
  * @param {*} call 
  * @param {*} callback 
@@ -63,6 +65,8 @@ function hostDiscovery(call, callback)
 }
 
 /**
+ * This is the is the logic for locking and unlocking the mirror
+ * via facial recognition
  * 
  * @param {*} call 
  * @param {*} callback 
@@ -107,6 +111,8 @@ function fTPInitialize()
 }
 
 /**
+ * This is the FTP download logic that connects to the server
+ * and downloads te training data
  * 
  * @param {*} call 
  * @param {*} callback 
@@ -122,18 +128,13 @@ function fTPConnection(call, callback)
         client = new clientftp(config, options);
         
         client.connect(()=>{
-<<<<<<< HEAD
-            client.download('/home/mark/Desktop/DissTesting/PythonServerLogic/TrainingData', 'TEst/',{overwrite: 'all'})
-=======
             client.download('/home/mark/Desktop/DissTesting/PythonServerLogic/TrainingData', '/home/mark/Desktop',{overwrite: 'all'})
->>>>>>> 73996c77a7d408beba3672940b1c366c68a52236
         }); 
     }
-    
 }
 
 /**
- * 
+ *  Currently not implemented 
  * @param {*} call 
  * @param {*} callback 
  */
@@ -144,7 +145,7 @@ function disconnectNode(call, callback)
 }
 
 /**
- * 
+ *  This method spawns the gRPC and IPC processes
  */
 function createServerHandlers()
 {
@@ -159,7 +160,7 @@ function createServerHandlers()
 }
 
 /**
- * 
+ * This is the logic for locking the mirror
  */
 function lockMirror()
 {
@@ -170,7 +171,8 @@ function lockMirror()
 }
 
 /**
- * 
+ * This method encapsulates the network data
+ * in order to pass it into the processes
  * @param {*} message 
  */
 function packageData(message = 'config')

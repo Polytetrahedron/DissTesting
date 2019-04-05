@@ -1,22 +1,28 @@
 import cv2
 import grpc
+import Comms_pb2
+import Comms_pb2_grpc
 import numpy as np
 import pickle
 import time
 import os
+from NetworkTools import IPExtractor
 
-cascade = cv2.CascadeClassifier("./FaceUnlocking/data/haarcascade_frontalface_alt2.xml")
+cascade = cv2.CascadeClassifier("./data/haarcascade_frontalface_alt2.xml")
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read("./FaceUnlocking/TrainingData/train.yml")
+recognizer.read("./TrainingData/train.yml")
 
 labels = {}
-with open("./FaceUnlocking/TrainingData/training-labels.pkl", 'rb') as f:
+with open("./TrainingData/training-labels.pkl", 'rb') as f:
     loaded_labels = pickle.load(f)
     labels = {v:k for k,v in loaded_labels.items()}
     print(labels)
 
 def notify_server(user_id:str = None):
-    pass
+    ip = IPExtractor.extract_local_IP()
+    with grpc.insecure_channel(ip + ':4536') as channel:
+        stub = Comms_pb2_grpc.ConnectionCommsStub(channel)
+        response = stub.FaceUnlock(Comms_pb2.UnlockRequest(user=user_id))
     
 
 def run_unlock():
@@ -37,6 +43,8 @@ def run_unlock():
                 positive_id.append(dist)
                 print(labels[id_])
             if len(positive_id) == 10:
-                return True
-
+                notify_server(labels[id_])
+                positive_id.clear()
+                time.sleep(60)
+        
 run_unlock()

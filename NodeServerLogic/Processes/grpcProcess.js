@@ -10,7 +10,8 @@ let sendRequest;
 let startup = true;
 let serverCall;
 
-//TODO this needs fixed like pronto
+//These are te process communication callbacks for passing data
+// into the process.
 process.on('message', (data)=>
 {
     if(data[0] === 'config')
@@ -33,6 +34,12 @@ process.on('message', (data)=>
     }
 });
 
+/**
+ * This method creates a client and a client request. it also sets the polling rate and 
+ * starts the polling of the server.
+ * 
+ * @param {*} user the user the data is for
+ */
 function createClient(user)
 {
     client = new serviceDescription.ListeningCommsClient(serverIP + ':' + serverPort, grpc.credentials.createInsecure());
@@ -50,6 +57,9 @@ function createClient(user)
     serverCall = setInterval(pollForData, pollingInterval);
 }
 
+/**
+ * This is a handler method that calls all of the gRPC request methods
+ */
 function pollForData()
 {
     if(startup === true)
@@ -63,6 +73,10 @@ function pollForData()
     getEmails();
 }
 
+/**
+ * This method sends a request to the server and gets a single response back
+ * containing the time on the server
+ */
 function getClockData()
 {
     var payload = ['clock']
@@ -79,6 +93,10 @@ function getClockData()
 }
 
 
+/**
+ * This sends a request to the server and captures a 
+ * stream of gRPC responses
+ */
 function getHeadlines()
 {
     var payload = ['news'];
@@ -99,6 +117,10 @@ function getHeadlines()
     })
 }
 
+/**
+ * This sends a request to the server and captures a 
+ * stream of gRPC responses
+ */
 function getWeather()
 {
     var payload = ['weather'];
@@ -119,6 +141,10 @@ function getWeather()
     });
 }
 
+/**
+ * This sends a request to the server and captures a 
+ * stream of gRPC responses
+ */
 function getEmails()
 {
     var payload = ['email'];
@@ -139,6 +165,10 @@ function getEmails()
     });
 }
 
+/**
+ * This sends a request to the server and captures a 
+ * stream of gRPC responses
+ */
 function getCalendar()
 {
     var payload = ['calendar'];

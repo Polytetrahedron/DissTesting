@@ -13,6 +13,9 @@ save_hosts = {}
 ip = IPExtractor.extract_local_IP()
 
 def run():
+    """
+    This is the run harness for this process this launches the client scanner function
+    """
     potential_clients = ClientScanner.scan_for_clients(ip)
 
     for client in potential_clients:
@@ -26,6 +29,10 @@ def run():
 
 
 def attempt_client_connection(client_ip:str = '192.168.1.145'):
+    """
+    This function attempts to call the doscover method of a host on a IP
+    if the host is a mirror it will respond otherwise it will time out.
+    """
 
     with grpc.insecure_channel(client_ip + ":" + discovery_port) as channel:
         try:
